@@ -18,6 +18,19 @@ public class Bilforsikring extends Forsikring {
     private int kilometer;
     private int bonus;
     
+    public Bilforsikring(String n, String reg,String type, int m, int år, int lengde, int k, int premie, int beløp, String beskrivelse)
+    {
+        super(premie,beløp,beskrivelse);
+        navn=n;
+        reginr=reg;
+        biltype=type;
+        modell=m;
+        regiår=år;
+        kjørelengde=lengde;
+        kilometer=k;
+        
+    }
+    
     public String getNavn()
     {
         return navn;
