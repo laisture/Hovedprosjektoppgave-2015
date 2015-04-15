@@ -11,6 +11,7 @@ public class Kunde {
     private Skademelding[] skademeldinger;
     private int nestenummer;
     private Forsikring[] forsikringer;
+    private Boolean totalkunde;
    
     //Konstruktør
     public Kunde(String f,String e, String a)
@@ -39,7 +40,7 @@ public class Kunde {
     {
         return(forsikringsnummer);
     }
-    public Skademmelding[] getSkademeldinger()
+    public Skademelding[] getSkademeldinger()
     {
         return skademeldinger;
     }
