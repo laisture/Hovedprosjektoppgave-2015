@@ -9,10 +9,14 @@
  *
  * @author Joakim
  */
+
+//import setninger:
+
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 public class Forsikring {
 
     private int årligPremie;
@@ -27,7 +31,7 @@ public class Forsikring {
         forsikringsbeløp= beløp;
         betingelser= b;
         
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd ");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
        opprettet= dateFormat.format(cal.getTime());
 
@@ -49,6 +53,16 @@ public class Forsikring {
     public String getBetingelser()
     {
         return betingelser;
+    }
+    public String toString()
+    {
+         String melding;
+        melding="Forsikring opprettet: "+opprettet+"\n";
+        melding+="Årlig premie: "+årligPremie+"\n";
+        melding+= "Forsikringsbeløp: "+forsikringsbeløp+"\n";
+        melding+="Betingelser:"+"\n"+betingelser+"\n\n";
+        
+        return melding;
     }
             
 }
