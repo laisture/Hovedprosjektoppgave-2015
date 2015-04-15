@@ -17,12 +17,15 @@ public class Forsikring {
 
     private int årligPremie;
     private String opprettet;
-    private int forsikringbeløp;
+    private int forsikringsbeløp;
     private String betingelser;
     
     
-    public Forsikring()
+    public Forsikring(int p, int beløp, String b)
     {
+        årligPremie=p;
+        forsikringsbeløp= beløp;
+        betingelser= b;
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd ");
         Calendar cal = Calendar.getInstance();
@@ -30,9 +33,22 @@ public class Forsikring {
 
         // <opprettingsdato>
     }
-    public void utDato()
-    {
-        System.out.println(opprettet);
-    }
     
+    public int getPremie()
+    {
+        return årligPremie;
+    }
+    public int getBeløp()
+    {
+        return forsikringsbeløp;
+    }
+    public String getDato()
+    {
+        return opprettet;
+    }
+    public String getBetingelser()
+    {
+        return betingelser;
+    }
+            
 }
