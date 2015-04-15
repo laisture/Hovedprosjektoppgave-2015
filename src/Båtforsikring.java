@@ -18,6 +18,18 @@ public class Båtforsikring extends Forsikring
     private String motor;
     private int motorstyrke;
     
+    public Båtforsikring(String n, String reg, String m, int l, int år, String moto, int motorsty, int premie, int beløp, String beskrivelse )
+    {
+        super(premie,beløp,beskrivelse);
+        navn = n;
+        reginr = reg;
+        modell = m;
+        lengde = l;
+        årsmodell = år;
+        motor = moto;
+        motorstyrke = motorsty;
+    }
+    
     public String getNavn()
     {
         return navn;
