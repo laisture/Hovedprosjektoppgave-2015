@@ -7,6 +7,7 @@ public class Kunde {
     private int forsikringsnummer;
     private int premie;
     private Skademelding[] skademeldinger;
+    private int 123;
     
     //Konstruktør
     public Kunde(String f,String e, String a)
