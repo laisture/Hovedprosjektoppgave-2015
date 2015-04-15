@@ -9,13 +9,30 @@
  *
  * @author Joakim
  */
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 public class Forsikring {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    private int årligPremie;
+    private String opprettet;
+    private int forsikringbeløp;
+    private String betingelser;
+    
+    
+    public Forsikring()
+    {
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd ");
+        Calendar cal = Calendar.getInstance();
+       opprettet= dateFormat.format(cal.getTime());
+
+        // <opprettingsdato>
+    }
+    public void utDato()
+    {
+        System.out.println(opprettet);
     }
     
 }

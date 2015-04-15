@@ -1,3 +1,5 @@
+
+
 public class Kunde {
     //diverse variabler med infoen som lagres på kunden:
     
@@ -8,7 +10,8 @@ public class Kunde {
     private int premie;
     private Skademelding[] skademeldinger;
     private int nestenummer;
-    
+    private Forsikring[] forsikringer;
+   
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
@@ -16,6 +19,7 @@ public class Kunde {
         etternavn=e;
         fakturaadresse=a;
         
+        // <opprettingsdato>
     }
     
     //Get metoder:
@@ -35,5 +39,16 @@ public class Kunde {
     {
         return(forsikringsnummer);
     }
+    public Skademmelding[] getSkademeldinger()
+    {
+        return skademeldinger;
+    }
+    public Forsikring[] getForsikringer()
+    {
+        return forsikringer;
+    }
+    
+    
+    
     
 }
