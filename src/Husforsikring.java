@@ -10,7 +10,7 @@
  */
 public class Husforsikring extends Forsikring {
     
-    private String fakturadresse;
+   
     private String adresse;
     private int byggeår;
     private String boligtype;
@@ -20,10 +20,22 @@ public class Husforsikring extends Forsikring {
     private int byggebeløp;
     private int innbobeløp;
     
-    public String getFakturadresse()
+    
+    public Husforsikring(String a, int b, String t, String m, int k, String sta, int bygg, int i, int premie, int beløp, String beskrivelse )
     {
-        return fakturadresse;
+        super(premie,beløp,beskrivelse);
+        adresse=a;
+        byggeår=b;
+        boligtype=t;
+        byggmaterial=m;
+        standard=sta;
+        byggebeløp=bygg;
+        kvadratmeter=k;
+        innbobeløp=i;
+       
+        
     }
+    
     public String getAdresse()
     {
         return adresse;
