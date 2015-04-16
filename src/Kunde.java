@@ -48,6 +48,12 @@ public class Kunde {
     {
         return forsikringer;
     }
+    public String toString()
+    {
+        String melding =fornavn+" "+etternavn+ "\n";
+        melding += fakturaadresse;
+        return melding;
+    }
     
     
     

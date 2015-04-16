@@ -17,12 +17,25 @@ public class Kunderegister {
     
     public Kunderegister()
     {
-        
+        Kunde ny = new Kunde("ola", "nordmann", "gate 1");
+        Kunde ny1 = new Kunde("test", "nordmann", "gate 2");
+        register.add(ny);
+        register.add(ny1);
     }
     
     public void settInn(Kunde ny)
     {
         register.add(ny);
+    }
+    public String toString()
+    {
+        String personer= "";
+        Iterator<Kunde> iterator = register.iterator();
+        while (iterator.hasNext())
+        {
+            personer+= iterator.next().toString() + "\n";
+        }
+        return personer;
     }
    
     // <Metorder for: Oppretting av kunder og forsikringer. >
