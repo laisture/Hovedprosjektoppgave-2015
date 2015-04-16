@@ -8,14 +8,23 @@
  *
  * @author Joakim
  */
+import java.util.*;
+
 public class Kunderegister {
     
-   LinkedList register =new LinkedList();
+   LinkedList<Kunde> register =new LinkedList<Kunde>();
+   
     
     public Kunderegister()
     {
         
     }
+    
+    public void settInn(Kunde ny)
+    {
+        register.add(ny);
+    }
+   
     // <Metorder for: Oppretting av kunder og forsikringer. >
     //<Metoder for søke gjennom kunder og forsikringer>
     //<Metode for å langre>
