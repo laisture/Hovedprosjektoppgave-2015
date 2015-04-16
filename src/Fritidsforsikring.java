@@ -13,12 +13,29 @@ public class Fritidsforsikring extends Forsikring {
     private String fritidsadresse;
     private int byggeår;
     private String boligtype;
-    private String byggmater;
+    private String byggmate;
     private String standard;
-    private int kvaderatm;
+    private int kvadratm;
+    //beløp for:
     private int bygging;
     private int innbo;
+    
     private boolean utleie;
+    
+    public Fritidsforsikring(String a, int b, String t, String m, int k, String sta, int bygg, int i,Boolean u, int premie, int beløp, String beskrivelse )
+    {
+        super(premie,beløp,beskrivelse);
+        fritidsadresse=a;
+        byggeår=b;
+        boligtype=t;
+        byggmate=m;
+        standard=sta;
+        bygging=bygg;
+        kvadratm=k;
+        innbo=i;
+        utleie=u;
+        
+    }
     
     public String getFritidsadresse()
     {
@@ -34,7 +51,7 @@ public class Fritidsforsikring extends Forsikring {
     }
     public String getByggmater()
     {
-        return byggmater;
+        return byggmate;
     }
     public String getStandard()
     {
@@ -42,7 +59,7 @@ public class Fritidsforsikring extends Forsikring {
     }
     public int getKvaderatm()
     {
-        return kvaderatm;
+        return kvadratm;
     }
     public int getBygging()
     {
