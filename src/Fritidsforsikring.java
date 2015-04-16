@@ -20,5 +20,36 @@ public class Fritidsforsikring extends Forsikring {
     private int innbo;
     private boolean utleie;
     
-    
+    public String getFritidsadresse()
+    {
+        return fritidsadresse;
+    }
+    public int getByggeår()
+    {
+        return byggeår;
+    }
+    public String getBoligtype()
+    {
+        return boligtype;
+    }
+    public String getByggmater()
+    {
+        return byggmater;
+    }
+    public String getStandard()
+    {
+        return standard;
+    }
+    public int getKvaderatm()
+    {
+        return kvaderatm;
+    }
+    public int getBygging()
+    {
+        return bygging;
+    }
+    public int getInnbo()
+    {
+        return innbo;
+    }
 }
