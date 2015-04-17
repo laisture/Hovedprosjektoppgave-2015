@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -20,5 +15,14 @@ public class Reiseforsikring extends Forsikring
         område=o;
     }
     
-    
+    public String toString()
+    {
+        String melding=super.toString();
+        melding +="område for reiseforsikring: "+område+"\n";
+        if(sum>0)
+        {
+            melding+="sum utbetalt: "+sum+"\n";
+        }
+        return melding;
+    }
 }
