@@ -15,8 +15,9 @@ public class test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Forsikring forsikring= new Forsikring();
-        forsikring.utDato();
+        Kunderegister register= new Kunderegister();
+        
+        System.out.println(register.toString());
     }
     
 }

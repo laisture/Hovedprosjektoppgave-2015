@@ -24,7 +24,6 @@ public class Forsikring {
     private int forsikringsbeløp;
     private String betingelser;
     
-    
     public Forsikring(int p, int beløp, String b)
     {
         årligPremie=p;

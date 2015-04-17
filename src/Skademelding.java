@@ -14,19 +14,20 @@ public class Skademelding {
     private String melding;
     private String dato;
     private String type;
-    //<Bildeklasse>
     private String vitne;
     private int takst;
     
-    public Skademelding(Kunde k, String s)
+    public Skademelding(Kunde k, String s, String t)
     {
-        
+        kunde=k;
+        melding=s;
+        type=t;
     }
     
-    public Boolean harForsikring(String t)
+   /* public Boolean harForsikring()
     {
         //<Metode for å sjekke om kunden har riktig forsikring>
     }
-    
+    */
     
 }

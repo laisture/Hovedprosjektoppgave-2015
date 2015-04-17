@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Kunderegister {
     
-    LinkedList<Kunde> register =new LinkedList<>();
+    LinkedList<Kunde> register =new LinkedList<Kunde>();
    
     
     public Kunderegister()

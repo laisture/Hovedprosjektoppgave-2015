@@ -8,6 +8,7 @@
  *
  * @author Dreadleet
  */
+/*
 import java.io.*;
 import javax.swing.*;
 import java.text.DecimalFormat;
@@ -18,7 +19,7 @@ public class DataIOTest extends JFrame
     
     public DataIOTest()
     {
-        super("")
+        super("");
         utskrift = new JTextArea(10, 40);
         add(new JScrollPane(utskrift));
         pack();
@@ -35,7 +36,7 @@ public class DataIOTest extends JFrame
             
             //utskrift
             {
-                ut. 
+                ut.
             }
         }
         catch ( IOException e)
@@ -71,3 +72,4 @@ public class DataIOTest extends JFrame
         }
     }
 }
+*/
