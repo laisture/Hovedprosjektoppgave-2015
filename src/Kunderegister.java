@@ -12,12 +12,16 @@ import java.util.*;
 
 public class Kunderegister {
     
-    LinkedList<Kunde> register =new LinkedList<Kunde>();
+    LinkedList<Kunde> register =new LinkedList<>();
    
+    Reiseforsikring reise=new Reiseforsikring("europa", 100,199, "forsikring for å reise i europa");
+    Kunde k= new Kunde("test", "testsen", "testgate 1");
     
     public Kunderegister()
     {
-     
+         k.addForsikring(reise);
+         register.add(k);
+         
     }
     
     public void settInn(Kunde ny)

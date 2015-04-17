@@ -10,7 +10,7 @@ public class Kunde {
     private int premie;
     private Skademelding[] skademeldinger;
     private int nestenummer;
-    private Forsikring[] forsikringer;
+    private Forsikring[] forsikringer =new Forsikring[20];
     private Boolean totalkunde;
    
     //Konstruktør
@@ -22,7 +22,17 @@ public class Kunde {
         
         // <opprettingsdato>
     }
-    
+    public void addForsikring(Forsikring f)
+    {
+        for(int i =0; i<forsikringer.length;i++)
+        {
+            if (forsikringer[i]==null)
+            {
+                forsikringer[i]=f;
+                return;
+            }
+        }
+    }
     //Get metoder:
     public String getNavn()
     {
@@ -51,7 +61,14 @@ public class Kunde {
     public String toString()
     {
         String melding =fornavn+" "+etternavn+ "\n";
-        melding += fakturaadresse;
+        melding += fakturaadresse+"\n\n";
+        for (int i=0; i<forsikringer.length;i++)
+        {
+            if(forsikringer[i]!=null)
+            {
+                melding+=forsikringer[i].toString();
+            }
+        }
         return melding;
     }
     
