@@ -12,15 +12,12 @@ import java.util.*;
 
 public class Kunderegister {
     
-   LinkedList<Kunde> register =new LinkedList<Kunde>();
+    LinkedList<Kunde> register =new LinkedList<>();
    
     
     public Kunderegister()
     {
-        Kunde ny = new Kunde("ola", "nordmann", "gate 1");
-        Kunde ny1 = new Kunde("test", "nordmann", "gate 2");
-        register.add(ny);
-        register.add(ny1);
+     
     }
     
     public void settInn(Kunde ny)
