@@ -28,6 +28,32 @@ public class Kunderegister {
     {
         register.add(ny);
     }
+    public Kunde finnKunde(int k)
+    {
+        Iterator<Kunde> iterator = register.iterator();
+        while (iterator.hasNext())
+        {
+            if(iterator.next().getForsikringsnummer()==k)
+            {
+                return (iterator.next());
+            }
+        }
+        return null;
+    }
+    
+    public Kunde finnKunde(String n)
+    {
+        Iterator<Kunde> iterator = register.iterator();
+        while (iterator.hasNext())
+        {
+            if(iterator.next().getEtternavn()==n || iterator.next().getFornavn()==n || iterator.next().getNavn()==n)
+            {
+                return (iterator.next());
+            }
+        }
+        return null;
+    }
+    
     public String toString()
     {
         String personer= "";
