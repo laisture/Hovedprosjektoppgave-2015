@@ -23,6 +23,7 @@ public class Forsikring {
     private String opprettet;
     private int forsikringsbeløp;
     private String betingelser;
+    private Boolean gyldig;
     
     public Forsikring(int p, int beløp, String b)
     {
@@ -30,16 +31,23 @@ public class Forsikring {
         forsikringsbeløp= beløp;
         betingelser= b;
         
+        
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
        opprettet= dateFormat.format(cal.getTime());
-
+        
+       gyldig=true;
+       
         // <opprettingsdato>
     }
     
     public int getPremie()
     {
         return årligPremie;
+    }
+    public Boolean getGyldig()
+    {
+        return gyldig;
     }
     public int getBeløp()
     {
@@ -52,6 +60,10 @@ public class Forsikring {
     public String getBetingelser()
     {
         return betingelser;
+    }
+    public void setGyldig(Boolean b)
+    {
+        gyldig=b;
     }
     public String toString()
     {
