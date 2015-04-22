@@ -58,6 +58,37 @@ public class Kunde {
     {
         return forsikringer;
     }
+    public Boolean totalKunde()
+    {
+        String en="";
+        String to="";
+        String l="";
+        for (int i=0; i<forsikringer.length;i++)
+        {
+            
+        l=forsikringer[i].getClass()+"";
+            
+        if(en=="")
+            {
+                en=l;
+                System.out.println(en);
+                
+            }
+            else if (!l.equals(en) && to=="")
+            {
+                to=l;
+                System.out.println(to);
+                        
+            }
+            else if (!l.equals(en) && !l.equals(to))
+            {
+                totalkunde=true;
+                return true;
+            }
+        }
+        return false;
+        
+    }
     public String toString()
     {
         String melding =fornavn+" "+etternavn+ "\n";
