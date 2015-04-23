@@ -5,6 +5,7 @@
  */
 
 import javax.swing.*;
+import java.net.*;
 import java.awt.*;
 //import java.net.URL; //Ikon
 
@@ -27,12 +28,13 @@ public class SkademeldingVindu  extends JFrame  {
     private JButton knapp= new JButton("trykk her!");
     private JTextField kunde=new JTextField(10);
     private JTextArea beskrivelse= new JTextArea(1, 1);
-    JPanel container = new JPanel();
+    
    
 
     
     public SkademeldingVindu ()
     {
+        super ("Send inn skademelding");
         
         p.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10 ) );
 
@@ -41,14 +43,14 @@ public class SkademeldingVindu  extends JFrame  {
     p.setLayout( layout );
     layout.setAutoCreateGaps( true );
         
-        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+        
         p.add(k);
         p.add(kunde);
         s.add(m);
         s.add(beskrivelse);
         b.add(knapp);
        
-        /*Legger til ikon til vinduet
+        //Legger til ikon til vinduet
         String bildefil = "Ikon.png";
         URL kilde = SkademeldingVindu.class.getResource(bildefil);
         System.out.println(kilde);
@@ -56,8 +58,9 @@ public class SkademeldingVindu  extends JFrame  {
         {
             ImageIcon bilde = new ImageIcon(kilde);
             Image ikon = bilde.getImage();
-            setIconImage(ikon);
-        }*/
+            
+            vindu.setIconImage(ikon);
+        }
         vindu.add(p);
         vindu.setSize(400,400);
         
@@ -80,10 +83,13 @@ public class SkademeldingVindu  extends JFrame  {
     );
         
         
-        vindu.add(container);
-        container.add(p);
-        container.add(b);
-        container.add(s);
+        Container c= getContentPane ();
+        
+        c.add(p);
+        c.add(b);
+        c.add(s);
+        vindu.add(c);
+        
         vindu.setSize(300,400);
         vindu.setVisible(true);
         vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
