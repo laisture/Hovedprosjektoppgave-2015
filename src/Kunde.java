@@ -62,6 +62,27 @@ public class Kunde {
     }
     public Boolean totalKunde()
     {
+        
+        ArrayList <Forsikring> f = new ArrayList<>();
+        /* Går gjennom forsikringlisten og lagrer de forskjellige forsikringene i en lokal variabel.
+           Hvis tre forskjellige forsikringer blir funnet i listen returner den true, hvis ikke false.*/
+        
+	for(Forsikring i : forsikringer)
+        {
+            boolean inneholder = false;
+            for(Forsikring j : f)
+            {
+                if(j.getClass().equals(i.getClass()))
+                {
+                    inneholder = true;
+                    break;
+                }
+            }
+            if(!inneholder)
+                f.add(i);
+	}
+	return f.size() >= 3;
+        /*
         String en="";
         String to="";
         String l="";
@@ -87,8 +108,7 @@ public class Kunde {
                 totalkunde=true;
                 return true;
             }
-        }
-        return false;
+        }*/
         
     }
     public String toString()
