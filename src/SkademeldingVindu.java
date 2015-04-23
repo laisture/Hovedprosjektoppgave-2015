@@ -13,9 +13,6 @@ import java.awt.*;
  * @author Joakim
  */
 
-//dette er en test
-//dette er en annen test
-
 public class SkademeldingVindu  extends JFrame  {
     
     private JFrame vindu =new JFrame ("Send inn ");
