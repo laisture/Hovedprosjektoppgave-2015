@@ -16,7 +16,7 @@ public class Kunde {
     private int nestenummer;
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
-   
+    private Boolean aktiv;
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
@@ -24,7 +24,7 @@ public class Kunde {
         etternavn=e;
         fakturaadresse=a;
         forsikringer = new ArrayList();
-        
+        aktiv=true;
         // <opprettingsdato>
     }
     /*
@@ -60,7 +60,18 @@ public class Kunde {
     {
         return forsikringer;
     }
-   
+    public void ikkeAktiv()
+    {
+        aktiv=false;
+    }
+    public void Aktiv()
+    {
+        aktiv=true;
+    }
+    public Boolean getAktiv()
+    {
+        return aktiv;
+    }
     public Boolean totalKunde()
     {
         
