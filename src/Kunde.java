@@ -60,11 +60,12 @@ public class Kunde {
     {
         return forsikringer;
     }
+   
     public Boolean totalKunde()
     {
         
         ArrayList <Forsikring> f = new ArrayList<>();
-        /* Går gjennom forsikringlisten og lagrer de forskjellige forsikringene i en lokal variabel.
+        /* Går gjennom forsikringlisten som ligger i datafeltet og lagrer de forskjellige forsikringene i en lokal variabel.
            Hvis tre forskjellige forsikringer blir funnet i listen returner den true, hvis ikke false.*/
         
 	for(Forsikring i : forsikringer)
@@ -80,8 +81,14 @@ public class Kunde {
             }
             if(!inneholder)
                 f.add(i);
+            if(f.size() >= 3)
+            {
+                totalkunde = true;
+                return true;
+            }
 	}
-	return f.size() >= 3;
+        totalkunde = false;
+	return false;
         /*
         String en="";
         String to="";
