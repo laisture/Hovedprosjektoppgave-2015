@@ -27,6 +27,10 @@ public class Skademelding {
         type=t;
     }
     
+    public int getTakst()
+    {
+        return takst;
+    }
     public Boolean harForsikring()
     {
        ArrayList f=kunde.getForsikringer();

@@ -18,7 +18,6 @@ public class Kunde {
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
     private Boolean aktiv;
-    private int utbetalteErstatninger;
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
@@ -76,13 +75,15 @@ public class Kunde {
     {
         return totalkunde;
     }
+    // Metoden går gjennom registeret på kunden og legger sammen totalbeløpet for utbetalte erstatninger.
+    // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
     public int utbetalteErstatninger()
     {
-        utbetalteErstatninger = 0;
-        Iterator<Forsikring> iterator = forsikringer.iterator();
-        while(iterator.hasNext())
+        int utbetalteErstatninger = 0;
+        
+        for(int i = 0; i < skademeldinger.length; i++)
         {
-            utbetalteErstatninger += (iterator.next().getBeløp());
+            utbetalteErstatninger += skademeldinger[i].getTakst();
         }
         return utbetalteErstatninger;
     }
