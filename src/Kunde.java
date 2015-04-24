@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 
@@ -27,10 +28,8 @@ public class Kunde {
         aktiv=true;
         // <opprettingsdato>
     }
-    /*
-    Metoden legger til forsikringsobject i kunden sin forsikringsliste.
     
-    */
+    //Metoden legger til forsikringsobjekt i kunden sin forsikringsliste.
     public void addForsikring(Forsikring f)
     {
         forsikringer.add(f);
@@ -72,6 +71,20 @@ public class Kunde {
     {
         return aktiv;
     }
+    public Boolean getTotalKunde()
+    {
+        return totalkunde;
+    }
+    public int årligPremie()
+    {
+       premie = 0;
+       Iterator<Forsikring> iterator = forsikringer.iterator();
+       while(iterator.hasNext())
+       {
+           premie += (iterator.next().getPremie());
+       }
+       return premie;
+    }
     public Boolean totalKunde()
     {
         
@@ -99,35 +112,7 @@ public class Kunde {
             }
 	}
         totalkunde = false;
-	return false;
-        /*
-        String en="";
-        String to="";
-        String l="";
-        for (int i=0; i<forsikringer.length;i++)
-        {
-            
-        l=forsikringer[i].getClass()+"";
-            
-        if(en=="")
-            {
-                en=l;
-                System.out.println(en);
-                
-            }
-            else if (!l.equals(en) && to=="")
-            {
-                to=l;
-                System.out.println(to);
-                        
-            }
-            else if (!l.equals(en) && !l.equals(to))
-            {
-                totalkunde=true;
-                return true;
-            }
-        }*/
-        
+	return false; 
     }
     public String toString()
     {
@@ -143,7 +128,5 @@ public class Kunde {
         return melding;
     }
     
-    
-    
-    
+  
 }
