@@ -18,6 +18,7 @@ public class Kunde {
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
     private Boolean aktiv;
+    private int utbetalteErstatninger;
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
@@ -74,6 +75,16 @@ public class Kunde {
     public Boolean getTotalKunde()
     {
         return totalkunde;
+    }
+    public int utbetalteErstatninger()
+    {
+        utbetalteErstatninger = 0;
+        Iterator<Forsikring> iterator = forsikringer.iterator();
+        while(iterator.hasNext())
+        {
+            utbetalteErstatninger += (iterator.next().getBeløp());
+        }
+        return utbetalteErstatninger;
     }
     public int årligPremie()
     {
