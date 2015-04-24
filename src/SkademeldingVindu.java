@@ -26,7 +26,8 @@ public class SkademeldingVindu  extends JFrame  {
     private JTextField kunde=new JTextField(10);
     private JTextArea beskrivelse= new JTextArea(1, 1);
     
-   
+      JFileChooser fc = new JFileChooser();
+    //int returnVal = fc.showDialog(FileChooserDemo2.this, "Attach");
 
     
     public SkademeldingVindu ()
