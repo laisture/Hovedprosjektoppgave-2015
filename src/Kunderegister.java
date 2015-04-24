@@ -17,14 +17,17 @@ public class Kunderegister {
     Reiseforsikring reise=new Reiseforsikring("europa", 100,199, "forsikring for å reise i europa");
     Husforsikring hus = new Husforsikring("a",1,"b","c",2,"d",3,4,5,6,"e");
     Båtforsikring båt = new Båtforsikring("a","b","c",1,2,"d",3,4,5,"e");
+    Bilforsikring bil = new Bilforsikring("f","d","dd",3,4,5,6,7,4,"f");
     Kunde k= new Kunde("test", "testsen", "testgate 1");
     
     public Kunderegister()
     {
-         k.addForsikring(reise);
-         register.add(k);
-         k.addForsikring(hus);
-         k.addForsikring(båt);
+        k.addForsikring(reise);
+        register.add(k);
+        k.addForsikring(hus);
+        k.addForsikring(båt);
+        k.addForsikring(bil);
+        bil.bonus();
          
     }
     

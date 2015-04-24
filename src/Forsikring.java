@@ -15,12 +15,12 @@
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Forsikring {
 
     private int årligPremie;
-    private String opprettet;
+    private String opprettet; //Dato foroppretelse av avtale.
+    private long opprettetlong; //Dato oppgitt i milisekunder etter 1.1.1970
     private int forsikringsbeløp;
     private String betingelser;
     private Boolean gyldig;
@@ -31,12 +31,11 @@ public class Forsikring {
         forsikringsbeløp= beløp;
         betingelser= b;
         
-        
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar cal = Calendar.getInstance();
-       opprettet= dateFormat.format(cal.getTime());
-        
-       gyldig=true;
+        Date cal = new Date();
+        opprettet= dateFormat.format(cal.getTime());
+        opprettetlong = (long) (cal.getTime());
+        gyldig=true;
        
         // <opprettingsdato>
     }
@@ -56,6 +55,10 @@ public class Forsikring {
     public String getDato()
     {
         return opprettet;
+    }
+    public long getOpprettetlong()
+    {
+        return opprettetlong;
     }
     public String getBetingelser()
     {

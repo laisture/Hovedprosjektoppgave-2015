@@ -83,7 +83,7 @@ public class Kunde {
        {
            premie += (iterator.next().getPremie());
        }
-       return premie;
+       return premie;   
     }
     public Boolean totalKunde()
     {

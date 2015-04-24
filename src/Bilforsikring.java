@@ -65,10 +65,7 @@ public class Bilforsikring extends Forsikring {
     {
         return bonus;
     }
-    /*
-    Metoden har som oppgave å regne ut bonus hos forsikringskunden.
-    
-    */
+    // Metoden har som oppgave å regne ut bonus hos forsikringskunden. Maks bonus er 75 prosentpoeng.
     public void bonus()
     {   
         int dager =  24* 3600 * 1000;

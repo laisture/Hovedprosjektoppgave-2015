@@ -22,7 +22,9 @@ public class test {
         Kunderegister register= new Kunderegister();
         SkademeldingVindu vindu = new SkademeldingVindu();
         Boolean ok = register.k.totalKunde();
+        int årlig = register.k.årligPremie();
         System.out.println(ok);
+        System.out.println(årlig);
         //System.out.println(register.toString());
     }
     
