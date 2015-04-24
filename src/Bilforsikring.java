@@ -8,6 +8,9 @@
  *
  * @author Dreadleet
  */
+import java.util.Calendar;
+import java.util.Date;
+
 public class Bilforsikring extends Forsikring {
     private String navn;
     private String reginr;
@@ -28,7 +31,6 @@ public class Bilforsikring extends Forsikring {
         regiår=år;
         kjørelengde=lengde;
         kilometer=k;
-        
     }
     
     public String getNavn()
@@ -63,5 +65,28 @@ public class Bilforsikring extends Forsikring {
     {
         return bonus;
     }
+    /*
+    Metoden har som oppgave å regne ut bonus hos forsikringskunden.
     
+    */
+    public void bonus()
+    {   
+        int dager =  24* 3600 * 1000;
+        long år = 365; 
+        long opprettet = super.getOpprettetlong()/dager;
+        long dagensDato = (long) (new Date().getTime())/dager;
+        int teller = 0;
+        long forskjell = dagensDato-opprettet;
+        while(forskjell >= 0)
+        {
+            forskjell -= år;
+            if(forskjell >= 0)
+                teller++;
+        }
+        bonus = teller * 5;
+        if(bonus > 75)
+        {
+            bonus = 75;
+        }
+    }
 }
