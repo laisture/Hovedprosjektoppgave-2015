@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,10 +27,22 @@ public class Skademelding {
         type=t;
     }
     
-   /* public Boolean harForsikring()
+    public Boolean harForsikring()
     {
-        //<Metode for å sjekke om kunden har riktig forsikring>
+       ArrayList f=kunde.getForsikringer();
+       String forsikringKlasse="class "+type;
+       String klasse;
+       for(Object i : f)
+        {
+            klasse=i.getClass()+"";
+                if(klasse.equals(forsikringKlasse))
+                {
+                    return true;
+                    
+                }
+        }
+       return false;
+            
+       
     }
-    */
-    
 }
