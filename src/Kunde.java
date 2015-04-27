@@ -75,7 +75,7 @@ public class Kunde {
     {
         return totalkunde;
     }
-    // Metoden går gjennom registeret på kunden og legger sammen totalbeløpet for utbetalte erstatninger.
+    // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
     // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
     public int utbetalteErstatninger()
     {
@@ -97,19 +97,22 @@ public class Kunde {
        }
        return premie;   
     }
+    /* Metoden har som oppgave å finne ut om kunden har minst 3 forskjellige forsikringer.
+    Hvis dette er tilfellet er kunden en totalkunde og får 10 rabatt på forsikringspremien sin, metoden returner da true, hvis ikke false.*/
     public Boolean totalKunde()
     {
         
         ArrayList <Forsikring> f = new ArrayList<>();
-        /* Går gjennom forsikringlisten som ligger i datafeltet og lagrer de forskjellige forsikringene i en lokal variabel.
-           Hvis tre forskjellige forsikringer blir funnet i listen returner den true, hvis ikke false.*/
+        /* Går gjennom forsikringlisten som ligger i datafeltet og sammenligner med en lokal liste som finner unike forsikringstyper.
+        Hvis unik forsikringstype blir funnet blir den lagret i den lokale variabelen, hvis 3 forskjellige forsikringstyper er funnet.
+        returnerer den true, hvis ikke false*/
         
 	for(Forsikring i : forsikringer)
         {
             boolean inneholder = false;
             for(Forsikring j : f)
             {
-                if(j.getClass().equals(i.getClass()))
+                if(j.getClass().equals(i.getClass()) || !i.getGyldig())
                 {
                     inneholder = true;
                     break;

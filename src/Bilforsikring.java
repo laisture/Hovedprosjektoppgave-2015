@@ -8,7 +8,6 @@
  *
  * @author Dreadleet
  */
-import java.util.Calendar;
 import java.util.Date;
 
 public class Bilforsikring extends Forsikring {
@@ -66,6 +65,7 @@ public class Bilforsikring extends Forsikring {
         return bonus;
     }
     // Metoden har som oppgave å regne ut bonus hos forsikringskunden. Maks bonus er 75 prosentpoeng.
+    // Comment: Må kunne lagre opparbeidet bonus en plass?
     public void bonus()
     {   
         int dager =  24* 3600 * 1000;

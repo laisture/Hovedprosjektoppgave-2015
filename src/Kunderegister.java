@@ -26,6 +26,7 @@ public class Kunderegister {
         register.add(k);
         k.addForsikring(hus);
         k.addForsikring(båt);
+        hus.setGyldig(false);
         k.addForsikring(bil);
         bil.bonus();
          
