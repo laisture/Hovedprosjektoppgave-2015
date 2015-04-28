@@ -1,7 +1,6 @@
 
+import Vindu.Vindu;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,8 +19,9 @@ public class test {
     public static void main(String[] args) {
         // TODO code application logic here
         Kunderegister register= new Kunderegister();
-        SkademeldingVindu vindu = new SkademeldingVindu();
+        //SkademeldingVindu vinduetd = new SkademeldingVindu();
         Boolean ok = register.k.totalKunde();
+        Vindu vindu = new Vindu();
     }
     
 }
