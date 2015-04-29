@@ -1,5 +1,6 @@
 
 import Vindu.Vindu;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +22,17 @@ public class test {
         Kunderegister register= new Kunderegister();
         //SkademeldingVindu vinduetd = new SkademeldingVindu();
         Boolean ok = register.k.totalKunde();
-        Vindu vindu = new Vindu();
+        
+        EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+                            JFrame frame = new Vindu();
+                            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                            frame.pack();
+                            frame.setVisible(true);
+			}
+		});
     }
     
 }
