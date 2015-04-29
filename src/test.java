@@ -1,5 +1,4 @@
 
-import Vindu.Vindu;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 /*
@@ -28,9 +27,7 @@ public class test {
 			public void run()
 			{
                             JFrame frame = new Vindu();
-                            frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                            frame.pack();
-                            frame.setVisible(true);
+                            
 			}
 		});
     }
