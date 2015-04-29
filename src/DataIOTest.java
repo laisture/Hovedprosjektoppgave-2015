@@ -8,68 +8,75 @@
  *
  * @author Dreadleet
  */
-/*
 import java.io.*;
 import javax.swing.*;
-import java.text.DecimalFormat;
+import java.awt.*;
+import java.awt.event.*;
 
 public class DataIOTest extends JFrame 
 {
-    private JTextArea utskrift;
+    private Kommandolytter lytteren;
+    private Heltallsliste heltallsliste;
+    private JTextArea lista, kopien;
     
     public DataIOTest()
     {
-        super("");
-        utskrift = new JTextArea(10, 40);
-        add(new JScrollPane(utskrift));
-        pack();
-        setVisible(true);
+        super("Test av heltallsliste");
+        lista = new JTextArea( 10, 45);
+        lista.setEditable( false );
+        lytteren = new Kommandolytter();
+        lesFil();
+        skrivListe();
+    }
+    private void visFeilmelding( String melding)
+    {
+        JOptionPane.showMessageDialog(this, melding, "Problem", JOptionPane.ERROR_MESSAGE);
     }
     
-    public void skrivDatafil(String filnavn)
+    private void lesFil()
+  {
+    try (ObjectInputStream innfil = new ObjectInputStream(
+            new FileInputStream( "src/liste.data" )))
     {
-        try (DataOutputStream ut = 
-                new DataOutputStream(new FilOutputStream(filnavn)))
-        {
-            //data som skal skrives til fil
-            //....
-            
-            //utskrift
-            {
-                ut.
-            }
-        }
-        catch ( IOException e)
-        {
-            system.out.println("Filproblem");
-        }
+      heltallsliste = (Heltallsliste) innfil.readObject();
     }
-    public void visDatafil (String filnavn)
+    catch(ClassNotFoundException cnfe)
     {
-        
-        
-        // leser data inn igjen fra fila og skriver ut i tekstområdet
-        try (DataInputStream inn = new DataInputStream( new FilInputStream(filnavn)))
-        {
-            while(true)
-            {
-                utskrift.append()
-            }
-        }
-        catch (FileNotFoundException fnfe)
-        {
-            System.out.println("Finner ikke fil" + filnavn);
-            return;
-        }
-        catch (EOFException e)
-        {
-            //hele filen er lest
-            utskrift.append();
-        }
-        catch (IOException e)
-        {
-            System.out.println("Problem med lesing fra fil");
-        }
+      lista.setText(cnfe.getMessage());
+      lista.append("\nOppretter tom liste.\n");
+      heltallsliste = new Heltallsliste();
     }
+    catch(FileNotFoundException fne)
+    {
+      lista.setText("Finner ikke datafil. Oppretter tom liste.\n");
+      heltallsliste = new Heltallsliste();
+    }
+    catch(IOException ioe)
+    {
+      lista.setText("Innlesingsfeil. Oppretter tom liste.\n");
+      heltallsliste = new Heltallsliste();
+    }
+  }
+
+  public void skrivTilFil()
+  {
+    try (ObjectOutputStream utfil = new ObjectOutputStream(
+            new FileOutputStream("src/liste.data")))
+    {
+      utfil.writeObject(heltallsliste);
+    }
+    catch( NotSerializableException nse )
+    {
+      visFeilmelding("Objektet er ikke serialisert!");
+    }
+    catch( IOException ioe )
+    {
+      visFeilmelding("Problem med utskrift til fil.");
+    }
+    
+  }
+  public void skrivListe()
+  {
+      heltallsliste.skrivListe(lista);
+  }
 }
-*/
