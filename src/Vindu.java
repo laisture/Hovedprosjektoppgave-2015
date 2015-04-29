@@ -33,13 +33,13 @@ public class Vindu extends JFrame
     private JPanel m2=new JPanel();
     private JPanel vest2=new JPanel();
     private JLabel fornavnlabel=new JLabel("Fornavn:");
-    private JTextField fornavnfield=new JTextField();
+    private JTextField fornavnfield=new JTextField(30);
     private JLabel etternavnlabel=new JLabel("Etternavn:");
-    private JTextField etternavnfield=new JTextField();
+    private JTextField etternavnfield=new JTextField(15);
     private JLabel adresselabel=new JLabel("Faktura adresse:");
-    private JTextField adressefield=new JTextField();
+    private JTextField adressefield=new JTextField(15);
     private JButton lagkunde=new JButton("registrer kunde");
-    private JTextArea output=new JTextArea();
+    private JTextArea output=new JTextArea(40,40);
     private Kommandolytter lytter;
    
     
