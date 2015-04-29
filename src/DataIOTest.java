@@ -10,8 +10,6 @@
  */
 import java.io.*;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class DataIOTest extends JFrame 
 {
@@ -22,8 +20,6 @@ public class DataIOTest extends JFrame
     public DataIOTest()
     {
         super("Test av heltallsliste");
-        lista = new JTextArea( 10, 45);
-        lista.setEditable( false );
         lytteren = new Kommandolytter();
         lesFil();
         skrivListe();
