@@ -41,7 +41,7 @@ public class DataIOTest extends JFrame
   public void lesFraFil( String filnavn )
   {
 
-    try( DataInputStream fil = new DataInputStream( new FileInputStream( filnavn ) ) )
+    try( BufferedReader fil = new BufferedReader( new FileReader( filnavn ) ) )
     {
       while ( true )
       {

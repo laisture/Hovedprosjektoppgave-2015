@@ -14,7 +14,7 @@ import java.io.*;
 
 public class Helltallsnode implements Serializable 
 {
-    private int info;
+    private String info;
     Helltallsnode neste;
     
     public Helltallsnode()
@@ -22,7 +22,7 @@ public class Helltallsnode implements Serializable
         
     }
     
-    public Helltallsnode( int data )
+    public Helltallsnode( String data )
     {
         info = data;
         neste = null;
@@ -30,18 +30,18 @@ public class Helltallsnode implements Serializable
     
     public void skrivTilFil( DataOutputStream fil ) throws IOException
     {
-        fil.writeInt( info );
+        fil.writeChars( info );
     }
     
-    public void lesFraFil( DataInputStream fil ) throws IOException
+    public void lesFraFil( BufferedReader fil ) throws IOException
     {
-        info = fil.readInt();
+        info = fil.readLine();
     }
-    public int getInfo()
+    public String getInfo()
     {
         return info;
     }
-    public void setInfo( int nyVerdi )
+    public void setInfo( String nyVerdi )
     {
         info = nyVerdi;
     }
