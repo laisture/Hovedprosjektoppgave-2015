@@ -36,6 +36,12 @@ public class Kunderegister {
     {
         register.add(ny);
     }
+    public Boolean nyKunde(String f, String e, String a)
+    {
+        Kunde b=new Kunde(f,e,a);
+        settInn(b);
+        return (true);
+    }
     public Kunde finnKunde(int k)
     {
         Iterator<Kunde> iterator = register.iterator();
