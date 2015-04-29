@@ -14,11 +14,53 @@ import java.io.*;
 public class Heltallsliste implements Serializable
 {
     private Helltallsnode hode;
-    
     public Heltallsliste()
+  {
+    hode = null;
+  }
+
+  public void skrivTilfil( String filnavn )
+  {
+     try( DataOutputStream fil = new DataOutputStream(
+			                          new FileOutputStream( filnavn ) ) )
     {
-        hode = null;
+        Helltallsnode løper = hode;
+      while ( løper != null )
+      {
+        løper.skrivTilFil( fil );
+        løper = løper.neste;
+      }
     }
+    catch ( IOException ioe )
+    {
+      System.out.equals( "Fikk ikke skrevet datafil." );
+    }
+  }
+
+  public void lesFraFil( String filnavn )
+  {
+
+    try( BufferedReader fil = new BufferedReader( new FileReader( filnavn ) ) )
+    {
+      while ( true )
+      {
+				Helltallsnode ny = new Helltallsnode();
+        ny.lesFraFil( fil );
+      }
+    }
+    catch ( FileNotFoundException fnfe )
+    {
+      System.err.println( "Finner ikke fil " + filnavn );
+    }
+    catch ( EOFException eofe )
+    {
+
+    }
+    catch ( IOException ioe )
+    {
+      System.err.println( "Får ikke lest fil " + filnavn );
+    }
+  }
     
     public void skrivListe(JTextArea elementer)
    {
