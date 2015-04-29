@@ -2,6 +2,9 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 
@@ -18,6 +21,12 @@ public class Kunde {
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
     private Boolean aktiv;
+    private Date dato;
+    
+    public class getdato{
+        DateFormat dato = new SimpleDateFormat("yyyy/MM/dd");
+    }
+    
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
@@ -26,9 +35,8 @@ public class Kunde {
         fakturaadresse=a;
         forsikringer = new ArrayList();
         aktiv=true;
-        // <opprettingsdato>
+        dato = new Date();
     }
-    
     //Metoden legger til forsikringsobjekt i kunden sin forsikringsliste.
     public void addForsikring(Forsikring f)
     {
