@@ -24,9 +24,17 @@ public class Vindu extends JFrame
       private JPanel ø=new JPanel();
     private JButton knapp=new JButton("test!");
     private JPanel midt=new JPanel();
-    private JPanel m2=new JPanel();
-         private JPanel vest2=new JPanel();
     
+    
+    private JPanel m2=new JPanel();
+    private JPanel vest2=new JPanel();
+    private JLabel fornavnlabel=new JLabel("Fornavn:");
+    private JTextField fornavnfield=new JTextField();
+    private JLabel etternavnlabel=new JLabel("Etternavn:");
+    private JTextField etternavnfield=new JTextField();
+    private JLabel adresselabel=new JLabel("Faktura adresse:");
+    private JTextField adressefield=new JTextField();
+            
    
     
     
@@ -39,8 +47,7 @@ public class Vindu extends JFrame
       
       
        
-      ImageIcon icon = new ImageIcon(
-            getClass().getResource("Ikon.png"));
+     
       
       JTabbedPane tabbedPane = new JTabbedPane();
 
@@ -71,7 +78,12 @@ public class Vindu extends JFrame
         });
       
       
-      
+      m2.add(fornavnlabel);
+      m2.add(fornavnfield);
+      m2.add (etternavnlabel);
+      m2.add(etternavnfield);
+      m2.add(adresselabel);
+      m2.add(adressefield);
       
       
       v.add(knapp);
