@@ -84,8 +84,8 @@ public class Bilforsikring extends Forsikring {
                 bonus+=10;
             }
         }
-        if (teller >= 5 && utbetalteErstatninger.length=0) // må fikse skademeldings type før det funker med bonus
-        {
+        if (teller >= 5 && bonus==70 && utbetalteErstatninger.length=0) // må fikse skademeldings type før det funker med bonus
+        { // må fikse type skade melding og antall skader av de typene som skal påvirke bonus
             bonus=75;
         }
         /*else

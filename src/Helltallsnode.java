@@ -14,22 +14,35 @@ import java.io.*;
 
 public class Helltallsnode implements Serializable 
 {
-    private String info;
+    private int info;
     Helltallsnode neste;
     
-    public Helltallsnode ( String d )
+    public Helltallsnode()
     {
-        info = d;
+        
+    }
+    
+    public Helltallsnode( int data )
+    {
+        info = data;
         neste = null;
     }
     
-    public String getInfo()
+    public void skrivTilFil( DataOutputStream fil ) throws IOException
+    {
+        fil.writeInt( info );
+    }
+    
+    public void lesFraFil( DataInputStream fil ) throws IOException
+    {
+        info = fil.readInt();
+    }
+    public int getInfo()
     {
         return info;
     }
-    
-    public void setInfo ( String nyVerdi )
+    public void setInfo( int nyVerdi )
     {
-        info =  nyVerdi;
+        info = nyVerdi;
     }
 }

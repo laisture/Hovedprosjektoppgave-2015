@@ -13,66 +13,70 @@ import javax.swing.*;
 
 public class DataIOTest extends JFrame 
 {
-    private Kommandolytter lytteren;
-    private Heltallsliste heltallsliste;
-    private JTextArea lista, kopien;
+    private Helltallsnode hode;
     
     public DataIOTest()
     {
-        super("Test av heltallsliste");
-        lytteren = new Kommandolytter();
-        lesFil();
-        skrivListe();
-    }
-    private void visFeilmelding( String melding)
-    {
-        JOptionPane.showMessageDialog(this, melding, "Problem", JOptionPane.ERROR_MESSAGE);
+        hode = null;
     }
     
-    private void lesFil()
-  {
-    try (ObjectInputStream innfil = new ObjectInputStream(
-            new FileInputStream( "src/liste.data" )))
+   public void skrivTilfil( String filnavn )
     {
-      heltallsliste = (Heltallsliste) innfil.readObject();
+     try( DataOutputStream fil = new DataOutputStream(
+			                          new FileOutputStream( filnavn ) ) )
+    {
+			Helltallsnode løper = hode;
+      while ( løper != null )
+      {
+        løper.skrivTilFil( fil );
+        løper = løper.neste;
+      }
     }
-    catch(ClassNotFoundException cnfe)
+    catch ( IOException ioe )
     {
-      lista.setText(cnfe.getMessage());
-      lista.append("\nOppretter tom liste.\n");
-      heltallsliste = new Heltallsliste();
-    }
-    catch(FileNotFoundException fne)
-    {
-      lista.setText("Finner ikke datafil. Oppretter tom liste.\n");
-      heltallsliste = new Heltallsliste();
-    }
-    catch(IOException ioe)
-    {
-      lista.setText("Innlesingsfeil. Oppretter tom liste.\n");
-      heltallsliste = new Heltallsliste();
+      System.out.equals( "Fikk ikke skrevet datafil." );
     }
   }
 
-  public void skrivTilFil()
+  public void lesFraFil( String filnavn )
   {
-    try (ObjectOutputStream utfil = new ObjectOutputStream(
-            new FileOutputStream("src/liste.data")))
+
+    try( DataInputStream fil = new DataInputStream( new FileInputStream( filnavn ) ) )
     {
-      utfil.writeObject(heltallsliste);
+      while ( true )
+      {
+				Helltallsnode ny = new Helltallsnode();
+        ny.lesFraFil( fil );
+      }
     }
-    catch( NotSerializableException nse )
+    catch ( FileNotFoundException fnfe )
     {
-      visFeilmelding("Objektet er ikke serialisert!");
+      System.err.println( "Finner ikke fil " + filnavn );
     }
-    catch( IOException ioe )
+    catch ( EOFException eofe )
     {
-      visFeilmelding("Problem med utskrift til fil.");
+
+    }
+    catch ( IOException ioe )
+    {
+      System.err.println( "Får ikke lest fil " + filnavn );
     }
     
   }
-  public void skrivListe()
+  public void skrivListe(JTextArea elementer)
   {
-      heltallsliste.skrivListe(lista);
+     elementer.setText("");
+     if ( hode==null )
+       elementer.append( "Tom Heltallsliste\n" );
+     else
+     {
+       Helltallsnode hjelp = hode;
+       while ( hjelp!=null)
+       {
+         elementer.append( hjelp.getInfo()+ " " );
+         hjelp = hjelp.neste;
+       }
+       elementer.append( "\n" );
+     }
   }
 }
