@@ -41,8 +41,14 @@ public class Vindu extends JFrame
     private JButton lagkunde=new JButton("registrer kunde");
     private JTextArea output=new JTextArea(40,40);
     private Kommandolytter lytter;
-   
-    
+    //Søk
+    private JPanel søk =new JPanel();
+    private JPanel søkVest =new JPanel();
+    private JPanel søkCenter =new JPanel();
+    private JLabel søklabel =new JLabel("Søk:");
+    private JTextField søkefelt=new JTextField(20);
+    private JButton søkButton=new JButton("Finn kunde");
+    private JTextArea output2=new JTextArea(40,40);
     
     public Vindu()
     {
@@ -50,7 +56,7 @@ public class Vindu extends JFrame
       panel.setLayout(new BorderLayout());
       vest.setLayout(new BorderLayout());
       kundepanel.setLayout(new BorderLayout());
-      
+      søk.setLayout(new BorderLayout());
        lytter = new Kommandolytter();
        
      
@@ -63,6 +69,9 @@ public class Vindu extends JFrame
       
       tabbedPane.addTab("ny kunde",null, kundepanel, "Does nothing");
      tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+     //Bil
+     tabbedPane.addTab("Søk",null, søk, "Does nothing");
+     tabbedPane.setMnemonicAt(1, KeyEvent.VK_3);
       
       String[] a = {"Bilforsikring","Båtforsikring","en til"};
       
@@ -105,7 +114,14 @@ public class Vindu extends JFrame
      
       kundepanel.add(vest2, BorderLayout.WEST);
       kundepanel.add(m2, BorderLayout.CENTER);
-              
+      //Søk-fane 
+      søkVest.add(søklabel);
+      søkCenter.add(søkefelt);
+      søkCenter.add(søkButton);
+      søkCenter.add(output2);
+      søk.add(søkVest,BorderLayout.WEST);
+      søk.add(søkCenter,BorderLayout.CENTER);
+      søkButton.addActionListener(lytter);
       
       
       
@@ -129,11 +145,27 @@ public class Vindu extends JFrame
         }
         else
         {
-            output.setText("Kunde ble ikke oprettet");
+            output.setText("Kunde ble ikke opprettet");
         }
         fornavnfield.setText("");
         etternavnfield.setText("");
         adressefield.setText("");
+    }
+    
+    public void søkKunde()
+    {
+        int kundeNr = Integer.parseInt(søkefelt.getText());
+        Kunde kunden = register.finnKunde(kundeNr);
+        if(kunden !=null)
+        {
+            output2.setText(kunden.toString());
+        }
+        else
+        {
+            output2.setText("Finnes ingen kunder med dette kundenummeret");
+        }
+        søkefelt.setText("");
+        
     }
     
     
@@ -147,7 +179,8 @@ public class Vindu extends JFrame
         System.out.println("test");
       if ( e.getSource() == lagkunde )
         LagKunde();
-      
+      else if(e.getSource() == søkButton )
+          søkKunde();
     }
 
         

@@ -19,16 +19,18 @@ public class Kunderegister {
     Båtforsikring båt = new Båtforsikring("a","b","c",1,2,"d",3,4,5,"e");
     Bilforsikring bil = new Bilforsikring("f","d","dd",3,4,5,6,7,4,"f");
     Kunde k= new Kunde("test", "testsen", "testgate 1");
+    Kunde k2= new Kunde("tes", "testse", "testgate ");
     
     public Kunderegister()
     {
-        k.addForsikring(reise);
+        k2.addForsikring(reise);
         register.add(k);
-        k.addForsikring(hus);
-        k.addForsikring(båt);
-        hus.setGyldig(false);
-        k.addForsikring(bil);
-        bil.bonus();
+        register.add(k2);
+        k2.addForsikring(hus);
+        k2.addForsikring(båt);
+        //hus.setGyldig(false);
+        k2.addForsikring(bil);
+        //bil.bonus();
          
     }
     
@@ -54,7 +56,7 @@ public class Kunderegister {
         }
         return null;
     }
-    
+    /*
     public Kunde finnKunde(String n)
     {
         Iterator<Kunde> iterator = register.iterator();
@@ -66,7 +68,7 @@ public class Kunderegister {
             }
         }
         return null;
-    }
+    }*/
     
     public String toString()
     {

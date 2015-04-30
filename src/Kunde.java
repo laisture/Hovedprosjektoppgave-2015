@@ -11,16 +11,17 @@ public class Kunde {
     private String fornavn;
     private String etternavn;
     private String fakturaadresse;
-    private int forsikringsnummer;
+    private static int forsikringsnummer = 10000;
     private int premie;
     private Skademelding[] skademeldinger;
-    private int nestenummer;
+    //private int nestenummer = 10000;
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
     private Boolean aktiv;
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
+        forsikringsnummer++;
         fornavn=f;
         etternavn=e;
         fakturaadresse=a;

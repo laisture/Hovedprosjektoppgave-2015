@@ -18,9 +18,9 @@ public class test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Kunderegister register= new Kunderegister();
+        //Kunderegister register= new Kunderegister();
         //SkademeldingVindu vinduetd = new SkademeldingVindu();
-        Boolean ok = register.k.totalKunde();
+       // Boolean ok = register.k.totalKunde();
         
         EventQueue.invokeLater(new Runnable()
 		{
