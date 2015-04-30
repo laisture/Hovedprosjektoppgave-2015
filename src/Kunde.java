@@ -141,6 +141,11 @@ public class Kunde {
         
         return melding;
     }
-    
+    public String AlttoString()
+    {
+        String melding =fornavn+" "+etternavn+ "\n";
+        melding += fakturaadresse+"\n\nForsikringer:\n";
+        return melding;
+    } 
   
 }
