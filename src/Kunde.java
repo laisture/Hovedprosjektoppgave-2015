@@ -85,7 +85,7 @@ public class Kunde {
             utbetalteErstatninger += skademeldinger[i].getTakst();
         }
         return utbetalteErstatninger;
-    }
+    }/*
     public int årligPremie()
     {
        premie = 0;
@@ -95,6 +95,17 @@ public class Kunde {
            premie += (iterator.next().getPremie());
        }
        return premie;   
+    }*/
+    //Ny årligPremie() metode, fordi årlig premie skal hentes fra premien sin getmetode.
+    // Metoden må kalles på hver gang forsikringer blir lagt til eller fjernet.
+    public void årligPremie()
+    {
+       premie = 0;
+       Iterator<Forsikring> iterator = forsikringer.iterator();
+       while(iterator.hasNext())
+       {
+           premie += (iterator.next().getPremie());
+       } 
     }
     /* Metoden har som oppgave å finne ut om kunden har minst 3 forskjellige forsikringer.
     Hvis dette er tilfellet er kunden en totalkunde og får 10 rabatt på forsikringspremien sin, metoden returner da true, hvis ikke false.*/
