@@ -44,7 +44,7 @@ public class Kunderegister implements Serializable  {
     {
         Kunde b=new Kunde(f,e,a);
         settInn(b);
-        return (true);
+        return true;
     }
     public Kunde finnKunde(int k)
     {

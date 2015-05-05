@@ -408,45 +408,7 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    //Leser objekter fra fil
-    public void lesFil()
-    {
-        try(ObjectInputStream les = new ObjectInputStream(
-            new FileInputStream("src/lagrefil.data")))
-        {
-            register = (Kunderegister) les.readObject();
-        }
-        catch(FileNotFoundException fnfe)
-        {
-            JOptionPane.showMessageDialog(null,"Finner ikke fil");
-            
-        }
-        catch(ClassNotFoundException cnfe)
-        {
-            JOptionPane.showMessageDialog(null,"Finner ikke klassen ");
-        }
-        catch(IOException ioe)
-        {
-            JOptionPane.showMessageDialog(null,"Feil ved lesing av fil");
-        }
-    }
-    //Skriver registeret til fil
-    public void skrivTilFil()
-    {
-        try(ObjectOutputStream skrive = new ObjectOutputStream(
-            new FileOutputStream("src/lagrefil.data")))
-        {
-            skrive.writeObject(register);
-        }
-        catch(NotSerializableException nse)
-        {
-            JOptionPane.showMessageDialog(null,"Objektet er ikke serialisert");
-        }
-        catch(IOException ioe)
-        {
-            JOptionPane.showMessageDialog(null,"Feil ved skriving til fil");
-        }
-    }
+    
     
     public void LagBil()
     {
@@ -455,7 +417,7 @@ public class Vindu extends JFrame implements Serializable
         int priskm=Integer.parseInt("12");
         int bonus=Integer.parseInt("123");
         int bilbeløp=Integer.parseInt(bilbeløpfield.getText());
-        
+    
         Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText(),regår,kjør, priskm,bonus, bilbeløp, kjørefield.getText());
         Boolean ok=register.LagForsikring(k, bil);
         if(ok)
@@ -497,7 +459,35 @@ public class Vindu extends JFrame implements Serializable
       JOptionPane.showMessageDialog(this, melding,
               "Problem", JOptionPane.ERROR_MESSAGE);
     }
-    
+     public void lesFil()
+    {
+      try (ObjectInputStream innfil = new ObjectInputStream(
+              new FileInputStream( "src/liste.data" )))
+      {
+        register = (Kunderegister) innfil.readObject();
+        
+        System.out.println(register.toString());
+        
+        
+      }
+      catch(ClassNotFoundException cnfe)
+      {
+        ut.setText(cnfe.getMessage());
+        ut.append("\nOppretter tom liste.\n");
+       register = new Kunderegister();
+       
+      }
+      catch(FileNotFoundException fne)
+      {
+        ut.setText("Finner ikke datafil. Oppretter tom liste.\n");
+       register = new Kunderegister();
+      }
+     catch(IOException ioe)
+     {
+       ut.setText("Innlesingsfeil. Oppretter tom liste.\n");
+       register = new Kunderegister();
+     }
+  }
   
     public void SkrivTilFil()
     {
