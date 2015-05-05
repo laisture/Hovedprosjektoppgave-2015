@@ -18,7 +18,7 @@ public class Kunderegister implements Serializable  {
     Reiseforsikring reise=new Reiseforsikring("europa", 100,199, "forsikring for å reise i europa");
     Husforsikring hus = new Husforsikring("a",1,"b","c",2,"d",3,4,5,6,"e");
     Båtforsikring båt = new Båtforsikring("a","b","c",1,2,"d",3,4,5,"e");
-    Bilforsikring bil = new Bilforsikring("f","d","dd",3,4,5,6,7,4,"f");
+    Bilforsikring bil = new Bilforsikring("f","d","dd","test",4,5,6,7,4,"f");
     Kunde k= new Kunde("test", "testsen", "testgate 1");
     Kunde k2= new Kunde("tes", "testse", "testgate ");
     
