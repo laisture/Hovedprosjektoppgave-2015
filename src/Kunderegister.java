@@ -8,9 +8,10 @@
  *
  * @author Joakim
  */
+import java.io.Serializable;
 import java.util.*;
 
-public class Kunderegister {
+public class Kunderegister implements Serializable  {
     
     LinkedList<Kunde> register =new LinkedList<>();
    
@@ -37,6 +38,7 @@ public class Kunderegister {
     public void settInn(Kunde ny)
     {
         register.add(ny);
+        
     }
     public Boolean nyKunde(String f, String e, String a)
     {
@@ -55,6 +57,11 @@ public class Kunderegister {
             }
         }
         return null;
+    }
+    public Boolean LagForsikring(Kunde k, Forsikring f)
+    {
+        Boolean ok=k.addForsikring(f);
+        return ok;
     }
     /*
     public Kunde finnKunde(String n)

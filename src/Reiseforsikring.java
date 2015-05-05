@@ -1,9 +1,12 @@
 
+import java.io.Serializable;
+
+
 /**
  *
  * @author Joakim
  */
-public class Reiseforsikring extends Forsikring
+public class Reiseforsikring extends Forsikring implements Serializable 
 {
     
     private String område;

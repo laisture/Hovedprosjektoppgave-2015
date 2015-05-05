@@ -1,5 +1,7 @@
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,15 +23,14 @@ public class test {
         //Kunderegister register= new Kunderegister();
         //SkademeldingVindu vinduetd = new SkademeldingVindu();
        // Boolean ok = register.k.totalKunde();
-        
-        EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-                            JFrame frame = new Vindu();
+       
+			
+		
+                            final Vindu frame= new Vindu();
                             
-			}
-		});
+			
+		
+        
     }
     
 }

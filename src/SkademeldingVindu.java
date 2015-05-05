@@ -20,10 +20,10 @@ public class SkademeldingVindu  extends JFrame  {
     private JPanel p= new JPanel();
     private JPanel s=new JPanel();
     private JPanel b=new JPanel();
-    private JLabel k=new JLabel("Kunde");
+    private JLabel kundelabel=new JLabel("Kunde");
     private JLabel m=new JLabel("Skriv en beskrivelse av hendelsen samt skaden/skadene: ");
     private JButton knapp= new JButton("trykk her!");
-    private JTextField kunde=new JTextField(10);
+    private JTextField kundefield=new JTextField(10);
     private JTextArea beskrivelse= new JTextArea(1, 1);
     
       JFileChooser fc = new JFileChooser();
@@ -37,13 +37,12 @@ public class SkademeldingVindu  extends JFrame  {
         p.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10 ) );
 
     // Create the layout
-    GroupLayout layout = new GroupLayout( p );
+    BorderLayout layout = new BorderLayout();
     p.setLayout( layout );
-    layout.setAutoCreateGaps( true );
+   
         
-        
-        p.add(k);
-        p.add(kunde);
+        p.add(kundelabel);
+        p.add(kundefield);
         s.add(m);
         s.add(beskrivelse);
         b.add(knapp);
@@ -62,33 +61,12 @@ public class SkademeldingVindu  extends JFrame  {
         vindu.add(p);
         vindu.setSize(400,400);
         
-        layout.setHorizontalGroup( layout.createSequentialGroup()
-                                       .addGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-                                                          .addComponent( k )
-                                                          
-                                       )
-                                       .addGroup( layout.createParallelGroup( GroupLayout.Alignment.LEADING )
-                                                          .addComponent( kunde )
-                                                          
-                                                           )
-    );
-         layout.setVerticalGroup( layout.createSequentialGroup()
-                                     .addGroup( layout.createParallelGroup( GroupLayout.Alignment.BASELINE )
-                                                        .addComponent( k )
-                                                        .addComponent( kunde ) )
-                                     
-                                    
-    );
         
         
-        Container c= getContentPane ();
         
-        c.add(p);
-        c.add(b);
-        c.add(s);
-        vindu.add(c);
         
-        vindu.setSize(300,400);
+        
+        
         vindu.setVisible(true);
         vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

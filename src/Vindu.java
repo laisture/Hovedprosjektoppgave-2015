@@ -6,6 +6,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.URL;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,9 +25,10 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Jules
  */
-public class Vindu extends JFrame
+public class Vindu extends JFrame implements Serializable 
 {
-    private Kunderegister register= new Kunderegister();
+    
+    private Kunderegister register;
     private JFrame f=new JFrame();
    
     
@@ -46,7 +57,8 @@ public class Vindu extends JFrame
     private JPanel bilpanel=new JPanel();
     private JPanel båtpanel=new JPanel();
     private JPanel huspanel=new JPanel();
-    
+    //login
+    private JLabel utkunde=new JLabel("Du må søke etter en kunde før du kan tegne forsikring!");
     
     //bilpanel
     private JPanel bilpanel1=new JPanel();
@@ -66,13 +78,66 @@ public class Vindu extends JFrame
     private JLabel kjørelabel= new JLabel("Kjørelengde per år (km): ");
     private JTextField kjørefield= new JTextField(20);
     private JLabel priskm= new JLabel("pris per km");
-    
+    private JTextField priskmfield=new JTextField(20);
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
     private JTextField bilbeløpfield=new JTextField(20);
     private JLabel bilbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea bilbettext=new JTextArea(10,40);
     private JButton lagbil=new JButton("tegn bilforsikring");
 
+    //båteier
+    private JPanel båtpanel1=new JPanel();
+    private JPanel båtpanel2=new JPanel();
+    private JPanel båtpanel3=new JPanel();
+    
+    private JLabel båteierlabel=new JLabel("Båt eier:");
+    private JTextField båteierfield=new JTextField(20);
+    private JLabel båtreglabel=new JLabel("registreringsnummer:");
+    private JTextField båtregfield=new JTextField(20);
+    private JLabel båttlabel=new JLabel("Båt type:");
+    private JTextField båttfield=new JTextField(20);
+    private JLabel båtmlabel=new JLabel("Båt modell:");
+    private JTextField båtmfield=new JTextField(20);
+    private JLabel båtårlabel=new JLabel("første registreringsår:");
+    private JTextField båtårfield=new JTextField(4);
+    private JLabel lengdelabel= new JLabel("Båtlengde (fot):");
+    private JTextField lengdefield= new JTextField(4);
+    private JLabel motortlabel= new JLabel("Motortype:");
+    private JTextField motortfield= new JTextField(20);
+    private JLabel motorslabel=new JLabel("Motorstyrke (HK):");
+    private JTextField motorsfield=new JTextField(20);
+    private JLabel båtbeløplabel=new JLabel("forsikringsbeløp:");
+    private JTextField båtbeløpfield=new JTextField(20);
+    private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
+    private JTextArea båtbettext=new JTextArea(10,40);
+    private JButton lagbåt=new JButton("tegn båtforsikring");
+    
+    
+    //husforsikring
+    private JPanel huspanel1=new JPanel();
+    private JPanel huspanel2=new JPanel();
+    private JPanel huspanel3=new JPanel();
+    
+    private JLabel hadresselabel=new JLabel("Husadresse");
+    private JTextField hadressefield=new JTextField(20);
+    private JLabel byggårlabel=new JLabel("Byggeår");
+    private JTextField byggårfield=new JTextField(20);
+    private JLabel boligtypelabel=new JLabel("Bolig type:");
+    private JTextField boligtypefield=new JTextField(20);
+    private JLabel byggmlabel=new JLabel("Byggmateriale:");
+    private JTextField byggmfield=new JTextField(20);
+    private JLabel standardlabel=new JLabel("standard:");
+    private JTextField standardfield=new JTextField(4);
+    private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
+    private JTextField kvadratfield= new JTextField(4);
+    private JLabel byggbeløplabel= new JLabel("forsikringsbeløp for byggnings");
+    private JTextField byggbeløpfield= new JTextField(20);
+    private JLabel innbobeløplabel=new JLabel("Motorstyrke (HK):");
+    private JTextField innbofield=new JTextField(20);
+    private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
+    private JTextArea husbettext=new JTextArea(10,40);
+    private JButton laghus=new JButton("tegn båtforsikring");
+    
     
     
     //andre tab
@@ -109,7 +174,7 @@ public class Vindu extends JFrame
       søk.setLayout(new BorderLayout());
        lytter = new Kommandolytter();
        
-     
+     lesFil();
       
       JTabbedPane tabbedPane = new JTabbedPane();
       JTabbedPane forsikringer=new JTabbedPane();
@@ -178,28 +243,10 @@ public class Vindu extends JFrame
       midt.add(mf, BorderLayout.SOUTH);
       vest.add(v, BorderLayout.WEST);
       vest.add(ø, BorderLayout.EAST);
-      bilpanel.setLayout(new BorderLayout());
-      bilpanel.add(bilpanel1, BorderLayout.NORTH);
-      bilpanel.add(bilpanel2, BorderLayout.CENTER);
-      bilpanel.add(bilpanel3, BorderLayout.SOUTH);
-      bilpanel1.add(eierlabel);
-      bilpanel1.add(eierfield);
-      bilpanel1.add(reglabel);
-    bilpanel1.add(regfield);
-    bilpanel1.add(btlabel);
-    bilpanel1.add(btfield);
-    bilpanel2.add(bmlabel);
-    bilpanel2.add(bmfield);
-    bilpanel2.add(regårlabel);
-    bilpanel2.add(regårlabel);
-    bilpanel2.add(kjørelabel);
-    bilpanel2.add(kjørefield);
-    bilpanel2.add(bilbeløplabel);
-    bilpanel2.add(bilbeløpfield);
-    bilpanel3.add(bilbetingelser);
-    bilpanel3.add(bilbettext);
-    bilpanel3.add(lagbil);
-    
+      
+      
+      LagFaner();
+      
     panel.add(vest, BorderLayout.WEST);
     panel.add(midt,BorderLayout.CENTER);
       
@@ -224,10 +271,78 @@ public class Vindu extends JFrame
       f.pack();
       f.setVisible(true);
       //f.setResizable(false);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      f.addWindowListener( 
+        new WindowAdapter() {
+            public void windowClosing(WindowEvent e)
+            {
+                SkrivTilFil();
+                System.exit(0);
+            }
+        });
     }
     
-           
+    public void LagFaner()
+    {
+        
+      //bilpanel
+      
+      bilpanel.setLayout(new BorderLayout());
+      bilpanel.add(bilpanel1, BorderLayout.NORTH);
+      bilpanel.add(bilpanel2, BorderLayout.CENTER);
+      bilpanel.add(bilpanel3, BorderLayout.SOUTH);
+      bilpanel1.add(eierlabel);
+      bilpanel1.add(eierfield);
+      bilpanel1.add(reglabel);
+    bilpanel1.add(regfield);
+    bilpanel1.add(btlabel);
+    bilpanel1.add(btfield);
+    bilpanel2.add(bmlabel);
+    bilpanel2.add(bmfield);
+    bilpanel2.add(regårlabel);
+    bilpanel2.add(regårfield);
+    bilpanel2.add(kjørelabel);
+    bilpanel2.add(kjørefield);
+    bilpanel2.add(bilbeløplabel);
+    bilpanel2.add(bilbeløpfield);
+    bilpanel3.add(bilbetingelser);
+    bilpanel3.add(bilbettext);
+    bilpanel3.add(lagbil);
+    lagbil.addActionListener(lytter);
+    
+    //båtpanel
+     båtpanel.setLayout(new BorderLayout());
+      båtpanel.add(båtpanel1, BorderLayout.NORTH);
+      båtpanel.add(båtpanel2, BorderLayout.CENTER);
+      båtpanel.add(båtpanel3, BorderLayout.SOUTH);
+      båtpanel1.add(båteierlabel);
+      båtpanel1.add(båteierfield);
+      båtpanel1.add(båtreglabel);
+    båtpanel1.add(båtregfield);
+    båtpanel1.add(båttlabel);
+    båtpanel1.add(båttfield);
+    båtpanel2.add(båtmlabel);
+    båtpanel2.add(båtmfield);
+    båtpanel2.add(båtårlabel);
+    båtpanel2.add(båtårlabel);
+    båtpanel2.add(lengdelabel);
+    båtpanel2.add(lengdefield);
+    båtpanel2.add(motortlabel);
+    båtpanel2.add(motortfield);
+    båtpanel2.add(motorslabel);
+    båtpanel2.add(motorsfield);
+    båtpanel2.add(båtbeløplabel);
+    båtpanel2.add(båtbeløpfield);
+    båtpanel3.add(båtbetingelser);
+    båtpanel3.add(båtbettext);
+    båtpanel3.add(lagbåt);   
+    
+      
+    }
+    public void Forsikringer()
+    {
+        
+    }
     public void LagKunde()
     {
         String fornavn=fornavnfield.getText();
@@ -245,6 +360,7 @@ public class Vindu extends JFrame
         fornavnfield.setText("");
         etternavnfield.setText("");
         adressefield.setText("");
+        
     }
     
     public void søkKunde()
@@ -255,6 +371,7 @@ public class Vindu extends JFrame
         {
             output2.setText(kunden.toString());
             k=kunden;
+           
         }
         else
         {
@@ -268,18 +385,19 @@ public class Vindu extends JFrame
         if (k!=null)
         {
           eierfield.setText(k.getNavn());  
+          båteierfield.setText(k.getNavn());  
         }
         
     }
     public void finnKunde()
     {
       int kundeNr = Integer.parseInt(topfield.getText());
-        Kunde kunden = register.finnKunde(kundeNr);
-        if(kunden !=null)
+        Kunde kunden1 = register.finnKunde(kundeNr);
+        if(kunden1 !=null)
         {
             
-            ut.setText(kunden.AlttoString());
-            k=kunden;
+            ut.setText(kunden1.AlttoString());
+            k=kunden1;
         }
         else
         {
@@ -289,10 +407,28 @@ public class Vindu extends JFrame
           
     }
     
-  /*  public void LagBil()
+    public void LagBil()
     {
-        Bilforsikring bil=New Bilforsikring(eierfield.getText(), reg.getText(),bt.getText(),Integer.parseInt(bm.getText()),Integer.parseInt(regårfield.getText()),Integer.parseInt(kjørefield), int k, int premie, int beløp, String beskrivelse)
-    }*/
+        int regår=Integer.parseInt(regårfield.getText());
+        int kjør=Integer.parseInt(kjørefield.getText());
+        int priskm=Integer.parseInt("12");
+        int bonus=Integer.parseInt("123");
+        int bilbeløp=Integer.parseInt(bilbeløpfield.getText());
+        int bilmodell=Integer.parseInt(bmfield.getText());
+        Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bilmodell,regår,kjør, priskm,bonus, bilbeløp, kjørefield.getText());
+        Boolean ok=register.LagForsikring(k, bil);
+        if(ok)
+        {
+            eierfield.setText("");
+            regfield.setText("");
+            btfield.setText("");
+            bmfield.setText("");
+            bilbeløpfield.setText("");
+            kjørefield.setText("");
+            regårfield.setText("");
+        }
+    
+    }
    private class Kommandolytter implements ActionListener
   {
        
@@ -307,13 +443,66 @@ public class Vindu extends JFrame
           søkKunde();
       else if(e.getSource()==topbutton )
           finnKunde();
-      /*else if(e.getSource()==lagbil)
+      else if(e.getSource()==lagbil)
           LagBil();
-      */
+      
       
       Bileier();
     }
+   }
+    
+      private void visFeilmelding(String melding)
+    {
+      JOptionPane.showMessageDialog(this, melding,
+              "Problem", JOptionPane.ERROR_MESSAGE);
+    }
+     private void lesFil()
+    {
+      try (ObjectInputStream innfil = new ObjectInputStream(
+              new FileInputStream( "src/liste.data" )))
+      {
+        register = (Kunderegister) innfil.readObject();
+        
+       
+        
+      }
+      catch(ClassNotFoundException cnfe)
+      {
+        ut.setText(cnfe.getMessage());
+        ut.append("\nOppretter tom liste.\n");
+       register = new Kunderegister();
+       
+      }
+      catch(FileNotFoundException fne)
+      {
+        ut.setText("Finner ikke datafil. Oppretter tom liste.\n");
+       register = new Kunderegister();
+      }
+     catch(IOException ioe)
+     {
+       ut.setText("Innlesingsfeil. Oppretter tom liste.\n");
+       register = new Kunderegister();
+     }
+  }
+  
+    public void SkrivTilFil()
+    {
+        try (ObjectOutputStream utfil = new ObjectOutputStream(
+             new FileOutputStream("src/liste.data")))
+     {
+       utfil.writeObject(register);
+       System.out.println("tests");
+     }
+     catch( NotSerializableException nse )
+     {
+       visFeilmelding("Objektet er ikke serialisert!");
+     }
+     catch( IOException ioe )
+     {
+       visFeilmelding("Problem med utskrift til fil.");
+     }
+    }
 
         
-  }  
+  
 }

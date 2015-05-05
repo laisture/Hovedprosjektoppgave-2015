@@ -12,11 +12,12 @@
 
 //import setninger:
 
+import java.io.Serializable;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class Forsikring {
+public class Forsikring implements Serializable {
 
     private int årligPremie;
     private String opprettet; //Dato foroppretelse av avtale.

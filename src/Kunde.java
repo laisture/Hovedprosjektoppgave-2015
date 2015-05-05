@@ -1,27 +1,28 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
 
 
-public class Kunde {
+public class Kunde implements Serializable {
     //diverse variabler med infoen som lagres på kunden:
     
     private String fornavn;
     private String etternavn;
     private String fakturaadresse;
-    private static int forsikringsnummer = 10000;
+    private static int forsikringsnummer;
     private int premie;
     private Skademelding[] skademeldinger;
-    //private int nestenummer = 10000;
+    private static int nestenummer = 1;
     private ArrayList <Forsikring> forsikringer;
     private Boolean totalkunde;
     private Boolean aktiv;
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
-        forsikringsnummer++;
+        forsikringsnummer=nestenummer++;
         fornavn=f;
         etternavn=e;
         fakturaadresse=a;
@@ -29,9 +30,10 @@ public class Kunde {
         aktiv=true;
     }
     //Metoden legger til forsikringsobjekt i kunden sin forsikringsliste.
-    public void addForsikring(Forsikring f)
+    public Boolean addForsikring(Forsikring f)
     {
         forsikringer.add(f);
+        return true;
     }
     //Get metoder:
     public String getNavn()
