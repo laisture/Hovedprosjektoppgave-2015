@@ -1,6 +1,6 @@
 
 
-
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -167,6 +167,8 @@ public class Vindu extends JFrame implements Serializable
     public Vindu()
     {
       super("Hallo");
+      //NY Metodekall!!!
+      lesFil(); //leser objekter fra filen
       panel.setLayout(new BorderLayout());
       vest.setLayout(new BorderLayout());
       kundepanel.setLayout(new BorderLayout());
@@ -405,6 +407,45 @@ public class Vindu extends JFrame implements Serializable
         }
         topfield.setText("");
           
+    }
+    //Leser objekter fra fil
+    public void lesFil()
+    {
+        try(ObjectInputStream les = new ObjectInputStream(
+            new FileInputStream("src/lagrefil.data")))
+        {
+            register = (Kunderegister) les.readObject();
+        }
+        catch(FileNotFoundException fnfe)
+        {
+            JOptionPane.showMessageDialog(null,"Finner ikke fil");
+            
+        }
+        catch(ClassNotFoundException cnfe)
+        {
+            JOptionPane.showMessageDialog(null,"Finner ikke klassen ");
+        }
+        catch(IOException ioe)
+        {
+            JOptionPane.showMessageDialog(null,"Feil ved lesing av fil");
+        }
+    }
+    //Skriver registeret til fil
+    public void skrivTilFil()
+    {
+        try(ObjectOutputStream skrive = new ObjectOutputStream(
+            new FileOutputStream("src/lagrefil.data")))
+        {
+            skrive.writeObject(register);
+        }
+        catch(NotSerializableException nse)
+        {
+            JOptionPane.showMessageDialog(null,"Objektet er ikke serialisert");
+        }
+        catch(IOException ioe)
+        {
+            JOptionPane.showMessageDialog(null,"Feil ved skriving til fil");
+        }
     }
     
     public void LagBil()

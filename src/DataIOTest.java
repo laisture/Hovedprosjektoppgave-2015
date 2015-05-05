@@ -11,7 +11,7 @@
 import java.io.*;
 import javax.swing.*;
 
-public class DataIOTest extends JFrame 
+public class DataIOTest extends JFrame implements Serializable 
 {
     private Helltallsnode hode;
     
