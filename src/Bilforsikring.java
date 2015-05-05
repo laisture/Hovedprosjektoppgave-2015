@@ -14,13 +14,13 @@ public class Bilforsikring extends Forsikring {
     private String navn;
     private String reginr;
     private String biltype;
-    private int modell;
+    private String modell;
     private int regiår;
     private int kjørelengde;
     private int kilometer;
     private int bonus;
     
-    public Bilforsikring(String n, String reg,String type, int m, int år, int lengde, int k, int premie, int beløp, String beskrivelse)
+    public Bilforsikring(String n, String reg,String type, String m, int år, int lengde, int k, int premie, int beløp, String beskrivelse)
     {
         super(premie,beløp,beskrivelse);
         navn=n;
@@ -44,7 +44,7 @@ public class Bilforsikring extends Forsikring {
     {
         return biltype;
     }
-    public int getModell()
+    public String getModell()
     {
         return modell;
     }
