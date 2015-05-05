@@ -77,6 +77,7 @@ public class Kunderegister implements Serializable  {
         return null;
     }*/
     
+    
     public String toString()
     {
         String personer= "";

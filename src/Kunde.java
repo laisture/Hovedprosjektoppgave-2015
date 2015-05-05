@@ -22,7 +22,7 @@ public class Kunde implements Serializable {
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
-        forsikringsnummer=nestenummer++;
+        forsikringsnummer+=nestenummer;
         fornavn=f;
         etternavn=e;
         fakturaadresse=a;
@@ -144,6 +144,7 @@ public class Kunde implements Serializable {
     public String toString()
     {
         String melding =fornavn+" "+etternavn+ "\n";
+        melding+=forsikringsnummer+"\n\n";
         melding += fakturaadresse+"\n\nForsikringer:\n";
         ListIterator<Forsikring> iterator = forsikringer.listIterator();
         
