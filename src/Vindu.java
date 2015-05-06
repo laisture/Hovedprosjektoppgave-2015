@@ -8,14 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URL;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -175,8 +168,6 @@ public class Vindu extends JFrame implements Serializable
       midt.setLayout(new BorderLayout());
       søk.setLayout(new BorderLayout());
        lytter = new Kommandolytter();
-       
-     lesFil();
       
       JTabbedPane tabbedPane = new JTabbedPane();
       JTabbedPane forsikringer=new JTabbedPane();
@@ -353,6 +344,7 @@ public class Vindu extends JFrame implements Serializable
         Boolean ok=register.nyKunde(fornavn,etternavn,adresse);
         if (ok)
         {
+          
          output.setText("Kunde er oprettet!");
         }
         else
@@ -436,7 +428,7 @@ public class Vindu extends JFrame implements Serializable
   {
        
    
-    @Override
+    
     public void actionPerformed( ActionEvent e )
     {
         System.out.println("test");

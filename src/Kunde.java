@@ -12,7 +12,7 @@ public class Kunde implements Serializable {
     private String fornavn;
     private String etternavn;
     private String fakturaadresse;
-    private static int forsikringsnummer;
+    private int forsikringsnummer;
     private int premie;
     private Skademelding[] skademeldinger;
     private static int nestenummer = 1;
@@ -22,7 +22,7 @@ public class Kunde implements Serializable {
     //Konstruktør
     public Kunde(String f,String e, String a)
     {
-        forsikringsnummer+=nestenummer;
+        forsikringsnummer=nestenummer++;
         fornavn=f;
         etternavn=e;
         fakturaadresse=a;

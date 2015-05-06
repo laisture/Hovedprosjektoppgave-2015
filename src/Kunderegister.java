@@ -43,17 +43,18 @@ public class Kunderegister implements Serializable  {
     public Boolean nyKunde(String f, String e, String a)
     {
         Kunde b=new Kunde(f,e,a);
+        System.out.println("Forsikringsnummer: "+b.getForsikringsnummer());
         settInn(b);
         return true;
     }
     public Kunde finnKunde(int k)
     {
-        Iterator<Kunde> iterator = register.iterator();
-        while (iterator.hasNext())
+//       
+        for (Kunde kunde : register)
         {
-            if(iterator.next().getForsikringsnummer()==k)
-            {
-                return (iterator.next());
+            if (kunde.getForsikringsnummer()==k)
+            {    
+                return kunde;
             }
         }
         return null;
