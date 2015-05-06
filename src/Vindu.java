@@ -199,7 +199,7 @@ public class Vindu extends JFrame implements Serializable
       m2.add(lagkunde);
       m2.add(output);
      
-      
+      ut.setEditable(false);
       
       topbutton.addActionListener(lytter);
       v.add(knapp);
@@ -278,6 +278,8 @@ public class Vindu extends JFrame implements Serializable
         bilpanel3.add(bilbettext);
         bilpanel3.add(lagbil);
         lagbil.addActionListener(lytter);
+        bilbettext.setLineWrap(true);
+        
     
         båtpanel.setLayout(new BorderLayout());
         båtpanel.add(båtpanel1, BorderLayout.NORTH);
@@ -330,6 +332,7 @@ public class Vindu extends JFrame implements Serializable
         båtpanel3.add(båtbetingelser);
         båtpanel3.add(båtbettext);
         båtpanel3.add(lagbåt);   
+        båtbettext.setLineWrap(true);
     }
     public void Forsikringer()
     {
