@@ -23,10 +23,6 @@ public class Vindu extends JFrame implements Serializable
     
     private Kunderegister register;
     private JFrame f=new JFrame();
-   
-    
-    
-    //panel
     private Kunde k;
     
     private JPanel panel=new JPanel();
@@ -168,7 +164,7 @@ public class Vindu extends JFrame implements Serializable
         midt.setLayout(new BorderLayout());
         søk.setLayout(new BorderLayout());
         lytter = new Kommandolytter();
-
+        
         JTabbedPane tabbedPane = new JTabbedPane();
         JTabbedPane forsikringer=new JTabbedPane();
 
@@ -189,25 +185,7 @@ public class Vindu extends JFrame implements Serializable
         //Bil
         forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
-     
-        String[] a = {"Bilforsikring","Båtforsikring","en til"};
-      
-        JList<String> l = new JList<>(a);
-        l.setVisibleRowCount(3);
-        l.setFixedCellWidth(50);
-        l.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        l.setSelectedIndex(4);
-        l.addListSelectionListener(new ListSelectionListener()
-        {
-            public void valueChanged(ListSelectionEvent e)
-            {
-                if( !e.getValueIsAdjusting() )
-                {
-                    String velger = l.getSelectedValue();
-                    // get info
-                }
-            }
-        });
+
       output.setEditable(false);
       output.setPreferredSize(new Dimension(100,100));
       lagkunde.addActionListener(lytter);
@@ -225,7 +203,7 @@ public class Vindu extends JFrame implements Serializable
       
       topbutton.addActionListener(lytter);
       v.add(knapp);
-      ø.add(l);
+      //ø.add(l);
       top.add(toplabel);
       top.add(topfield);
       top.add(topbutton);
@@ -248,7 +226,7 @@ public class Vindu extends JFrame implements Serializable
       
 
 
-//Søk-fane 
+      //Søk-fane 
         
       søkVest.add(søklabel);
       søkCenter.add(søkefelt);
