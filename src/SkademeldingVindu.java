@@ -47,6 +47,7 @@ public class SkademeldingVindu  extends JFrame  {
     private JComboBox type = new JComboBox(typeStrings);
     private Kommandolytter lytter;
     private BufferedImage bildet;
+    private BufferedImage visbildet;
     
    JFileChooser chooser = new JFileChooser();
    FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -56,6 +57,7 @@ public class SkademeldingVindu  extends JFrame  {
     public SkademeldingVindu ()
     {
         super ("Send inn skademelding");
+        this.visbildet = new BufferedImage(100,100, BufferedImage.TYPE_INT_ARGB);
         
         p.setBorder( BorderFactory.createEmptyBorder( 10, 10, 10, 10 ) );
      chooser.setFileFilter(filter);
@@ -69,7 +71,7 @@ public class SkademeldingVindu  extends JFrame  {
     p.setLayout( layout );
     n.setLayout(new GridLayout(3,2));
     m.setLayout(new GridLayout(2,1));
-    s.setLayout(new GridLayout(2,1));
+    s.setLayout(new GridLayout(3,1));
     lytter = new Kommandolytter();
     bbutton.addActionListener(lytter);
     
@@ -82,14 +84,15 @@ public class SkademeldingVindu  extends JFrame  {
     m.add(beskrivelselabel);
     m.add(beskrivelse);
     s.add(bbutton);
+    
     s.add(knapp);
     
       p.add(n, BorderLayout.NORTH);
       p.add(m, BorderLayout.CENTER);
       p.add(s, BorderLayout.SOUTH);
       
-            
-              
+
+          
        
         //Legger til ikon til vinduet
         String bildefil = "Ikon.png";
@@ -126,6 +129,16 @@ public class SkademeldingVindu  extends JFrame  {
        
             try {
                 bildet = ImageIO.read(chooser.getSelectedFile());
+                
+                Graphics2D graphics2D = visbildet.createGraphics();
+
+                    graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+
+                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                        
+                    graphics2D.drawImage(bildet, 0, 0, 200, 200, null);
+
+                s.add(new JLabel(new ImageIcon(visbildet)));
             } catch (IOException ex) {
                 Logger.getLogger(SkademeldingVindu.class.getName()).log(Level.SEVERE, null, ex);
             }
