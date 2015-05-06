@@ -18,14 +18,19 @@ public class SkademeldingVindu  extends JFrame  {
     
     private JFrame vindu =new JFrame ("Send inn ");
     private JPanel p= new JPanel();
+    private JPanel n=new JPanel();
+    private JPanel m=new JPanel();
     private JPanel s=new JPanel();
-    private JPanel b=new JPanel();
-    private JLabel kundelabel=new JLabel("Kunde");
-    private JLabel m=new JLabel("Skriv en beskrivelse av hendelsen samt skaden/skadene: ");
+    private JLabel kundelabel=new JLabel("Kundenummer: ");
+    private JLabel beskrivelselabel=new JLabel("Skriv en beskrivelse av hendelsen samt skaden/skadene: ");
     private JButton knapp= new JButton("trykk her!");
     private JTextField kundefield=new JTextField(10);
     private JTextArea beskrivelse= new JTextArea(1, 1);
-    
+    private JLabel vitnelabel=new JLabel("eventuelle vitner til hendelsen: ");
+    private JTextField vitnefield=new JTextField(10);
+    private JLabel typelabel=new JLabel("Hva gjelder skaden: ");
+    private String[] typeStrings = { "Bil", "Båt", "Hus", "Fritidsbolig", "Reise", "Annet" };
+    private JComboBox type = new JComboBox(typeStrings);
       JFileChooser fc = new JFileChooser();
     //int returnVal = fc.showDialog(FileChooserDemo2.this, "Attach");
 
@@ -39,13 +44,21 @@ public class SkademeldingVindu  extends JFrame  {
     // Create the layout
     BorderLayout layout = new BorderLayout();
     p.setLayout( layout );
-   
-        
-        p.add(kundelabel);
-        p.add(kundefield);
-        s.add(m);
-        s.add(beskrivelse);
-        b.add(knapp);
+    n.setLayout(new GridLayout(3,2));
+    
+    n.add(kundelabel);
+    n.add(kundefield);
+    n.add(vitnelabel);
+    n.add(vitnefield);
+    n.add(typelabel);
+    n.add(type);
+    
+      p.add(n, BorderLayout.NORTH);
+      p.add(m, BorderLayout.CENTER);
+      p.add(s, BorderLayout.SOUTH);
+      
+            
+              
        
         //Legger til ikon til vinduet
         String bildefil = "Ikon.png";

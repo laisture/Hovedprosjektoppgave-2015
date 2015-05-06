@@ -457,9 +457,7 @@ public class Vindu extends JFrame implements Serializable
               new FileInputStream( "src/liste.data" )))
       {
         register = (Kunderegister) innfil.readObject();
-        
-        System.out.println(register.toString());
-        
+        register.Start();
         
       }
       catch(ClassNotFoundException cnfe)

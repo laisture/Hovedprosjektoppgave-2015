@@ -35,6 +35,10 @@ public class Kunde implements Serializable {
         forsikringer.add(f);
         return true;
     }
+    public void setNestenummer(int i)
+    {
+        nestenummer=i;
+    }
     //Get metoder:
     public String getNavn()
     {
