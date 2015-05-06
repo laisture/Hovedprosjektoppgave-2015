@@ -37,7 +37,6 @@ public class Kunderegister implements Serializable  {
     public Boolean nyKunde(String f, String e, String a)
     {
         Kunde b=new Kunde(f,e,a);
-        System.out.println("Forsikringsnummer: "+b.getForsikringsnummer());
         settInn(b);
         return true;
     }
