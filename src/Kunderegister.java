@@ -85,6 +85,5 @@ public class Kunderegister implements Serializable  {
    
     // <Metorder for: Oppretting av kunder og forsikringer. >
     //<Metoder for søke gjennom kunder og forsikringer>
-    //<Metode for å langre>
     
 }
