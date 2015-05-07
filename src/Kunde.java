@@ -37,9 +37,9 @@ public class Kunde implements Serializable {
         forsikringer.add(f);
         return true;
     }
-    public void addSkademelding(Kunde k, String m, String t, String v,BufferedImage b)
+    public void addSkademelding(Kunde k, String m, String t, String v)
     {
-        Skademelding s=new Skademelding(k,m,t,v,b);
+        Skademelding s=new Skademelding(k,m,t,v);
         for (int i =0;i<skademeldinger.length;i++)
         {
             if(skademeldinger[i]==null)
