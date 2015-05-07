@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Dette er klassen for fritidsboligforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
+// Dette er en subklasse av klassen Forsikring, og består for det meste av get metoder.
 
-/**
- *
- * @author Dreadleet
- */
 public class Fritidsforsikring extends Forsikring {
     
     private String fritidsadresse;

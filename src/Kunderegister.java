@@ -29,6 +29,36 @@ public class Kunderegister implements Serializable  {
         int i=register.size();
         k.setNestenummer(i+1);
     }
+    
+    public void SendSkademelding(int k, String m, String t, String v)
+    {
+        
+        Kunde kunde=finnKunde(k);
+        kunde.addSkademelding(kunde,m,t,v);
+          
+    }
+    
+     public Skademelding[] getSkademeldinger()
+    {
+        ArrayList<Skademelding> skademeldinger=new ArrayList();
+        
+        Skademelding[] kundeskade;
+        for (Kunde kunde : register)
+        {
+            kundeskade=kunde.getSkademeldinger();
+            for(int i=0; i<kundeskade.length;i++)
+            {
+                if(kundeskade[i]!=null)
+                {
+                    skademeldinger.add(kundeskade[i]);
+                }
+            }
+        }
+        Skademelding[] skade = new Skademelding[skademeldinger.size()];
+        skade = skademeldinger.toArray(skade);
+        return skade;
+        
+    }
     public void settInn(Kunde ny)
     {
         register.add(ny);

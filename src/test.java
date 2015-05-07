@@ -26,8 +26,7 @@ public class test {
        
 			
 		
-                            final Vindu frame= new Vindu();
-                            //final SkademeldingVindu skadevindu= new SkademeldingVindu();
+                            final SkademeldingVindu skadevindu= new SkademeldingVindu();
                             
 			
 		

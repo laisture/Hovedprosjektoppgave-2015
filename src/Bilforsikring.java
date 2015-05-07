@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Dette er klassen for bilforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
+//her lagres også metode for å regne ut bonusordningen. Dette er en subklasse av klassen Forsikring.
 
-/**
- *
- * @author Dreadleet
- */
 import java.util.Date;
 
 public class Bilforsikring extends Forsikring {

@@ -144,6 +144,11 @@ public class Vindu extends JFrame implements Serializable
     private JTextField adressefield=new JTextField(15);
     private JButton lagkunde=new JButton("registrer kunde");
     private JTextArea output=new JTextArea(20,40);
+    //Skademelding
+    private JPanel skadepanel=new JPanel();
+    private JPanel topskade=new JPanel();
+    
+    private JLabel filter=new JLabel("Vis kunn: ");
     
     //Søk
     private JPanel søk =new JPanel();
@@ -166,26 +171,31 @@ public class Vindu extends JFrame implements Serializable
         kundepanel.setLayout(new BorderLayout());
         midt.setLayout(new BorderLayout());
         søk.setLayout(new BorderLayout());
+        skadepanel.setLayout(new BorderLayout());
         lytter = new Kommandolytter();
         
         JTabbedPane tabbedPane = new JTabbedPane();
         JTabbedPane forsikringer=new JTabbedPane();
 
-        tabbedPane.addTab("ny forsikring",null, panel, "Does nothing");
+        tabbedPane.addTab("ny forsikring",null, panel, "Tegn forsikringer på kunde");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        tabbedPane.addTab("ny kunde",null, kundepanel, "Does nothing");
+        tabbedPane.addTab("ny kunde",null, kundepanel, "Legg inn ny kunde i kunderegisteret.");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-        //Bil
-        tabbedPane.addTab("Søk",null, søk, "Does nothing");
+        
+        tabbedPane.addTab("Søk",null, søk, "Søk blandt kunder og se diverse forsikringer som kunden har tegnet.");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_3);
 
+        tabbedPane.addTab("Skademeldinger",null, skadepanel, "Se, vurder og endre på skademeldinger som er blitt sendt inn.");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_4);
+        
+        
         forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
 
         forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
-        //Bil
+        //hus
         forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
 
@@ -239,6 +249,9 @@ public class Vindu extends JFrame implements Serializable
       søk.add(søkCenter,BorderLayout.CENTER);
       søkButton.addActionListener(lytter);
       
+      //Skademeldings fane
+      topskade.add(filter);
+      skadepanel.add(topskade,BorderLayout.NORTH);
       
       
       f.add(tabbedPane);
@@ -404,6 +417,10 @@ public class Vindu extends JFrame implements Serializable
         }
         topfield.setText("");
           
+    }
+    public void sendSkademelding(int k, String m, String t, String v)
+    {
+        register.SendSkademelding(k, m, t, v);
     }
     
     
