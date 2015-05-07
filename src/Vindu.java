@@ -25,6 +25,9 @@ public class Vindu extends JFrame implements Serializable
     private JFrame f=new JFrame();
     private Kunde k;
     
+    //RegEx
+    private Pattern mønster;
+    
     private JPanel panel=new JPanel();
     
     private JPanel top=new JPanel();
