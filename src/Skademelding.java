@@ -24,11 +24,12 @@ public class Skademelding {
     private int takst;
     private String datoopprettet;
     
-    public Skademelding(Kunde k, String s, String t)
+    public Skademelding(Kunde k, String s, String t,String v)
     {
         kunde=k;
         melding=s;
         type=t;
+        vitne=v;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date cal = new Date();
         datoopprettet= dateFormat.format(cal.getTime());

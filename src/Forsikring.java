@@ -1,26 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
- * @author Joakim
- */
-
-//import setninger:
-
+// Gjør nødvendige import setninger:
 import java.io.Serializable;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+/*
+    Filen inneholder klassen Forsikring som er super-klasse til alle type forsikringer.
+    
+*/
 public class Forsikring implements Serializable {
 
     private int årligPremie;
-    private String opprettet; //Dato foroppretelse av avtale.
+    private String opprettet; //Dato for oppretelse av avtale.
     private long opprettetlong; //Dato oppgitt i milisekunder etter 1.1.1970
     private int forsikringsbeløp;
     private String betingelser;

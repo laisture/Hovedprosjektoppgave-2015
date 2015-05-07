@@ -15,26 +15,50 @@ public class Kunderegister implements Serializable  {
     
     LinkedList<Kunde> register =new LinkedList<>();
    
-    Reiseforsikring reise=new Reiseforsikring("europa", 100,199, "forsikring for å reise i europa");
-    Husforsikring hus = new Husforsikring("a",1,"b","c",2,"d",3,4,5,6,"e");
-    Båtforsikring båt = new Båtforsikring("a","b","c",1,2,"d",3,4,5,"e");
-    Bilforsikring bil = new Bilforsikring("f","d","dd","test",4,5,6,7,4,"f");
-    Kunde k= new Kunde("test", "testsen", "testgate 1");
-    Kunde k2= new Kunde("tes", "testse", "testgate ");
+    
     
     public Kunderegister()
     {
-        k2.addForsikring(reise);
-        register.add(k);
-        register.add(k2);
-        k2.addForsikring(hus);
-        k2.addForsikring(båt);
-        //hus.setGyldig(false);
-        k2.addForsikring(bil);
-        //bil.bonus();
+        
+        
          
     }
+    public void Start()
+    {
+        Kunde k=new Kunde("","","");
+        int i=register.size();
+        k.setNestenummer(i+1);
+    }
     
+    public void SendSkademelding(int k, String m, String t, String v)
+    {
+        
+        Kunde kunde=finnKunde(k);
+        kunde.addSkademelding(kunde,m,t,v);
+          
+    }
+    
+     public Skademelding[] getSkademeldinger()
+    {
+        ArrayList<Skademelding> skademeldinger=new ArrayList();
+        
+        Skademelding[] kundeskade;
+        for (Kunde kunde : register)
+        {
+            kundeskade=kunde.getSkademeldinger();
+            for(int i=0; i<kundeskade.length;i++)
+            {
+                if(kundeskade[i]!=null)
+                {
+                    skademeldinger.add(kundeskade[i]);
+                }
+            }
+        }
+        Skademelding[] skade = new Skademelding[skademeldinger.size()];
+        skade = skademeldinger.toArray(skade);
+        return skade;
+        
+    }
     public void settInn(Kunde ny)
     {
         register.add(ny);
@@ -44,16 +68,16 @@ public class Kunderegister implements Serializable  {
     {
         Kunde b=new Kunde(f,e,a);
         settInn(b);
-        return (true);
+        return true;
     }
     public Kunde finnKunde(int k)
     {
-        Iterator<Kunde> iterator = register.iterator();
-        while (iterator.hasNext())
+//       
+        for (Kunde kunde : register)
         {
-            if(iterator.next().getForsikringsnummer()==k)
-            {
-                return (iterator.next());
+            if (kunde.getForsikringsnummer()==k)
+            {    
+                return kunde;
             }
         }
         return null;
@@ -77,6 +101,7 @@ public class Kunderegister implements Serializable  {
         return null;
     }*/
     
+    
     public String toString()
     {
         String personer= "";
@@ -90,6 +115,5 @@ public class Kunderegister implements Serializable  {
    
     // <Metorder for: Oppretting av kunder og forsikringer. >
     //<Metoder for søke gjennom kunder og forsikringer>
-    //<Metode for å langre>
     
 }

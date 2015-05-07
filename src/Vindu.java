@@ -8,14 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URL;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,11 +23,10 @@ public class Vindu extends JFrame implements Serializable
     
     private Kunderegister register;
     private JFrame f=new JFrame();
-   
-    
-    
-    //panel
     private Kunde k;
+    
+    //RegEx
+    private Pattern mønster;
     
     private JPanel panel=new JPanel();
     
@@ -152,6 +144,11 @@ public class Vindu extends JFrame implements Serializable
     private JTextField adressefield=new JTextField(15);
     private JButton lagkunde=new JButton("registrer kunde");
     private JTextArea output=new JTextArea(20,40);
+    //Skademelding
+    private JPanel skadepanel=new JPanel();
+    private JPanel topskade=new JPanel();
+    
+    private JLabel filter=new JLabel("Vis kunn: ");
     
     //Søk
     private JPanel søk =new JPanel();
@@ -166,57 +163,42 @@ public class Vindu extends JFrame implements Serializable
     
     public Vindu()
     {
-      super("Hallo");
-      //NY Metodekall!!!
-      lesFil(); //leser objekter fra filen
-      panel.setLayout(new BorderLayout());
-      vest.setLayout(new BorderLayout());
-      kundepanel.setLayout(new BorderLayout());
-      midt.setLayout(new BorderLayout());
-      søk.setLayout(new BorderLayout());
-       lytter = new Kommandolytter();
-       
-     lesFil();
-      
-      JTabbedPane tabbedPane = new JTabbedPane();
-      JTabbedPane forsikringer=new JTabbedPane();
-    
-     tabbedPane.addTab("ny forsikring",null, panel, "Does nothing");
-     tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-      
-      tabbedPane.addTab("ny kunde",null, kundepanel, "Does nothing");
-     tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-     //Bil
-     tabbedPane.addTab("Søk",null, søk, "Does nothing");
-     tabbedPane.setMnemonicAt(1, KeyEvent.VK_3);
-      
-     forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
-     forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
-      
-      forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
-      forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
-     //Bil
-     forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
-     forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
-     
-      String[] a = {"Bilforsikring","Båtforsikring","en til"};
-      
-      JList<String> l = new JList<>(a);
-        l.setVisibleRowCount(3);
-        l.setFixedCellWidth(50);
-        l.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        l.setSelectedIndex(4);
-        l.addListSelectionListener(new ListSelectionListener()
-        {
-            public void valueChanged(ListSelectionEvent e)
-            {
-                if( !e.getValueIsAdjusting() )
-                {
-                    String velger = l.getSelectedValue();
-                    // get info
-                }
-            }
-        });
+        super("Main frame");
+        // Leser kundedata fra fil
+        lesFil();
+        panel.setLayout(new BorderLayout());
+        vest.setLayout(new BorderLayout());
+        kundepanel.setLayout(new BorderLayout());
+        midt.setLayout(new BorderLayout());
+        søk.setLayout(new BorderLayout());
+        skadepanel.setLayout(new BorderLayout());
+        lytter = new Kommandolytter();
+        
+        JTabbedPane tabbedPane = new JTabbedPane();
+        JTabbedPane forsikringer=new JTabbedPane();
+
+        tabbedPane.addTab("ny forsikring",null, panel, "Tegn forsikringer på kunde");
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+        tabbedPane.addTab("ny kunde",null, kundepanel, "Legg inn ny kunde i kunderegisteret.");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        
+        tabbedPane.addTab("Søk",null, søk, "Søk blandt kunder og se diverse forsikringer som kunden har tegnet.");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_3);
+
+        tabbedPane.addTab("Skademeldinger",null, skadepanel, "Se, vurder og endre på skademeldinger som er blitt sendt inn.");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_4);
+        
+        
+        forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
+        forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
+
+        forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
+        forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
+        //hus
+        forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
+        forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
+
       output.setEditable(false);
       output.setPreferredSize(new Dimension(100,100));
       lagkunde.addActionListener(lytter);
@@ -230,11 +212,11 @@ public class Vindu extends JFrame implements Serializable
       m2.add(lagkunde);
       m2.add(output);
      
-      
+      ut.setEditable(false);
       
       topbutton.addActionListener(lytter);
       v.add(knapp);
-      ø.add(l);
+      //ø.add(l);
       top.add(toplabel);
       top.add(topfield);
       top.add(topbutton);
@@ -257,7 +239,7 @@ public class Vindu extends JFrame implements Serializable
       
 
 
-//Søk-fane 
+      //Søk-fane 
         
       søkVest.add(søklabel);
       søkCenter.add(søkefelt);
@@ -267,6 +249,9 @@ public class Vindu extends JFrame implements Serializable
       søk.add(søkCenter,BorderLayout.CENTER);
       søkButton.addActionListener(lytter);
       
+      //Skademeldings fane
+      topskade.add(filter);
+      skadepanel.add(topskade,BorderLayout.NORTH);
       
       
       f.add(tabbedPane);
@@ -286,60 +271,84 @@ public class Vindu extends JFrame implements Serializable
     
     public void LagFaner()
     {
+        //bilpanel
+        bilpanel.setLayout(new BorderLayout());
+        bilpanel.add(bilpanel1, BorderLayout.NORTH);
+        bilpanel.add(bilpanel2, BorderLayout.CENTER);
+        bilpanel.add(bilpanel3, BorderLayout.SOUTH);
+        bilpanel1.add(eierlabel);
+        bilpanel1.add(eierfield);
+        bilpanel1.add(reglabel);
+        bilpanel1.add(regfield);
+        bilpanel1.add(btlabel);
+        bilpanel1.add(btfield);
+        bilpanel2.add(bmlabel);
+        bilpanel2.add(bmfield);
+        bilpanel2.add(regårlabel);
+        bilpanel2.add(regårfield);
+        bilpanel2.add(kjørelabel);
+        bilpanel2.add(kjørefield);
+        bilpanel2.add(bilbeløplabel);
+        bilpanel2.add(bilbeløpfield);
+        bilpanel3.add(bilbetingelser);
+        bilpanel3.add(bilbettext);
+        bilpanel3.add(lagbil);
+        lagbil.addActionListener(lytter);
+        bilbettext.setLineWrap(true);
         
-      //bilpanel
-      
-      bilpanel.setLayout(new BorderLayout());
-      bilpanel.add(bilpanel1, BorderLayout.NORTH);
-      bilpanel.add(bilpanel2, BorderLayout.CENTER);
-      bilpanel.add(bilpanel3, BorderLayout.SOUTH);
-      bilpanel1.add(eierlabel);
-      bilpanel1.add(eierfield);
-      bilpanel1.add(reglabel);
-    bilpanel1.add(regfield);
-    bilpanel1.add(btlabel);
-    bilpanel1.add(btfield);
-    bilpanel2.add(bmlabel);
-    bilpanel2.add(bmfield);
-    bilpanel2.add(regårlabel);
-    bilpanel2.add(regårfield);
-    bilpanel2.add(kjørelabel);
-    bilpanel2.add(kjørefield);
-    bilpanel2.add(bilbeløplabel);
-    bilpanel2.add(bilbeløpfield);
-    bilpanel3.add(bilbetingelser);
-    bilpanel3.add(bilbettext);
-    bilpanel3.add(lagbil);
-    lagbil.addActionListener(lytter);
     
-    //båtpanel
-     båtpanel.setLayout(new BorderLayout());
-      båtpanel.add(båtpanel1, BorderLayout.NORTH);
-      båtpanel.add(båtpanel2, BorderLayout.CENTER);
-      båtpanel.add(båtpanel3, BorderLayout.SOUTH);
-      båtpanel1.add(båteierlabel);
-      båtpanel1.add(båteierfield);
-      båtpanel1.add(båtreglabel);
-    båtpanel1.add(båtregfield);
-    båtpanel1.add(båttlabel);
-    båtpanel1.add(båttfield);
-    båtpanel2.add(båtmlabel);
-    båtpanel2.add(båtmfield);
-    båtpanel2.add(båtårlabel);
-    båtpanel2.add(båtårlabel);
-    båtpanel2.add(lengdelabel);
-    båtpanel2.add(lengdefield);
-    båtpanel2.add(motortlabel);
-    båtpanel2.add(motortfield);
-    båtpanel2.add(motorslabel);
-    båtpanel2.add(motorsfield);
-    båtpanel2.add(båtbeløplabel);
-    båtpanel2.add(båtbeløpfield);
-    båtpanel3.add(båtbetingelser);
-    båtpanel3.add(båtbettext);
-    båtpanel3.add(lagbåt);   
-    
-      
+        båtpanel.setLayout(new BorderLayout());
+        båtpanel.add(båtpanel1, BorderLayout.NORTH);
+        båtpanel.add(båtpanel2, BorderLayout.CENTER);
+        båtpanel.add(båtpanel3, BorderLayout.SOUTH);
+        båtpanel1.add(båteierlabel);
+        båtpanel1.add(båteierfield);
+        båtpanel1.add(båtreglabel);
+        båtpanel1.add(båtregfield);
+        båtpanel1.add(båttlabel);
+        båtpanel1.add(båttfield);
+        båtpanel2.add(båtmlabel);
+        båtpanel2.add(båtmfield);
+        båtpanel2.add(båtårlabel);
+        båtpanel2.add(båtårlabel);
+        båtpanel2.add(lengdelabel);
+        båtpanel2.add(lengdefield);
+        båtpanel2.add(motortlabel);
+        båtpanel2.add(motortfield);
+        båtpanel2.add(motorslabel);
+        båtpanel2.add(motorsfield);
+        båtpanel2.add(båtbeløplabel);
+        båtpanel2.add(båtbeløpfield);
+        båtpanel3.add(båtbetingelser);
+        båtpanel3.add(båtbettext);
+        båtpanel3.add(lagbåt);    
+        //båtpanel
+        båtpanel.setLayout(new BorderLayout());
+        båtpanel.add(båtpanel1, BorderLayout.NORTH);
+        båtpanel.add(båtpanel2, BorderLayout.CENTER);
+        båtpanel.add(båtpanel3, BorderLayout.SOUTH);
+        båtpanel1.add(båteierlabel);
+        båtpanel1.add(båteierfield);
+        båtpanel1.add(båtreglabel);
+        båtpanel1.add(båtregfield);
+        båtpanel1.add(båttlabel);
+        båtpanel1.add(båttfield);
+        båtpanel2.add(båtmlabel);
+        båtpanel2.add(båtmfield);
+        båtpanel2.add(båtårlabel);
+        båtpanel2.add(båtårlabel);
+        båtpanel2.add(lengdelabel);
+        båtpanel2.add(lengdefield);
+        båtpanel2.add(motortlabel);
+        båtpanel2.add(motortfield);
+        båtpanel2.add(motorslabel);
+        båtpanel2.add(motorsfield);
+        båtpanel2.add(båtbeløplabel);
+        båtpanel2.add(båtbeløpfield);
+        båtpanel3.add(båtbetingelser);
+        båtpanel3.add(båtbettext);
+        båtpanel3.add(lagbåt);   
+        båtbettext.setLineWrap(true);
     }
     public void Forsikringer()
     {
@@ -353,7 +362,8 @@ public class Vindu extends JFrame implements Serializable
         Boolean ok=register.nyKunde(fornavn,etternavn,adresse);
         if (ok)
         {
-         output.setText("Kunde er oprettet!");
+          
+         output.setText("Kunde er opprettet");
         }
         else
         {
@@ -393,7 +403,7 @@ public class Vindu extends JFrame implements Serializable
     }
     public void finnKunde()
     {
-      int kundeNr = Integer.parseInt(topfield.getText());
+        int kundeNr = Integer.parseInt(topfield.getText());
         Kunde kunden1 = register.finnKunde(kundeNr);
         if(kunden1 !=null)
         {
@@ -408,45 +418,11 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    //Leser objekter fra fil
-    public void lesFil()
+    public void sendSkademelding(int k, String m, String t, String v)
     {
-        try(ObjectInputStream les = new ObjectInputStream(
-            new FileInputStream("src/lagrefil.data")))
-        {
-            register = (Kunderegister) les.readObject();
-        }
-        catch(FileNotFoundException fnfe)
-        {
-            JOptionPane.showMessageDialog(null,"Finner ikke fil");
-            
-        }
-        catch(ClassNotFoundException cnfe)
-        {
-            JOptionPane.showMessageDialog(null,"Finner ikke klassen ");
-        }
-        catch(IOException ioe)
-        {
-            JOptionPane.showMessageDialog(null,"Feil ved lesing av fil");
-        }
+        register.SendSkademelding(k, m, t, v);
     }
-    //Skriver registeret til fil
-    public void skrivTilFil()
-    {
-        try(ObjectOutputStream skrive = new ObjectOutputStream(
-            new FileOutputStream("src/lagrefil.data")))
-        {
-            skrive.writeObject(register);
-        }
-        catch(NotSerializableException nse)
-        {
-            JOptionPane.showMessageDialog(null,"Objektet er ikke serialisert");
-        }
-        catch(IOException ioe)
-        {
-            JOptionPane.showMessageDialog(null,"Feil ved skriving til fil");
-        }
-    }
+    
     
     public void LagBil()
     {
@@ -455,7 +431,7 @@ public class Vindu extends JFrame implements Serializable
         int priskm=Integer.parseInt("12");
         int bonus=Integer.parseInt("123");
         int bilbeløp=Integer.parseInt(bilbeløpfield.getText());
-        
+    
         Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText(),regår,kjør, priskm,bonus, bilbeløp, kjørefield.getText());
         Boolean ok=register.LagForsikring(k, bil);
         if(ok)
@@ -470,53 +446,78 @@ public class Vindu extends JFrame implements Serializable
         }
     
     }
-   private class Kommandolytter implements ActionListener
-  {
-       
-   
-    @Override
-    public void actionPerformed( ActionEvent e )
+    private class Kommandolytter implements ActionListener
     {
-        System.out.println("test");
-      if ( e.getSource() == lagkunde )
-        LagKunde();
-      else if(e.getSource() == søkButton  )
-          søkKunde();
-      else if(e.getSource()==topbutton )
-          finnKunde();
-      else if(e.getSource()==lagbil)
-          LagBil();
-      
-      
-      Bileier();
+       
+        public void actionPerformed( ActionEvent e )
+        {
+          if ( e.getSource() == lagkunde )
+            LagKunde();
+          else if(e.getSource() == søkButton  )
+            søkKunde();
+          else if(e.getSource()==topbutton )
+            finnKunde();
+          else if(e.getSource()==lagbil)
+            LagBil();
+          
+          Bileier();
+        }
     }
-   }
     
-      private void visFeilmelding(String melding)
+     private void visFeilmelding(String melding)
     {
       JOptionPane.showMessageDialog(this, melding,
               "Problem", JOptionPane.ERROR_MESSAGE);
     }
-    
-  
+    /*
+        Metoden blir kalt opp hver gang programmet starter og blir lagret i minne.
+        Metoden har som ansvar for å lese filen liste.data, som skal inneholde all data om kundene i systemet.
+        Hvis den er tom, dvs kunderegisteret ikke er blitt opprettet ennå, vil den automatisk bli opprettet første gang.
+        I tillegg er det lagt til try/catch blokker for feilbehandling.
+    */ 
+    public void lesFil()
+    {
+        try (ObjectInputStream innfil = new ObjectInputStream(
+                new FileInputStream( "src/liste.data" )))
+        {
+            register = (Kunderegister) innfil.readObject();
+        }
+        catch(ClassNotFoundException cnfe)
+        {
+            ut.setText(cnfe.getMessage());
+            ut.append("\nOppretter tom liste.\n");
+            register = new Kunderegister();
+        }
+        catch(FileNotFoundException fne)
+        {
+            ut.setText("Finner ikke datafil. Oppretter tom liste.\n");
+            register = new Kunderegister();
+        }
+       catch(IOException ioe)
+        {
+            ut.setText("Innlesingsfeil. Oppretter tom liste.\n");
+            register = new Kunderegister();
+        }
+    }
+    /*
+        Denne metoden kjøres hver gang programmet avsluttes.
+        All informasjon som ligger i Kunderegisteret blir lagret til fil.
+        Passende try/catch blokker er lagt til for feilhåndtering.
+    */
     public void SkrivTilFil()
     {
         try (ObjectOutputStream utfil = new ObjectOutputStream(
              new FileOutputStream("src/liste.data")))
-     {
-       utfil.writeObject(register);
-       System.out.println("tests");
-     }
-     catch( NotSerializableException nse )
-     {
-       visFeilmelding("Objektet er ikke serialisert!");
-     }
-     catch( IOException ioe )
-     {
-       visFeilmelding("Problem med utskrift til fil.");
-     }
+        {
+            utfil.writeObject(register);
+        }
+        catch( NotSerializableException nse )
+        {
+            visFeilmelding("Objektet er ikke serialisert!");
+        }
+        catch( IOException ioe )
+        {
+            visFeilmelding("Problem med utskrift til fil.");
+        }
     }
-
-        
-  
 }
