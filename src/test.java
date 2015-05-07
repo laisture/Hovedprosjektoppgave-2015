@@ -1,8 +1,7 @@
 
-import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.table.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,6 +22,14 @@ public class test {
         //Kunderegister register= new Kunderegister();
         //SkademeldingVindu vinduetd = new SkademeldingVindu();
        // Boolean ok = register.k.totalKunde();
+        EventQueue.invokeLater( new Runnable()
+        {
+            public void run()
+            {
+                JFrame vindutest = new Tabell();
+                vindutest.setVisible(true);
+            }
+        });
        
 			
 		
@@ -31,6 +38,63 @@ public class test {
 			
 		
         
+    }
+    class Tabell
+    {
+        public static final int ERSTATNINGSKOLONNE = 0;
+        
+        private String[] kolonnenavn =
+        {
+           "KundeID", "Skadetype", "Dato", "Antallskader", "Erstatningskostnad", "Skademelding", "Bilde"
+        };
+        private Object[][] tabellskader =
+        {
+            {
+                
+            }
+        }
+        public String getColumnName( int kolonne )
+        {
+            return kolonnenavn[ kolonne];
+        }
+        public Class getColumnClass( int kolonne)
+        {
+            return tabellskader[ 0][ kolonne].getClass();
+        }
+        public int getColumnCount()
+        {
+            return tabellskader[ 0].length;
+        }
+        public int getRowCount()
+        {
+            return tabellskader.length;
+        }
+        public boolean istabellskaderEditable(int rad, int kolonne )
+        {
+            return kolonne == ERSTATNINGSKOLONNE;
+        }
+        public void setValueAt( Object nyVerdi, int rad, int kolonne )
+        {
+            tabellskader[ rad][ kolonne] = nyVerdi;
+        }
+    }
+    class TabellFrame extends JFrame
+    {
+        public TabellFrame(JTextField textField)
+        {
+            setTitle("Statistikk modell");
+            setSize(500, 500);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            Tabell modell = new Tabell();
+            JTable tabell = new JTable(modell);
+            sjekkboks = new JCheckBox("");
+            tabell.setRowHeight(100);
+            textField  = new JTextField(7);
+            Container c = getContentPane();
+            c.add(new JScrollPane(tabell), BorderLayout.CENTER);
+            tabell.setAutoCreateRowSorter(true);
+            
+        }
     }
     
 }
