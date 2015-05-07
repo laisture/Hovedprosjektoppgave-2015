@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.URL;
+import java.util.regex.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 //import javax.swing.event.*;
@@ -27,6 +28,7 @@ public class Vindu extends JFrame implements Serializable
     
     //RegEx
     private Pattern mønster;
+    private Matcher match;
     
     private JPanel panel=new JPanel();
     
@@ -354,15 +356,32 @@ public class Vindu extends JFrame implements Serializable
     {
         
     }
+    public boolean match(String regex)
+    {
+        mønster = Pattern.compile("a-zA-Z");
+        match = mønster.matcher(regex);
+        return match.matches();
+    }
     public void LagKunde()
     {
+        /*try
+        {
+            String fornavn=fornavnfield.getText();
+            ok = match(fornavn);
+            if(!ok)
+                output.setText("Feil i innput, prøv igjen");
+        }
+        catch(PatternSyntaxException pse)
+        {
+            output.setText("Feil i innput, prøv igjen");
+        }*/
         String fornavn=fornavnfield.getText();
         String etternavn=etternavnfield.getText();
         String adresse=adressefield.getText();
         Boolean ok=register.nyKunde(fornavn,etternavn,adresse);
         if (ok)
         {
-          
+
          output.setText("Kunde er opprettet");
         }
         else
