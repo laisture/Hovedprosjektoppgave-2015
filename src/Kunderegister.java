@@ -30,6 +30,14 @@ public class Kunderegister implements Serializable  {
         k.setNestenummer(i+1);
     }
     
+    public void SendSkademelding(int k, String m, String t, String v)
+    {
+        
+        Kunde kunde=finnKunde(k);
+        kunde.addSkademelding(kunde,m,t,v);
+          
+    }
+    
      public Skademelding[] getSkademeldinger()
     {
         ArrayList<Skademelding> skademeldinger=new ArrayList();

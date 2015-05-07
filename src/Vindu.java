@@ -402,6 +402,10 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
+    public void sendSkademelding(int k, String m, String t, String v)
+    {
+        register.SendSkademelding(k, m, t, v);
+    }
     
     
     public void LagBil()

@@ -35,6 +35,18 @@ public class Kunde implements Serializable {
         forsikringer.add(f);
         return true;
     }
+    public void addSkademelding(Kunde k, String m, String t, String v)
+    {
+        Skademelding s=new Skademelding(k,m,t,v);
+        for (int i =0;i<skademeldinger.length;i++)
+        {
+            if(skademeldinger[i]==null)
+            {
+                skademeldinger[i]=s;
+                i=skademeldinger.length+1;
+            }
+        }
+    }
     public void setNestenummer(int i)
     {
         nestenummer=i;
