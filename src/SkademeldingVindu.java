@@ -29,6 +29,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SkademeldingVindu  extends JFrame  {
     
+    final Vindu frame= new Vindu();
+    
     private JFrame vindu =new JFrame ("Send inn ");
     private JPanel p= new JPanel();
     private JPanel n=new JPanel();
@@ -74,6 +76,7 @@ public class SkademeldingVindu  extends JFrame  {
     s.setLayout(new GridLayout(3,1));
     lytter = new Kommandolytter();
     bbutton.addActionListener(lytter);
+    knapp.addActionListener(lytter);
     
     n.add(kundelabel);
     n.add(kundefield);
@@ -146,6 +149,12 @@ public class SkademeldingVindu  extends JFrame  {
  
 
     }
+    public void SendSkademelding()
+    {
+       int k=Integer.parseInt(kundefield.getText());
+      
+       
+    }
     
     private class Kommandolytter implements ActionListener
     {
@@ -154,6 +163,8 @@ public class SkademeldingVindu  extends JFrame  {
         {
           if ( e.getSource() == bbutton )
            Bildet();
+          else if (e.getSource()==knapp)
+              SendSkademelding();
           
           
         }
