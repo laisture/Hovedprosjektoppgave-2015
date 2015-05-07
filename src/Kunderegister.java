@@ -8,6 +8,7 @@
  *
  * @author Joakim
  */
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.*;
 
@@ -30,11 +31,11 @@ public class Kunderegister implements Serializable  {
         k.setNestenummer(i+1);
     }
     
-    public void SendSkademelding(int k, String m, String t, String v)
+    public void SendSkademelding(int k, String m, String t, String v,BufferedImage b)
     {
         
         Kunde kunde=finnKunde(k);
-        kunde.addSkademelding(kunde,m,t,v);
+        kunde.addSkademelding(kunde,m,t,v,b);
           
     }
     
@@ -59,6 +60,22 @@ public class Kunderegister implements Serializable  {
         return skade;
         
     }
+     public Object[][] get2dSkade()
+     {
+         Skademelding[] skader=getSkademeldinger();
+         Object[][] s=new Object[skader.length][6];
+         
+         for (int i=0; i<skader.length;i++)
+         {
+             s[i][0]=skader[i].getKunde().getForsikringsnummer();
+             s[i][1]=skader[i].getType();
+             s[i][2]=skader[i].getDato();
+             s[i][3]=skader[i].getTakst();
+             s[i][4]=skader[i].getMelding();
+             s[i][5]=skader[i].getBildet();
+         }
+         return s;
+     }
     public void settInn(Kunde ny)
     {
         register.add(ny);
