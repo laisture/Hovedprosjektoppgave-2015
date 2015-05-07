@@ -63,7 +63,7 @@ public class Kunderegister implements Serializable  {
      public Object[][] get2dSkade()
      {
          Skademelding[] skader=getSkademeldinger();
-         Object[][] s=new Object[skader.length][6];
+         Object[][] s=new Object[skader.length][5];
          
          for (int i=0; i<skader.length;i++)
          {
@@ -72,7 +72,7 @@ public class Kunderegister implements Serializable  {
              s[i][2]=skader[i].getDato();
              s[i][3]=skader[i].getTakst();
              s[i][4]=skader[i].getMelding();
-             s[i][5]=skader[i].getBildet();
+             //s[i][5]=skader[i].getBildet();
          }
          return s;
      }
