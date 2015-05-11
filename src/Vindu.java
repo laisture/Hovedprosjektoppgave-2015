@@ -26,11 +26,14 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
-    public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
-    public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
+    public final static String regexNavn = "^[a-zæøåA-ZÆØÅ ]{1,20}$";
+    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ ]{1,40}$";
+    public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 ]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
     public final static String regexRegår = "^[0-9]{4}$";
-    
+    public final static String regexRegNr = "^[a-zæøåA-ZÆØÅ_0-9]{7}$";
+    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ]{10,500}$";
+    //Slutt på Regex
     private JPanel panel=new JPanel();
     
     private JPanel top=new JPanel();
@@ -375,7 +378,7 @@ public class Vindu extends JFrame implements Serializable
         Metoden har som oppgave å legge nye kunder inn i registeret, hvis dette går får vi tilbake melding om det.
         Hvis ikke får vi beskjed om feil input, i tillegg er det lagt til regex for å forhindre feil input.
     */
-    public void LagKunde()
+    public void lagKunde()
     {
         Boolean ok = true;
         try
@@ -486,11 +489,14 @@ public class Vindu extends JFrame implements Serializable
     {
         /*register.SendSkademelding(k, m, t, v,b);*/
     }
+    /*
+        Metoden har som oppgave å legge til bilforsikring i kunden.
+        Det er lagt til regex i alle input-felt og try/catch blokker ved exceptions.
+    */
     
-    
-    public void LagBil()
+    public void lagBil()
     {
-        int regår;
+        int regår = 0;
         int kjørelengde;
         int priskm = 1;
         int bonus;
@@ -498,28 +504,72 @@ public class Vindu extends JFrame implements Serializable
         //Boolean ok= true;
         try
         {
+            String bileier = eierfield.getText();
+            String regNr = regfield.getText();
+            String biltype = btfield.getText();
+            String bilmerke= bmfield.getText();
             String regår2 = regårfield.getText();
             String kjørelengde2= kjørefield.getText();
             String bilbeløp2 = bilbeløpfield.getText();
+            String betingelser = bilbettext.getText();
+            if(!match(regexFulltnavn,bileier))
+            {
+                ut.setText("Feil i bileier felt, kun tilatt med bokstaver(maks 40 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexRegNr,regNr))
+            {
+                ut.setText("Feil i registreringsnummer felt, eksempel på riktig registeringsnummer: SK05345 (små bokstaver er tilatt)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNavn,biltype))
+            {
+                ut.setText("Feil i biltype felt, kun bokstaver tilatt \n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexAdresse,bilmerke))
+            {
+                ut.setText("Feil i bilmerke felt, prøv igjen\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
             if(!match(regexRegår,regår2))
             {
-                output.setText("Feil i registeringsår felt, kun tilatt med 4 nummer");
-                output.append("\nRegistering ble ikke fulført\n");
+                ut.setText("Feil i registeringsår felt, kun tilatt med 4 nummer\n");
+                ut.append("Registering ble ikke fulført");
                 return;
             }
 
             if(!match(regexNr,kjørelengde2))
             {
-                output.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10)\n");
+                ut.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10 tegn)\n");
+                ut.append("\nRegistering ble ikke fulført");
+                return;
             }
             if(!match(regexNr,bilbeløp2))
+            {
+                ut.setText("Feil i forsikringsbeløp felt, kun nummer tilatt(maks 10 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            
+            
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
             bonus=20;
             bilbeløp=Integer.parseInt(bilbeløp2);
-
-            Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText()
-                                                ,regår,kjørelengde, priskm,bonus, bilbeløp, kjørefield.getText());
+            
+            Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
+                kjørelengde,priskm,bonus, bilbeløp, betingelser);
             
             Boolean ok=register.LagForsikring(k, bil);
             if(ok)
@@ -531,32 +581,67 @@ public class Vindu extends JFrame implements Serializable
                 bilbeløpfield.setText("");
                 kjørefield.setText("");
                 regårfield.setText("");
+                bilbettext.setText("");
             }
         }
         catch(NumberFormatException nfe)
         {
-            
+            ut.setText("NumberFormatException");
+        }
+        catch(NullPointerException npe)
+        {
+            ut.setText("Vennligst skriv inn gyldig kundenavn");
         }
     
     }
+    
+    public void lagBåt()
+    {
+        
+        try
+        {
+            String båteier = båteierfield.getText();
+            String regnr = båtregfield.getText();
+            String mdoell = båttfield.getText();
+            String lengde2 = båtmfield.getText();
+            String år2 = lengdefield.getText();
+            String motor = motortfield.getText();
+            String motorstyrke2 = motorsfield.getText();
+            String premie2 = båtbeløpfield.getText();
+            String betingelser = båtbettext.getText();
+            
+            if(!match(regexFulltnavn,båteier))
+            {
+                ut.setText("Feil i ");
+            }
+        }
+        catch(NullPointerException npe)
+        {
+            
+        }
+    }
+    // Kommenter plz
     private class Kommandolytter implements ActionListener
     {
        
         public void actionPerformed( ActionEvent e )
         {
           if ( e.getSource() == lagkunde )
-            LagKunde();
+            lagKunde();
           else if(e.getSource() == søkButton  )
             søkKunde();
           else if(e.getSource()==topbutton )
             finnKunde();
           else if(e.getSource()==lagbil)
-            LagBil();
-          
+            lagBil();
+          else if(e.getSource()== lagbåt)
+            lagBåt();
           Bileier();
         }
     }
-    
+    /* 
+        Kommenter PLZ
+    */
      class Tabell
     {
         public static final int ERSTATNINGSKOLONNE = 4;
