@@ -14,10 +14,6 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import static java.util.Locale.filter;
-import static java.util.Locale.filter;
-import static java.util.Locale.filter;
-import static java.util.Locale.filter;
-import static java.util.Locale.filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -53,8 +49,8 @@ public class SkademeldingVindu  extends JFrame  {
     private BufferedImage bildet;
     private BufferedImage visbildet;
     
-   JFileChooser chooser = new JFileChooser();
-   FileNameExtensionFilter filter = new FileNameExtensionFilter(
+    private JFileChooser chooser = new JFileChooser();
+    private FileNameExtensionFilter filter = new FileNameExtensionFilter(
         "JPG & GIF Images", "jpg", "gif");
     
     

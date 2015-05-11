@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -32,7 +32,9 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
-    private Pattern mønster;
+    public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
+    public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
+    public final static String regexNr = "^[0-9]{1,10}$";
     
     private JPanel panel=new JPanel();
     
@@ -214,7 +216,7 @@ public class Vindu extends JFrame implements Serializable
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
 
       output.setEditable(false);
-      output.setPreferredSize(new Dimension(100,100));
+      output.setPreferredSize(new Dimension(50,50));
       lagkunde.addActionListener(lytter);
       
       m2.add(fornavnlabel);
@@ -375,21 +377,55 @@ public class Vindu extends JFrame implements Serializable
     {
         
     }
+    public boolean match(String regex, String inn)
+    {
+        Pattern mønster = Pattern.compile(regex);
+        Matcher match = mønster.matcher(inn);
+        return match.matches();
+    }
+    /*
+        Metoden har som oppgave å legge nye kunder inn i registeret, hvis dette går får vi tilbake melding om det.
+        Hvis ikke får vi beskjed om feil input, i tillegg er det lagt til regex for å forhindre feil input.
+    */
     public void LagKunde()
     {
-        String fornavn=fornavnfield.getText();
+        Boolean ok = true;
+        try
+        {
+            String fornavn=fornavnfield.getText();
+            if(!match(regexNavn,fornavn))
+                ok = false;
+            String etternavn = etternavnfield.getText();
+            if(!match(regexNavn,etternavn))
+                ok=false;
+            String adresse = adressefield.getText();
+            if(!match(regexAdresse, adresse))
+                ok= false;
+            Boolean ok2=register.nyKunde(fornavn,etternavn,adresse);
+            if(!ok2)
+                ok= false;
+            if(ok)
+                output.setText("Kunde er registert med kundenummer : " + kundenr);
+            else
+                output.setText("");
+        }
+        catch(NumberFormatException | NullPointerException | PatternSyntaxException nfe)
+        {
+            output.setText("Feil i innput, prøv igjen");
+        }
+        /*String fornavn=fornavnfield.getText();
         String etternavn=etternavnfield.getText();
         String adresse=adressefield.getText();
         Boolean ok=register.nyKunde(fornavn,etternavn,adresse);
         if (ok)
         {
-          
+
          output.setText("Kunde er opprettet");
         }
         else
         {
             output.setText("Kunde ble ikke opprettet");
-        }
+        }*/
         fornavnfield.setText("");
         etternavnfield.setText("");
         adressefield.setText("");
@@ -398,19 +434,38 @@ public class Vindu extends JFrame implements Serializable
     
     public void søkKunde()
     {
-        int kundeNr = Integer.parseInt(søkefelt.getText());
-        Kunde kunden = register.finnKunde(kundeNr);
-        if(kunden !=null)
+        Boolean ok = true;
+        int kundeNr= 0;
+        try
         {
-            output2.setText(kunden.toString());
-            k=kunden;
-           
+            String okei = søkefelt.getText();
+            if(!match(regexNr,okei))
+                ok = false;
+            if(ok)
+                kundeNr = Integer.parseInt(okei);
+            else
+            {
+                output2.setText("Feil input, bruk kun nummer");
+                søkefelt.setText("");
+                return;
+            }
+            Kunde kunden = register.finnKunde(kundeNr);
+            if(kunden !=null)
+            {
+                output2.setText(kunden.toString());
+                k=kunden;
+            }
+            else
+            {
+                output2.setText("Finnes ingen kunder med dette kundenummeret");
+            }
+            søkefelt.setText("");
         }
-        else
+        catch(NullPointerException | PatternSyntaxException npe)
         {
-            output2.setText("Finnes ingen kunder med dette kundenummeret");
+            søkefelt.setText("");
+            output2.setText("Exception please doddodo");
         }
-        søkefelt.setText("");
         
     }
     public void Bileier()
@@ -439,9 +494,9 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    public void sendSkademelding(int k, String m, String t, String v)
+    public void sendSkademelding(int k, String m, String t, String v,BufferedImage b)
     {
-        register.SendSkademelding(k, m, t, v);
+        register.SendSkademelding(k, m, t, v,b);
     }
     
     
