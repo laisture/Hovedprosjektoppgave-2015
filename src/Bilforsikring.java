@@ -59,7 +59,7 @@ public class Bilforsikring extends Forsikring {
     }
     // Metoden har som oppgave å regne ut bonus hos forsikringskunden. Maks bonus er 75 prosentpoeng.
     // Comment: Må kunne lagre opparbeidet bonus en plass?
-    /*public void bonus(Kunde k)
+    public void bonus(Kunde k)
     {   
         Kunde kunde=k;
         int dager =  24* 3600 * 1000;
@@ -69,8 +69,7 @@ public class Bilforsikring extends Forsikring {
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();
         Skademelding siste=null;
-        
-        
+        /*
         for (int i=0; i<s.length;i++)
         {
             if(s[i].getType()=="bil")
@@ -82,7 +81,10 @@ public class Bilforsikring extends Forsikring {
             }
         }
         
-        bonus=20; // må sjekke om det er første bilforsikring hvis bonus skal være 20
+        if ( )
+        {
+            bonus+=20;
+        }
         long forskjell = dagensDato-opprettet;
         while(forskjell >= 0)
         {
@@ -97,7 +99,7 @@ public class Bilforsikring extends Forsikring {
         { // må fikse type skade melding og antall skader av de typene som skal påvirke bonus
             bonus=75;
         }
-        /*else
+        else
         {
            bonus=70;
         }
@@ -109,6 +111,6 @@ public class Bilforsikring extends Forsikring {
         {
             bonus-=30;
         }
-        
-    }*/
+        */
+    }
 }

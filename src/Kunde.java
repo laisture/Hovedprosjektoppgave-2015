@@ -1,4 +1,5 @@
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ public class Kunde implements Serializable {
         fakturaadresse=a;
         forsikringer = new ArrayList();
         aktiv=true;
+        skademeldinger=new Skademelding[100];
     }
     //Metoden legger til forsikringsobjekt i kunden sin forsikringsliste.
     public Boolean addForsikring(Forsikring f)
@@ -35,9 +37,9 @@ public class Kunde implements Serializable {
         forsikringer.add(f);
         return true;
     }
-    public void addSkademelding(Kunde k, String m, String t, String v)
+    public void addSkademelding(Kunde k, String m, String t, String v,BufferedImage b)
     {
-        Skademelding s=new Skademelding(k,m,t,v);
+        Skademelding s=new Skademelding(k,m,t,v,b);
         for (int i =0;i<skademeldinger.length;i++)
         {
             if(skademeldinger[i]==null)

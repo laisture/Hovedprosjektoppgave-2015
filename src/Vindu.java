@@ -8,11 +8,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.regex.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 //import javax.swing.event.*;
 
 /**
@@ -161,6 +163,12 @@ public class Vindu extends JFrame implements Serializable
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(40,40);
     
+    
+    //skademeldings tabell
+//    private Tabell modell = new Tabell();
+//    private JTable tabell = new JTable((TableModel) modell);
+//    
+    
     private Kommandolytter lytter;
     
     public Vindu()
@@ -252,9 +260,12 @@ public class Vindu extends JFrame implements Serializable
       søkButton.addActionListener(lytter);
       
       //Skademeldings fane
-      topskade.add(filter);
-      skadepanel.add(topskade,BorderLayout.NORTH);
-      
+//      topskade.add(filter);
+//      skadepanel.add(topskade,BorderLayout.NORTH);
+//      tabell.setRowHeight(100);
+//      skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
+//      tabell.setAutoCreateRowSorter(true);
+//      
       
       f.add(tabbedPane);
       f.pack();
@@ -437,9 +448,9 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    public void sendSkademelding(int k, String m, String t, String v)
+    public void sendSkademelding(int k, String m, String t, String v,BufferedImage b)
     {
-        register.SendSkademelding(k, m, t, v);
+        register.SendSkademelding(k, m, t, v,b);
     }
     
     
@@ -480,6 +491,42 @@ public class Vindu extends JFrame implements Serializable
             LagBil();
           
           Bileier();
+        }
+    }
+    
+     class Tabell
+    {
+        public static final int ERSTATNINGSKOLONNE = 4;
+        
+        private String[] kolonnenavn =
+        {
+           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding", "Bilde"
+        };
+        private Object[][] tabellskader = register.get2dSkade();
+                
+        public String getColumnName( int kolonne )
+        {
+            return kolonnenavn[ kolonne];
+        }
+        public Class getColumnClass( int kolonne)
+        {
+            return tabellskader[ 0][ kolonne].getClass();
+        }
+        public int getColumnCount()
+        {
+            return tabellskader[ 0].length;
+        }
+        public int getRowCount()
+        {
+            return tabellskader.length;
+        }
+        public boolean istabellskaderEditable(int rad, int kolonne )
+        {
+            return kolonne == ERSTATNINGSKOLONNE;
+        }
+        public void setValueAt( Object nyVerdi, int rad, int kolonne )
+        {
+            tabellskader[ rad][ kolonne] = nyVerdi;
         }
     }
     

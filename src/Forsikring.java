@@ -30,7 +30,6 @@ public class Forsikring implements Serializable {
        
         // <opprettingsdato>
     }
-    
     public int getPremie()
     {
         return årligPremie;
