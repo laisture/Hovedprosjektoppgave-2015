@@ -164,9 +164,9 @@ public class Vindu extends JFrame implements Serializable
     
     
     //skademeldings tabell
-//    private Tabell modell = new Tabell();
-//    private JTable tabell = new JTable((TableModel) modell);
-//    
+    private Tabell modell = new Tabell();
+    private JTable tabell = new JTable((TableModel) modell);
+    
     
     private Kommandolytter lytter;
     
@@ -259,12 +259,12 @@ public class Vindu extends JFrame implements Serializable
       søkButton.addActionListener(lytter);
       
       //Skademeldings fane
-//      topskade.add(filter);
-//      skadepanel.add(topskade,BorderLayout.NORTH);
-//      tabell.setRowHeight(100);
-//      skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
-//      tabell.setAutoCreateRowSorter(true);
-//      
+      topskade.add(filter);
+     skadepanel.add(topskade,BorderLayout.NORTH);
+      tabell.setRowHeight(100);
+      skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
+      tabell.setAutoCreateRowSorter(true);
+      
       
       f.add(tabbedPane);
       f.pack();
