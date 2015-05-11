@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.regex.Pattern;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 //import javax.swing.event.*;
 
@@ -25,6 +27,7 @@ public class Vindu extends JFrame implements Serializable
 {
     
     private Kunderegister register;
+    
     private JFrame f=new JFrame();
     private Kunde k;
     
@@ -164,8 +167,8 @@ public class Vindu extends JFrame implements Serializable
     
     
     //skademeldings tabell
-    private Tabell modell = new Tabell();
-    private JTable tabell = new JTable((TableModel) modell);
+    private Tabell modell;
+    private JTable tabell;
     
     
     private Kommandolytter lytter;
@@ -175,6 +178,8 @@ public class Vindu extends JFrame implements Serializable
         super("Main frame");
         // Leser kundedata fra fil
         lesFil();
+        modell = new Tabell(register.get2dSkade());
+        tabell = new JTable(modell);
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -262,6 +267,10 @@ public class Vindu extends JFrame implements Serializable
       topskade.add(filter);
      skadepanel.add(topskade,BorderLayout.NORTH);
       tabell.setRowHeight(100);
+      tabell.getColumnModel().getColumn(0).setMaxWidth(100);
+     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+     centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+     tabell.setDefaultRenderer(String.class, centerRenderer);     
       skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
       tabell.setAutoCreateRowSorter(true);
       
@@ -476,41 +485,7 @@ public class Vindu extends JFrame implements Serializable
         }
     }
     
-     class Tabell
-    {
-        public static final int ERSTATNINGSKOLONNE = 4;
-        
-        private String[] kolonnenavn =
-        {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding", "Bilde"
-        };
-        private Object[][] tabellskader = register.get2dSkade();
-                
-        public String getColumnName( int kolonne )
-        {
-            return kolonnenavn[ kolonne];
-        }
-        public Class getColumnClass( int kolonne)
-        {
-            return tabellskader[ 0][ kolonne].getClass();
-        }
-        public int getColumnCount()
-        {
-            return tabellskader[ 0].length;
-        }
-        public int getRowCount()
-        {
-            return tabellskader.length;
-        }
-        public boolean istabellskaderEditable(int rad, int kolonne )
-        {
-            return kolonne == ERSTATNINGSKOLONNE;
-        }
-        public void setValueAt( Object nyVerdi, int rad, int kolonne )
-        {
-            tabellskader[ rad][ kolonne] = nyVerdi;
-        }
-    }
+     
     
      private void visFeilmelding(String melding)
     {
@@ -568,4 +543,7 @@ public class Vindu extends JFrame implements Serializable
             visFeilmelding("Problem med utskrift til fil.");
         }
     }
+    
+    
 }
+
