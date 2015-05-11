@@ -405,7 +405,7 @@ public class Vindu extends JFrame implements Serializable
             if(!ok2)
                 ok= false;
             if(ok)
-                output.setText("Kunde er registert med kundenummer : " + kundenr);
+                output.setText("Kunde er registert med kundenummer : " );
             else
                 output.setText("");
         }
@@ -494,9 +494,9 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    public void sendSkademelding(int k, String m, String t, String v,BufferedImage b)
+    public void sendSkademelding(int k, String m, String t, String v)
     {
-        register.SendSkademelding(k, m, t, v,b);
+        register.SendSkademelding(k, m, t, v);
     }
     
     
