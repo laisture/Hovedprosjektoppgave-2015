@@ -74,6 +74,7 @@ public class Kunderegister implements Serializable  {
              s[i][4]=skader[i].getMelding();
              //s[i][5]=skader[i].getBildet();
          }
+         System.out.println(s);
          return s;
      }
     public void settInn(Kunde ny)
