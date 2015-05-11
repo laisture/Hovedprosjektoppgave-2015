@@ -12,12 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.regex.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
-//import javax.swing.event.*;
+import javax.swing.event.*;
 
 /**
  *
@@ -35,6 +30,7 @@ public class Vindu extends JFrame implements Serializable
     public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
     public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
+    public final static String regexRegår = "^[0-9]{4}$";
     
     private JPanel panel=new JPanel();
     
@@ -42,7 +38,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel vest=new JPanel();
     private JPanel v=new JPanel();
     private JPanel ø=new JPanel();
-    private JButton knapp=new JButton("test!");
     private JPanel midt=new JPanel();
     private JPanel mm=new JPanel();
     private JPanel mf=new JPanel();
@@ -111,7 +106,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea båtbettext=new JTextArea(10,40);
     private JButton lagbåt=new JButton("tegn båtforsikring");
-    
+    //End of båtpanel
     
     //husforsikring
     private JPanel huspanel1=new JPanel();
@@ -231,7 +226,7 @@ public class Vindu extends JFrame implements Serializable
       ut.setEditable(false);
       
       topbutton.addActionListener(lytter);
-      v.add(knapp);
+      //v.add(knapp);
       //ø.add(l);
       top.add(toplabel);
       top.add(topfield);
@@ -405,7 +400,7 @@ public class Vindu extends JFrame implements Serializable
             if(!ok2)
                 ok= false;
             if(ok)
-                output.setText("Kunde er registert med kundenummer : " );
+                output.setText("Kunde er registert med kundenummer : " /*+ kundenr*/);
             else
                 output.setText("");
         }
@@ -435,14 +430,14 @@ public class Vindu extends JFrame implements Serializable
     public void søkKunde()
     {
         Boolean ok = true;
-        int kundeNr= 0;
+        int kundeNr;
         try
         {
-            String okei = søkefelt.getText();
-            if(!match(regexNr,okei))
+            String søk = søkefelt.getText();
+            if(!match(regexNr,søk))
                 ok = false;
             if(ok)
-                kundeNr = Integer.parseInt(okei);
+                kundeNr = Integer.parseInt(søk);
             else
             {
                 output2.setText("Feil input, bruk kun nummer");
@@ -502,23 +497,52 @@ public class Vindu extends JFrame implements Serializable
     
     public void LagBil()
     {
-        int regår=Integer.parseInt(regårfield.getText());
-        int kjør=Integer.parseInt(kjørefield.getText());
-        int priskm=Integer.parseInt("12");
-        int bonus=Integer.parseInt("123");
-        int bilbeløp=Integer.parseInt(bilbeløpfield.getText());
-    
-        Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText(),regår,kjør, priskm,bonus, bilbeløp, kjørefield.getText());
-        Boolean ok=register.LagForsikring(k, bil);
-        if(ok)
+        int regår;
+        int kjørelengde;
+        int priskm = 1;
+        int bonus;
+        int bilbeløp;
+        //Boolean ok= true;
+        try
         {
-            eierfield.setText("");
-            regfield.setText("");
-            btfield.setText("");
-            bmfield.setText("");
-            bilbeløpfield.setText("");
-            kjørefield.setText("");
-            regårfield.setText("");
+            String regår2 = regårfield.getText();
+            String kjørelengde2= kjørefield.getText();
+            String bilbeløp2 = bilbeløpfield.getText();
+            if(!match(regexRegår,regår2))
+            {
+                output.setText("Feil i registeringsår felt, kun tilatt med 4 nummer");
+                output.append("\nRegistering ble ikke fulført\n");
+                return;
+            }
+
+            if(!match(regexNr,kjørelengde2))
+            {
+                output.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10)\n");
+            }
+            if(!match(regexNr,bilbeløp2))
+            regår=Integer.parseInt(regår2);
+            kjørelengde=Integer.parseInt(kjørelengde2);
+            bonus=20;
+            bilbeløp=Integer.parseInt(bilbeløp2);
+
+            Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText()
+                                                ,regår,kjørelengde, priskm,bonus, bilbeløp, kjørefield.getText());
+            
+            Boolean ok=register.LagForsikring(k, bil);
+            if(ok)
+            {
+                eierfield.setText("");
+                regfield.setText("");
+                btfield.setText("");
+                bmfield.setText("");
+                bilbeløpfield.setText("");
+                kjørefield.setText("");
+                regårfield.setText("");
+            }
+        }
+        catch(NumberFormatException nfe)
+        {
+            
         }
     
     }
