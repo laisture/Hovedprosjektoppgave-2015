@@ -149,7 +149,7 @@ public class SkademeldingVindu  extends JFrame  {
     {
        int k=Integer.parseInt(kundefield.getText());
        String t=(String)type.getSelectedItem();
-       frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());
+       /*frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());*/
        
     }
     
