@@ -448,9 +448,9 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    public void sendSkademelding(int k, String m, String t, String v,BufferedImage b)
+    public void sendSkademelding(int k, String m, String t, String v)
     {
-        register.SendSkademelding(k, m, t, v,b);
+        register.SendSkademelding(k, m, t, v);
     }
     
     

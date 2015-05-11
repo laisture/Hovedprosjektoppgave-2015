@@ -27,14 +27,14 @@ public class Skademelding implements Serializable{
     private String datoopprettet;
     private BufferedImage bildet;
     
-    public Skademelding (Kunde k, String s, String t,String v,BufferedImage b)
+    public Skademelding (Kunde k, String s, String t,String v)
             
     {
         kunde=k;
         melding=s;
         type=t;
         vitne=v;
-        bildet=b;
+        
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date cal = new Date();
         datoopprettet= dateFormat.format(cal.getTime());
