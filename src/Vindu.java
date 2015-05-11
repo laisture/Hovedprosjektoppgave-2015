@@ -13,6 +13,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.regex.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -518,8 +519,9 @@ public class Vindu extends JFrame implements Serializable
             if(!match(regexNr,kjørelengde2))
             {
                 output.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10)\n");
+               
             }
-            if(!match(regexNr,bilbeløp2))
+           // if(!match(regexNr,bilbeløp2))
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
             bonus=20;
