@@ -13,6 +13,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.regex.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Vindu extends JFrame implements Serializable
 {
     
     private Kunderegister register;
+    
     private JFrame f=new JFrame();
     private Kunde k;
     
@@ -166,9 +168,9 @@ public class Vindu extends JFrame implements Serializable
     
     
     //skademeldings tabell
-//    private Tabell modell = new Tabell();
-//    private JTable tabell = new JTable((TableModel) modell);
-//    
+    private Tabell modell;
+    private JTable tabell;
+    
     
     private Kommandolytter lytter;
     
@@ -177,6 +179,8 @@ public class Vindu extends JFrame implements Serializable
         super("Main frame");
         // Leser kundedata fra fil
         lesFil();
+        modell = new Tabell(register.get2dSkade());
+        tabell = new JTable(modell);
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -261,12 +265,16 @@ public class Vindu extends JFrame implements Serializable
       søkButton.addActionListener(lytter);
       
       //Skademeldings fane
-//      topskade.add(filter);
-//      skadepanel.add(topskade,BorderLayout.NORTH);
-//      tabell.setRowHeight(100);
-//      skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
-//      tabell.setAutoCreateRowSorter(true);
-//      
+      topskade.add(filter);
+     skadepanel.add(topskade,BorderLayout.NORTH);
+      tabell.setRowHeight(100);
+      tabell.getColumnModel().getColumn(0).setMaxWidth(100);
+     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+     centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+     tabell.setDefaultRenderer(String.class, centerRenderer);     
+      skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
+      tabell.setAutoCreateRowSorter(true);
+      
       
       f.add(tabbedPane);
       f.pack();
@@ -485,9 +493,9 @@ public class Vindu extends JFrame implements Serializable
         topfield.setText("");
           
     }
-    public void sendSkademelding(int k, String m, String t, String v,BufferedImage b)
+    public void sendSkademelding(int k, String m, String t, String v)
     {
-        /*register.SendSkademelding(k, m, t, v,b);*/
+        register.SendSkademelding(k, m, t, v);
     }
     /*
         Metoden har som oppgave å legge til bilforsikring i kunden.
@@ -734,4 +742,7 @@ public class Vindu extends JFrame implements Serializable
             visFeilmelding("Problem med utskrift til fil.");
         }
     }
+    
+    
 }
+

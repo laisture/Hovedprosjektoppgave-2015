@@ -9,7 +9,10 @@ import java.net.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import static java.util.Locale.filter;
 import java.util.logging.Level;
@@ -114,7 +117,14 @@ public class SkademeldingVindu  extends JFrame  {
         
         
         vindu.setVisible(true);
-        vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         vindu.addWindowListener( 
+        new WindowAdapter() {
+            public void windowClosing(WindowEvent e)
+            {
+                frame.SkrivTilFil();
+                System.exit(0);
+            }
+        });
     }
     
     }
@@ -145,12 +155,13 @@ public class SkademeldingVindu  extends JFrame  {
  
 
     }
-    public void SendSkademelding()
+    public void SendSkademelding() throws IOException
     {
        int k=Integer.parseInt(kundefield.getText());
        String t=(String)type.getSelectedItem();
-       /*frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());*/
-       
+       frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());
+       File outputfile = new File("saved.png");
+       ImageIO.write(bildet, "png", outputfile);
     }
     
     private class Kommandolytter implements ActionListener
@@ -161,7 +172,11 @@ public class SkademeldingVindu  extends JFrame  {
           if ( e.getSource() == bbutton )
            Bildet();
           else if (e.getSource()==knapp)
-              SendSkademelding();
+              try {
+                  SendSkademelding();
+          } catch (IOException ex) {
+              Logger.getLogger(SkademeldingVindu.class.getName()).log(Level.SEVERE, null, ex);
+          }
           
           
         }

@@ -30,6 +30,7 @@ public class Skademelding implements Serializable{
     public Skademelding (Kunde k, String s, String t,String v)
             
     {
+        
         kunde=k;
         melding=s;
         type=t;

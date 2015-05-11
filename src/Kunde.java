@@ -170,6 +170,13 @@ public class Kunde implements Serializable {
         {
             melding += iterator.next().toString() + "\n";
         }
+        for (int i =0;i<skademeldinger.length;i++)
+        {
+            if(skademeldinger[i]!=null)
+            {
+                melding+=skademeldinger[i].toString();
+            }
+        }
         
         return melding;
     }

@@ -20,8 +20,8 @@ public class Kunderegister implements Serializable  {
     
     public Kunderegister()
     {
-        
-        
+        nyKunde("ola","nordmann","testgate 1");
+       SendSkademelding(1,"Dette er en test", "bil", "test");
          
     }
     public void Start()
@@ -36,7 +36,6 @@ public class Kunderegister implements Serializable  {
         
         Kunde kunde=finnKunde(k);
         kunde.addSkademelding(kunde,m,t,v);
-          
     }
     
      public Skademelding[] getSkademeldinger()
@@ -62,18 +61,25 @@ public class Kunderegister implements Serializable  {
     }
      public Object[][] get2dSkade()
      {
+         
          Skademelding[] skader=getSkademeldinger();
-         Object[][] s=new Object[skader.length][6];
+         Object[][] s=new Object[skader.length][5];
          
          for (int i=0; i<skader.length;i++)
          {
-             s[i][0]=skader[i].getKunde().getForsikringsnummer();
-             s[i][1]=skader[i].getType();
-             s[i][2]=skader[i].getDato();
-             s[i][3]=skader[i].getTakst();
-             s[i][4]=skader[i].getMelding();
-             s[i][5]=skader[i].getBildet();
+             
+             if(skader[i]!=null)
+             {
+                s[i][0]=skader[i].getKunde().getForsikringsnummer();
+                s[i][1]=skader[i].getType();
+                s[i][2]=skader[i].getDato();
+                s[i][3]=skader[i].getTakst();
+                s[i][4]=skader[i].getMelding();
+             //s[i][5]=skader[i].getBildet();
+         
+             }
          }
+         
          return s;
      }
     public void settInn(Kunde ny)
