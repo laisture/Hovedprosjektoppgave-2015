@@ -183,7 +183,7 @@ public class Kunde implements Serializable {
     public String AlttoString()
     {
         String melding =fornavn+" "+etternavn+ "\n";
-        melding += fakturaadresse+"\n\nForsikringer:\n";
+        melding += fakturaadresse+"\n";
         return melding;
     } 
   

@@ -178,13 +178,13 @@ public class Vindu extends JFrame implements Serializable
     private JPanel søk =new JPanel();
     private JPanel søkVest =new JPanel();
     private JPanel søkCenter =new JPanel();
+    private JScrollPane fscroll=new JScrollPane();
     private JPanel søkNord=new JPanel();
     private JLabel søklabel =new JLabel("Søk:");
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(40,40);
-    String[] s=new String[3];
-    private JList forsikringsliste=new JList(s);
+    private JList forsikringsliste=new JList();
     
     //skademeldings tabell
     private Tabell modell;
@@ -281,8 +281,13 @@ public class Vindu extends JFrame implements Serializable
 
 
       //Søk-fane 
-        
-      søkVest.add(forsikringsliste);
+       forsikringsliste.setVisibleRowCount(10);
+      forsikringsliste.setFixedCellHeight(15);
+      forsikringsliste.setFixedCellWidth(100); 
+      søkVest.add(fscroll);
+      fscroll.add(forsikringsliste);
+      
+      
       søkNord.add(søkefelt);
       søkNord.add(søkButton);
       søkCenter.add(output2);

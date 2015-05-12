@@ -15,13 +15,14 @@ public class Forsikring implements Serializable {
     private int forsikringsbeløp;
     private String betingelser;
     private Boolean gyldig;
+    public static String type;
     
-    public Forsikring(int p, int beløp, String b)
+    public Forsikring(int p, int beløp, String b,String t)
     {
         årligPremie=p;
         forsikringsbeløp= beløp;
         betingelser= b;
-        
+        type=t;
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date cal = new Date();
         opprettet= dateFormat.format(cal.getTime());
