@@ -32,7 +32,10 @@ public class Vindu extends JFrame implements Serializable
     public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
     public final static String regexRegår = "^[0-9]{4}$";
-    
+    public final static String regexRegNr = "^[a-zæøåA-ZÆØÅ_0-9]{7}$";
+    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ]{10,500}$";
+    public final static String regexMotorstyrke = "^[0-9]{1,4}$";
+    //Slutt på Regex
     private JPanel panel=new JPanel();
     
     private JPanel top=new JPanel();
@@ -190,8 +193,8 @@ public class Vindu extends JFrame implements Serializable
         super("Main frame");
         // Leser kundedata fra fil
         lesFil();
-        modell = new Tabell(register.get2dSkade());
-        tabell = new JTable(modell);
+        //modell = new Tabell(register.get2dSkade());
+        //tabell = new JTable(modell);
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -281,7 +284,7 @@ public class Vindu extends JFrame implements Serializable
       søkButton.addActionListener(lytter);
       
       //Skademeldings fane
-      topskade.add(filter);
+     /* topskade.add(filter);
      skadepanel.add(topskade,BorderLayout.NORTH);
       tabell.setRowHeight(100);
       tabell.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -289,7 +292,7 @@ public class Vindu extends JFrame implements Serializable
      centerRenderer.setHorizontalAlignment( JLabel.CENTER );
      tabell.setDefaultRenderer(String.class, centerRenderer);     
       skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
-      tabell.setAutoCreateRowSorter(true);
+      tabell.setAutoCreateRowSorter(true);*/
       
       
       p.add(tabbedPane);
@@ -583,6 +586,97 @@ public class Vindu extends JFrame implements Serializable
         }
     
     }
+    
+    public void lagBåt()
+    {
+        
+        try
+        {
+            String båteier = båteierfield.getText();
+            String regnr = båtregfield.getText();
+            String modell = båttfield.getText();
+            String år2 = lengdefield.getText();
+            String lengde2 = båtmfield.getText();
+            String motortype = motortfield.getText();
+            String motorstyrke2 = motorsfield.getText();
+            String premie2 = båtbeløpfield.getText();
+            String beløp2 = ""; //Hvor er feltet?
+            String betingelser = båtbettext.getText();
+            
+            if(!match(regexFulltnavn,båteier))
+            {
+                ut.setText("Feil i båter felt, kun tillatt med bokstaver\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexAdresse,regnr))
+            {
+                ut.setText("Feil i registreringnummer felt, (maks 30 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexRegår,år2))
+            {
+                ut.setText("Feil i registreringår felt, kun tillatt med 4 tall\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexMotorstyrke,lengde2))
+            {
+                ut.setText("Feil i båtlengde felt, kun tillatt med tall(maks 4 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexAdresse,motortype))
+            {
+                ut.setText("Feil i motortype felt, prøv igjen(maks 25 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexMotorstyrke,motorstyrke2))
+            {
+                ut.setText("Feil motorstyrke felt, kun tall er lov(maks 4 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,premie2))
+            {
+                ut.setText("Feil forsikringbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            int lengde = Integer.parseInt(lengde2);
+            int år = Integer.parseInt(år2);
+            int motorstyrke = Integer.parseInt(motorstyrke2);
+            int premie = Integer.parseInt(premie2);
+            /*Båtforsikring båt = new Båtforsikring(båteier,regnr,modell,lengde,år,
+                                                  motortype,motorstyrke,premie,betingelser);
+            Boolean ok=register.LagForsikring(k, båt);
+            if(ok)
+            {
+                eierfield.setText("");
+                regfield.setText("");
+                btfield.setText("");
+                bmfield.setText("");
+                bilbeløpfield.setText("");
+                kjørefield.setText("");
+                regårfield.setText("");
+                bilbettext.setText("");
+            }*/
+            
+        }
+        catch(NullPointerException npe)
+        {
+            ut.setText("Nullpointer gitt");
+        }
+    }
+    // Kommenter plz
     private class Kommandolytter implements ActionListener
     {
        
