@@ -119,7 +119,9 @@ public class Vindu extends JFrame implements Serializable
     private JTextField motortfield= new JTextField(20);
     private JLabel motorslabel=new JLabel("Motorstyrke (HK):");
     private JTextField motorsfield=new JTextField(20);
-    private JLabel båtbeløplabel=new JLabel("forsikringsbeløp:");
+    private JLabel premielabel = new JLabel("Forsikringspremie:");
+    private JTextField premiefield = new JTextField(10);
+    private JLabel båtbeløplabel=new JLabel("Forsikringsbeløp:");
     private JTextField båtbeløpfield=new JTextField(20);
     private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea båtbettext=new JTextArea(10,40);
@@ -355,32 +357,6 @@ public class Vindu extends JFrame implements Serializable
         lagbil.addActionListener(lytter);
         bilbettext.setLineWrap(true);
         
-    
-        båtpanel.setLayout(new BorderLayout());
-        båtpanel.add(båtpanel1, BorderLayout.NORTH);
-        båtpanel.add(båtpanel2, BorderLayout.CENTER);
-        båtpanel.add(båtpanel3, BorderLayout.SOUTH);
-        båtpanel1.add(båteierlabel);
-        båtpanel1.add(båteierfield);
-        båtpanel1.add(båtreglabel);
-        båtpanel1.add(båtregfield);
-        båtpanel1.add(båttlabel);
-        båtpanel1.add(båttfield);
-        båtpanel2.add(båtmlabel);
-        båtpanel2.add(båtmfield);
-        båtpanel2.add(båtårlabel);
-        båtpanel2.add(båtårlabel);
-        båtpanel2.add(lengdelabel);
-        båtpanel2.add(lengdefield);
-        båtpanel2.add(motortlabel);
-        båtpanel2.add(motortfield);
-        båtpanel2.add(motorslabel);
-        båtpanel2.add(motorsfield);
-        båtpanel2.add(båtbeløplabel);
-        båtpanel2.add(båtbeløpfield);
-        båtpanel3.add(båtbetingelser);
-        båtpanel3.add(båtbettext);
-        båtpanel3.add(lagbåt);    
         //båtpanel
         båtpanel.setLayout(new BorderLayout());
         båtpanel.add(båtpanel1, BorderLayout.NORTH);
@@ -395,19 +371,48 @@ public class Vindu extends JFrame implements Serializable
         båtpanel2.add(båtmlabel);
         båtpanel2.add(båtmfield);
         båtpanel2.add(båtårlabel);
-        båtpanel2.add(båtårlabel);
+        båtpanel2.add(båtårfield);
         båtpanel2.add(lengdelabel);
         båtpanel2.add(lengdefield);
         båtpanel2.add(motortlabel);
         båtpanel2.add(motortfield);
         båtpanel2.add(motorslabel);
         båtpanel2.add(motorsfield);
+        båtpanel2.add(premielabel);
+        båtpanel2.add(premiefield);
         båtpanel2.add(båtbeløplabel);
         båtpanel2.add(båtbeløpfield);
         båtpanel3.add(båtbetingelser);
         båtpanel3.add(båtbettext);
         båtpanel3.add(lagbåt);   
+        lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
+        
+        // Husforsikring
+        huspanel.setLayout(new BorderLayout());
+        huspanel.add(huspanel1, BorderLayout.NORTH);
+        huspanel.add(huspanel2, BorderLayout.CENTER);
+        huspanel.add(huspanel3, BorderLayout.SOUTH);
+        huspanel1.add(hadresselabel);
+        huspanel1.add(hadressefield);
+        huspanel1.add(byggårlabel);
+        huspanel1.add(byggårfield);
+        huspanel1.add(boligtypelabel);
+        huspanel1.add(boligtypefield);
+        huspanel2.add(byggmlabel);
+        huspanel2.add(byggmfield);
+        huspanel2.add(standardlabel);
+        huspanel2.add(standardfield);
+        huspanel2.add(kvadratlabel);
+        huspanel2.add(kvadratfield);
+        huspanel2.add(byggbeløplabel);
+        huspanel2.add(byggbeløpfield);
+        huspanel2.add(innbobeløplabel);
+        huspanel2.add(innbofield);
+        huspanel3.add(husbetingelser);
+        huspanel3.add(husbettext);
+        huspanel3.add(laghus);
+        // End of husforsikring
     }
     public void Forsikringer()
     {
@@ -522,6 +527,7 @@ public class Vindu extends JFrame implements Serializable
             
             ut.setText(kunden1.AlttoString());
             k=kunden1;
+            Bileier();
         }
         else
         {
@@ -534,9 +540,12 @@ public class Vindu extends JFrame implements Serializable
     {
         register.SendSkademelding(k, m, t, v);
     }
-    
-    
-    public void LagBil()
+    /*
+        Metoden har som oppgave å legge til bilforsikring hos kunden.
+        Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
+        Relevant feilhåntering er lagt til via regex og try/catch blokker.
+    */
+    public void lagBil()
     {
         int regår;
         int kjørelengde;
@@ -546,29 +555,72 @@ public class Vindu extends JFrame implements Serializable
         //Boolean ok= true;
         try
         {
+            String bileier = eierfield.getText();
+            String regNr = regfield.getText();
+            String biltype = btfield.getText();
+            String bilmerke= bmfield.getText();
             String regår2 = regårfield.getText();
             String kjørelengde2= kjørefield.getText();
             String bilbeløp2 = bilbeløpfield.getText();
+            String betingelser = bilbettext.getText();
+            if(!match(regexFulltnavn,bileier))
+            {
+                ut.setText("Feil i bileier felt, kun tilatt med bokstaver(maks 40 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexRegNr,regNr))
+            {
+                ut.setText("Feil i registreringsnummer felt, eksempel på riktig registeringsnummer: SK05345 (små bokstaver er tilatt)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNavn,biltype))
+            {
+                ut.setText("Feil i biltype felt, kun bokstaver tilatt \n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexAdresse,bilmerke))
+            {
+                ut.setText("Feil i bilmerke felt, prøv igjen\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
             if(!match(regexRegår,regår2))
             {
-                output.setText("Feil i registeringsår felt, kun tilatt med 4 nummer");
-                output.append("\nRegistering ble ikke fulført\n");
+                ut.setText("Feil i registeringsår felt, kun tilatt med 4 nummer\n");
+                ut.append("Registering ble ikke fulført");
                 return;
             }
 
             if(!match(regexNr,kjørelengde2))
             {
-                output.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10)\n");
-               
+                ut.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10 tegn)\n");
+                ut.append("\nRegistering ble ikke fulført");
+                return;
             }
-           // if(!match(regexNr,bilbeløp2))
+            if(!match(regexNr,bilbeløp2))
+            {
+                ut.setText("Feil i forsikringsbeløp felt, kun nummer tilatt(maks 10 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            
+            
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
             bonus=20;
             bilbeløp=Integer.parseInt(bilbeløp2);
-
-            Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText()
-                                                ,regår,kjørelengde, priskm,bonus, bilbeløp, kjørefield.getText());
+            
+            Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
+                kjørelengde,priskm,bonus, bilbeløp, betingelser);
             
             Boolean ok=register.LagForsikring(k, bil);
             if(ok)
@@ -580,15 +632,22 @@ public class Vindu extends JFrame implements Serializable
                 bilbeløpfield.setText("");
                 kjørefield.setText("");
                 regårfield.setText("");
+                bilbettext.setText("");
+                ut.setText("bilforsikring ble registert på kundenummer:" + k.getForsikringsnummer());
             }
         }
-        catch(NumberFormatException nfe)
+        catch(NullPointerException npe)
         {
-            
+            ut.setText("Vennligst finn en kunde via søkefeltet på toppen av siden."
+                    + "\nFør du prøver å registere en bil forsikring");
         }
-    
     }
-    
+    /*
+        Metoden har som oppgave å legge til båtforsikring til kunden.
+        Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
+        Metoden har regex lagt til i hvert input felt, i tillegg er der lag til try/catch blokker.
+    */
+     
     public void lagBåt()
     {
         
@@ -597,24 +656,37 @@ public class Vindu extends JFrame implements Serializable
             String båteier = båteierfield.getText();
             String regnr = båtregfield.getText();
             String båttype = båttfield.getText();
-            String modell = båtmfield.getText();
+            String båtmodell = båtmfield.getText();
             String år2 = båtårfield.getText();
             String lengde2 = lengdefield.getText();
                     
             String motortype = motortfield.getText();
             String motorstyrke2 = motorsfield.getText();
+            String premie2 = premiefield.getText();
             String beløp2 = båtbeløpfield.getText();
             String betingelser = båtbettext.getText();
             
             if(!match(regexFulltnavn,båteier))
             {
-                ut.setText("Feil i båter felt, kun tillatt med bokstaver\n");
+                ut.setText("Feil i båteier felt, kun tillatt med bokstaver\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
             if(!match(regexAdresse,regnr))
             {
                 ut.setText("Feil i registreringnummer felt, (maks 30 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNavn,båttype))
+            {
+                ut.setText("Feil i båttype felt, kun lov med bokstaver (maks 15 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexAdresse,båtmodell))
+            {
+                ut.setText("Feil i båtmodel felt, kun lov med bokstaver og tall(maks 30 tegn)\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
@@ -642,6 +714,12 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
+            if(!match(regexNr,premie2))
+            {
+                ut.setText("Feil forsikringspremie felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
             if(!match(regexNr,beløp2))
             {
                 ut.setText("Feil forsikringbeløp felt, kun tall er lov(maks 10 tegn)\n");
@@ -660,25 +738,28 @@ public class Vindu extends JFrame implements Serializable
             
             int premie = Integer.parseInt(premie2);
             int beløp = Integer.parseInt(beløp2);
-            Båtforsikring båt = new Båtforsikring(båteier,regnr,modell,lengde,år,
+            Båtforsikring båt = new Båtforsikring(båteier,regnr,båtmodell,lengde,år,
                                                   motortype,motorstyrke,premie,beløp,betingelser);
             Boolean ok=register.LagForsikring(k, båt);
             if(ok)
             {
-                eierfield.setText("");
-                regfield.setText("");
-                btfield.setText("");
-                bmfield.setText("");
-                bilbeløpfield.setText("");
-                kjørefield.setText("");
-                regårfield.setText("");
-                bilbettext.setText("");
+                båteierfield.setText("");
+                båtregfield.setText("");
+                båttfield.setText("");
+                båtmfield.setText("");
+                båtårfield.setText("");
+                lengdefield.setText("");
+                motortfield.setText("");
+                motorsfield.setText("");
+                premiefield.setText("");
+                båtbeløpfield.setText("");
+                båtbettext.setText("");
             }
             
         }
         catch(NullPointerException npe)
         {
-            ut.setText("Nullpointer gitt");
+            ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
     // Kommenter plz
@@ -694,9 +775,10 @@ public class Vindu extends JFrame implements Serializable
           else if(e.getSource()==topbutton )
             finnKunde();
           else if(e.getSource()==lagbil)
-            LagBil();
-          
-          Bileier();
+            lagBil();
+          else if(e.getSource()==lagbåt)
+            lagBåt();
+                  
         }
     }
     
