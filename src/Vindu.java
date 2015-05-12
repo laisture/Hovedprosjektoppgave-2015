@@ -28,9 +28,8 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
-    public final static String regexNavn = "^[a-zæøåA-ZÆØÅ ]{1,20}$";
-    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ ]{1,40}$";
-    public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 ]{1,25}$";
+    public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
+    public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
     public final static String regexRegår = "^[0-9]{4}$";
     public final static String regexRegNr = "^[a-zæøåA-ZÆØÅ_0-9]{7}$";
@@ -46,6 +45,8 @@ public class Vindu extends JFrame implements Serializable
     private JPanel midt=new JPanel();
     private JPanel mm=new JPanel();
     private JPanel mf=new JPanel();
+    
+   
     
     //topsøk
     private JLabel toplabel=new JLabel("Finn kunde:");
@@ -64,6 +65,17 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilpanel1=new JPanel();
     private JPanel bilpanel2=new JPanel();
     private JPanel bilpanel3=new JPanel();
+    private JPanel bileierp=new JPanel();
+    private JPanel bilregp=new JPanel();
+    private JPanel biltp=new JPanel();
+    private JPanel bilmp=new JPanel();
+    private JPanel bilårp=new JPanel();
+    private JPanel bilkjørep=new JPanel();
+    private JPanel bilprisp=new JPanel();
+    private JPanel bilbeløpp=new JPanel();
+    private JPanel bilbetp=new JPanel();
+
+    
     
     private JLabel eierlabel=new JLabel("Bil eier:");
     private JTextField eierfield=new JTextField(20);
@@ -297,22 +309,35 @@ public class Vindu extends JFrame implements Serializable
         //bilpanel
         bilpanel.setLayout(new BorderLayout());
         bilpanel.add(bilpanel1, BorderLayout.NORTH);
+        bilpanel1.setLayout(new GridLayout(1,4));
         bilpanel.add(bilpanel2, BorderLayout.CENTER);
+        bilpanel2.setLayout(new GridLayout(1,3));
+        
+        bilpanel1.add(bileierp);
+        bilpanel1.add(bilregp);
+        bilpanel1.add(biltp);
+        bilpanel1.add(bilmp);
+        
+        bilpanel2.add(bilårp);
+        bilpanel2.add(bilkjørep);
+        bilpanel2.add(bilbeløpp);
+        
+        
         bilpanel.add(bilpanel3, BorderLayout.SOUTH);
-        bilpanel1.add(eierlabel);
-        bilpanel1.add(eierfield);
-        bilpanel1.add(reglabel);
-        bilpanel1.add(regfield);
-        bilpanel1.add(btlabel);
-        bilpanel1.add(btfield);
-        bilpanel2.add(bmlabel);
-        bilpanel2.add(bmfield);
-        bilpanel2.add(regårlabel);
-        bilpanel2.add(regårfield);
-        bilpanel2.add(kjørelabel);
-        bilpanel2.add(kjørefield);
-        bilpanel2.add(bilbeløplabel);
-        bilpanel2.add(bilbeløpfield);
+        bileierp.add(eierlabel);
+        bileierp.add(eierfield);
+        bilregp.add(reglabel);
+        bilregp.add(regfield);
+        biltp.add(btlabel);
+        biltp.add(btfield);
+        bilmp.add(bmlabel);
+        bilmp.add(bmfield);
+        bilårp.add(regårlabel);
+        bilårp.add(regårfield);
+        bilkjørep.add(kjørelabel);
+        bilkjørep.add(kjørefield);
+        bilbeløpp.add(bilbeløplabel);
+        bilbeløpp.add(bilbeløpfield);
         bilpanel3.add(bilbetingelser);
         bilpanel3.add(bilbettext);
         bilpanel3.add(lagbil);
@@ -387,7 +412,7 @@ public class Vindu extends JFrame implements Serializable
         Metoden har som oppgave å legge nye kunder inn i registeret, hvis dette går får vi tilbake melding om det.
         Hvis ikke får vi beskjed om feil input, i tillegg er det lagt til regex for å forhindre feil input.
     */
-    public void lagKunde()
+    public void LagKunde()
     {
         Boolean ok = true;
         try
@@ -498,14 +523,11 @@ public class Vindu extends JFrame implements Serializable
     {
         register.SendSkademelding(k, m, t, v);
     }
-    /*
-        Metoden har som oppgave å legge til bilforsikring i kunden.
-        Det er lagt til regex i alle input-felt og try/catch blokker ved exceptions.
-    */
     
-    public void lagBil()
+    
+    public void LagBil()
     {
-        int regår = 0;
+        int regår;
         int kjørelengde;
         int priskm = 1;
         int bonus;
@@ -513,72 +535,29 @@ public class Vindu extends JFrame implements Serializable
         //Boolean ok= true;
         try
         {
-            String bileier = eierfield.getText();
-            String regNr = regfield.getText();
-            String biltype = btfield.getText();
-            String bilmerke= bmfield.getText();
             String regår2 = regårfield.getText();
             String kjørelengde2= kjørefield.getText();
             String bilbeløp2 = bilbeløpfield.getText();
-            String betingelser = bilbettext.getText();
-            if(!match(regexFulltnavn,bileier))
-            {
-                ut.setText("Feil i bileier felt, kun tilatt med bokstaver(maks 40 tegn)\n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
-            if(!match(regexRegNr,regNr))
-            {
-                ut.setText("Feil i registreringsnummer felt, eksempel på riktig registeringsnummer: SK05345 (små bokstaver er tilatt)\n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
-            if(!match(regexNavn,biltype))
-            {
-                ut.setText("Feil i biltype felt, kun bokstaver tilatt \n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
-            if(!match(regexAdresse,bilmerke))
-            {
-                ut.setText("Feil i bilmerke felt, prøv igjen\n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
             if(!match(regexRegår,regår2))
             {
-                ut.setText("Feil i registeringsår felt, kun tilatt med 4 nummer\n");
-                ut.append("Registering ble ikke fulført");
+                output.setText("Feil i registeringsår felt, kun tilatt med 4 nummer");
+                output.append("\nRegistering ble ikke fulført\n");
                 return;
             }
 
             if(!match(regexNr,kjørelengde2))
             {
-                ut.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10 tegn)\n");
-                ut.append("\nRegistering ble ikke fulført");
-                return;
+                output.setText("Feil i kjørelengde felt, det er kun lov med nummer(maks 10)\n");
+               
             }
-            if(!match(regexNr,bilbeløp2))
-            {
-                ut.setText("Feil i forsikringsbeløp felt, kun nummer tilatt(maks 10 tegn)\n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
-            if(!match(regexBetingelser,betingelser))
-            {
-                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500\n");
-                ut.append("Registering ble ikke fulført");
-                return;
-            }
-            
-            
+           // if(!match(regexNr,bilbeløp2))
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
             bonus=20;
             bilbeløp=Integer.parseInt(bilbeløp2);
-            
-            Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
-                kjørelengde,priskm,bonus, bilbeløp, betingelser);
+
+            Bilforsikring bil=new Bilforsikring(eierfield.getText(), regfield.getText(),btfield.getText(),bmfield.getText()
+                                                ,regår,kjørelengde, priskm,bonus, bilbeløp, kjørefield.getText());
             
             Boolean ok=register.LagForsikring(k, bil);
             if(ok)
@@ -590,16 +569,11 @@ public class Vindu extends JFrame implements Serializable
                 bilbeløpfield.setText("");
                 kjørefield.setText("");
                 regårfield.setText("");
-                bilbettext.setText("");
             }
         }
         catch(NumberFormatException nfe)
         {
-            ut.setText("NumberFormatException");
-        }
-        catch(NullPointerException npe)
-        {
-            ut.setText("Vennligst skriv inn gyldig kundenavn");
+            
         }
     
     }
@@ -700,56 +674,19 @@ public class Vindu extends JFrame implements Serializable
         public void actionPerformed( ActionEvent e )
         {
           if ( e.getSource() == lagkunde )
-            lagKunde();
+            LagKunde();
           else if(e.getSource() == søkButton  )
             søkKunde();
           else if(e.getSource()==topbutton )
             finnKunde();
           else if(e.getSource()==lagbil)
-            lagBil();
-          else if(e.getSource()== lagbåt)
-            lagBåt();
+            LagBil();
+          
           Bileier();
         }
     }
-    /* 
-        Kommenter PLZ
-    */
-     class Tabell
-    {
-        public static final int ERSTATNINGSKOLONNE = 4;
-        
-        private String[] kolonnenavn =
-        {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding", "Bilde"
-        };
-        private Object[][] tabellskader = register.get2dSkade();
-                
-        public String getColumnName( int kolonne )
-        {
-            return kolonnenavn[ kolonne];
-        }
-        public Class getColumnClass( int kolonne)
-        {
-            return tabellskader[ 0][ kolonne].getClass();
-        }
-        public int getColumnCount()
-        {
-            return tabellskader[ 0].length;
-        }
-        public int getRowCount()
-        {
-            return tabellskader.length;
-        }
-        public boolean istabellskaderEditable(int rad, int kolonne )
-        {
-            return kolonne == ERSTATNINGSKOLONNE;
-        }
-        public void setValueAt( Object nyVerdi, int rad, int kolonne )
-        {
-            tabellskader[ rad][ kolonne] = nyVerdi;
-        }
-    }
+    
+     
     
      private void visFeilmelding(String melding)
     {
