@@ -649,7 +649,7 @@ public class Vindu extends JFrame implements Serializable
             int år = Integer.parseInt(år2);
             int motorstyrke = Integer.parseInt(motorstyrke2);
             
-            int premie = Integer.parseInt(beløp2);
+            int premie = Integer.parseInt(premie2);
             int beløp = Integer.parseInt(beløp2);
             Båtforsikring båt = new Båtforsikring(båteier,regnr,modell,lengde,år,
                                                   motortype,motorstyrke,premie,beløp,betingelser);
