@@ -28,6 +28,7 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
+    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ]{2,30}$";
     public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
     public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
@@ -276,6 +277,7 @@ public class Vindu extends JFrame implements Serializable
       søk.add(søkVest,BorderLayout.WEST);
       søk.add(søkCenter,BorderLayout.CENTER);
       søkButton.addActionListener(lytter);
+      
       
       //Skademeldings fane
      /* topskade.add(filter);
@@ -585,13 +587,14 @@ public class Vindu extends JFrame implements Serializable
         {
             String båteier = båteierfield.getText();
             String regnr = båtregfield.getText();
-            String modell = båttfield.getText();
-            String år2 = lengdefield.getText();
-            String lengde2 = båtmfield.getText();
+            String båttype = båttfield.getText();
+            String modell = båtmfield.getText();
+            String år2 = båtårfield.getText();
+            String lengde2 = lengdefield.getText();
+                    
             String motortype = motortfield.getText();
             String motorstyrke2 = motorsfield.getText();
-            String premie2 = båtbeløpfield.getText();
-            String beløp2 = ""; //Hvor er feltet?
+            String beløp2 = båtbeløpfield.getText();
             String betingelser = båtbettext.getText();
             
             if(!match(regexFulltnavn,båteier))
@@ -630,7 +633,7 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
-            if(!match(regexNr,premie2))
+            if(!match(regexNr,beløp2))
             {
                 ut.setText("Feil forsikringbeløp felt, kun tall er lov(maks 10 tegn)\n");
                 ut.append("Registrering ble ikke fullført");
@@ -645,9 +648,11 @@ public class Vindu extends JFrame implements Serializable
             int lengde = Integer.parseInt(lengde2);
             int år = Integer.parseInt(år2);
             int motorstyrke = Integer.parseInt(motorstyrke2);
-            int premie = Integer.parseInt(premie2);
-            /*Båtforsikring båt = new Båtforsikring(båteier,regnr,modell,lengde,år,
-                                                  motortype,motorstyrke,premie,betingelser);
+            
+            int premie = Integer.parseInt(beløp2);
+            int beløp = Integer.parseInt(beløp2);
+            Båtforsikring båt = new Båtforsikring(båteier,regnr,modell,lengde,år,
+                                                  motortype,motorstyrke,premie,beløp,betingelser);
             Boolean ok=register.LagForsikring(k, båt);
             if(ok)
             {
@@ -659,7 +664,7 @@ public class Vindu extends JFrame implements Serializable
                 kjørefield.setText("");
                 regårfield.setText("");
                 bilbettext.setText("");
-            }*/
+            }
             
         }
         catch(NullPointerException npe)
