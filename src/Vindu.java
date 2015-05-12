@@ -11,7 +11,10 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.regex.*;
+import javax.swing.border.Border;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -54,7 +57,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextField topfield=new JTextField(20);
     private JButton topbutton=new JButton("finn");
     
-    private JTextArea ut=new JTextArea(20,40);
+    private JTextArea ut=new JTextArea(15,40);
     //Forsikringstabber
     private JPanel bilpanel=new JPanel();
     private JPanel båtpanel=new JPanel();
@@ -94,7 +97,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextField priskmfield=new JTextField(10);
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
     private JTextField bilbeløpfield=new JTextField(10);
-    private JLabel bilbetingelser=new JLabel("Forsikringsbetingelser:");
+    
     private JTextArea bilbettext=new JTextArea(10,40);
     private JButton lagbil=new JButton("tegn bilforsikring");
 
@@ -178,11 +181,13 @@ public class Vindu extends JFrame implements Serializable
     private JPanel søk =new JPanel();
     private JPanel søkVest =new JPanel();
     private JPanel søkCenter =new JPanel();
+    private JScrollPane fscroll=new JScrollPane();
+    private JPanel søkNord=new JPanel();
     private JLabel søklabel =new JLabel("Søk:");
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(40,40);
-    
+    private JList forsikringsliste=new JList();
     
     //skademeldings tabell
     private Tabell modell;
@@ -196,8 +201,8 @@ public class Vindu extends JFrame implements Serializable
         super("Main frame");
         // Leser kundedata fra fil
         lesFil();
-        //modell = new Tabell(register.get2dSkade());
-        //tabell = new JTable(modell);
+        modell = new Tabell(register.get2dSkade());
+        tabell = new JTable(modell);
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -234,6 +239,7 @@ public class Vindu extends JFrame implements Serializable
         
       
       output.setEditable(false);
+      output2.setEditable(false);
       output.setPreferredSize(new Dimension(50,50));
       lagkunde.addActionListener(lytter);
       
@@ -255,6 +261,7 @@ public class Vindu extends JFrame implements Serializable
       top.add(topfield);
       top.add(topbutton);
       mm.add(ut);
+      mm.setPreferredSize(new Dimension(50,50));
       mf.add(forsikringer);
       midt.add(top, BorderLayout.NORTH);
       midt.add(mm, BorderLayout.CENTER);
@@ -277,18 +284,24 @@ public class Vindu extends JFrame implements Serializable
 
 
       //Søk-fane 
-        
-      søkVest.add(søklabel);
-      søkCenter.add(søkefelt);
-      søkCenter.add(søkButton);
+       forsikringsliste.setVisibleRowCount(10);
+      forsikringsliste.setFixedCellHeight(15);
+      forsikringsliste.setFixedCellWidth(100); 
+      søkVest.add(fscroll);
+      fscroll.add(forsikringsliste);
+      
+      
+      søkNord.add(søkefelt);
+      søkNord.add(søkButton);
       søkCenter.add(output2);
       søk.add(søkVest,BorderLayout.WEST);
       søk.add(søkCenter,BorderLayout.CENTER);
+      søk.add(søkNord, BorderLayout.NORTH);
       søkButton.addActionListener(lytter);
       
       
       //Skademeldings fane
-     /* topskade.add(filter);
+      topskade.add(filter);
      skadepanel.add(topskade,BorderLayout.NORTH);
       tabell.setRowHeight(100);
       tabell.getColumnModel().getColumn(0).setMaxWidth(100);
@@ -296,7 +309,7 @@ public class Vindu extends JFrame implements Serializable
      centerRenderer.setHorizontalAlignment( JLabel.CENTER );
      tabell.setDefaultRenderer(String.class, centerRenderer);     
       skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
-      tabell.setAutoCreateRowSorter(true);*/
+      tabell.setAutoCreateRowSorter(true);
       
       
       p.add(tabbedPane);
@@ -351,11 +364,15 @@ public class Vindu extends JFrame implements Serializable
         bilkjørep.add(kjørefield);
         bilbeløpp.add(bilbeløplabel);
         bilbeløpp.add(bilbeløpfield);
-        bilpanel3.add(bilbetingelser);
+        
         bilpanel3.add(bilbettext);
         bilpanel3.add(lagbil);
         lagbil.addActionListener(lytter);
         bilbettext.setLineWrap(true);
+        Border bilramme=BorderFactory.createLineBorder(Color.BLACK);
+        Border biltittel=BorderFactory.createTitledBorder(bilramme, "Forsikringsbetingelser");
+        bilbettext.setBorder(biltittel);
+        
         
         //båtpanel
         båtpanel.setLayout(new BorderLayout());
@@ -472,7 +489,18 @@ public class Vindu extends JFrame implements Serializable
         adressefield.setText("");
         
     }
-    
+    public void finnForsikringer(Kunde k)
+    {
+        ArrayList<Forsikring> forsikringer=k.getForsikringer();
+        ListIterator<Forsikring> iterator = forsikringer.listIterator();
+        String[] s=new String[90];
+        for (int i = 0; i < forsikringer.size(); i++) 
+        {
+		s[i]=forsikringer.get(i).type;
+               
+        }
+        forsikringsliste=new JList(s);
+    }
     public void søkKunde()
     {
         Boolean ok = true;
@@ -495,6 +523,7 @@ public class Vindu extends JFrame implements Serializable
             {
                 output2.setText(kunden.toString());
                 k=kunden;
+                finnForsikringer(k);
             }
             else
             {

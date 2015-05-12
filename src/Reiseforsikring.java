@@ -11,10 +11,11 @@ public class Reiseforsikring extends Forsikring implements Serializable
     
     private String område;
     private int sum;
+    public static String type="reise";
     
     public Reiseforsikring(String o, int premie, int beløp, String beskrivelse)
     {
-        super(premie,beløp,beskrivelse);
+        super(premie,beløp,beskrivelse,type);
         område=o;
     }
     

@@ -12,12 +12,13 @@ public class Fritidsforsikring extends Forsikring {
     //beløp for:
     private int bygging;
     private int innbo;
+    public static final String type="fritid";
     
     private boolean utleie;
     
     public Fritidsforsikring(String a, int b, String t, String m, int k, String sta, int bygg, int i,Boolean u, int premie, int beløp, String beskrivelse )
     {
-        super(premie,beløp,beskrivelse);
+        super(premie,beløp,beskrivelse,type);
         fritidsadresse=a;
         byggeår=b;
         boligtype=t;

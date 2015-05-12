@@ -11,10 +11,11 @@ public class Båtforsikring extends Forsikring
     private int årsmodell;
     private String motor;
     private int motorstyrke;
+    public static final String type="båt";
     
     public Båtforsikring(String n, String reg, String m, int l, int år, String moto, int motorsty, int premie, int beløp, String beskrivelse )
     {
-        super(premie,beløp,beskrivelse);
+        super(premie,beløp,beskrivelse,type);
         navn = n;
         reginr = reg;
         modell = m;
