@@ -187,6 +187,8 @@ public class Vindu extends JFrame implements Serializable
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(20,40);
+    private DefaultListModel fstring = new DefaultListModel();
+    private JList<String> forsikringsliste=new JList<>();
     private JList forsikringsliste=new JList();
     
     //skademeldings tabell
@@ -284,11 +286,15 @@ public class Vindu extends JFrame implements Serializable
 
 
       //Søk-fane 
-       forsikringsliste.setVisibleRowCount(10);
-      forsikringsliste.setFixedCellHeight(15);
-      forsikringsliste.setFixedCellWidth(100); 
-      søkVest.add(fscroll);
-      fscroll.add(forsikringsliste);
+      
+      
+      
+      søkVest.add(new JScrollPane(forsikringsliste));
+      forsikringsliste.setVisibleRowCount( 4 );
+     forsikringsliste.setFixedCellWidth( 200 );
+     forsikringsliste.setFixedCellHeight(50);
+     forsikringsliste.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+     forsikringsliste.setSelectedIndex(4);
       
       
       søkNord.add(søkefelt);
@@ -431,10 +437,7 @@ public class Vindu extends JFrame implements Serializable
         huspanel3.add(laghus);
         // End of husforsikring
     }
-    public void Forsikringer()
-    {
-        
-    }
+   
     public boolean match(String regex, String inn)
     {
         Pattern mønster = Pattern.compile(regex);
@@ -493,13 +496,15 @@ public class Vindu extends JFrame implements Serializable
     {
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
         ListIterator<Forsikring> iterator = forsikringer.listIterator();
-        String[] s=new String[90];
+        String[] s=new String[forsikringer.size()];
         for (int i = 0; i < forsikringer.size(); i++) 
         {
 		s[i]=forsikringer.get(i).type;
                
         }
-        forsikringsliste=new JList(s);
+        forsikringsliste.setListData(s);
+         forsikringsliste.setVisibleRowCount(10);
+       
     }
     public void søkKunde()
     {
