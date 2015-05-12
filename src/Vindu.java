@@ -183,7 +183,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel søklabel =new JLabel("Søk:");
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
-    private JTextArea output2=new JTextArea(40,40);
+    private JTextArea output2=new JTextArea(20,40);
     private JList forsikringsliste=new JList();
     
     //skademeldings tabell
