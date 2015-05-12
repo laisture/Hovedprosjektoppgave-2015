@@ -47,7 +47,7 @@ public class Vindu extends JFrame implements Serializable
     private JPanel mm=new JPanel();
     private JPanel mf=new JPanel();
     
-   
+   private JPanel p=new JPanel();
     
     //topsøk
     private JLabel toplabel=new JLabel("Finn kunde:");
@@ -79,21 +79,21 @@ public class Vindu extends JFrame implements Serializable
     
     
     private JLabel eierlabel=new JLabel("Bil eier:");
-    private JTextField eierfield=new JTextField(20);
+    private JTextField eierfield=new JTextField(10);
     private JLabel reglabel=new JLabel("registreringsnummer:");
-    private JTextField regfield=new JTextField(20);
+    private JTextField regfield=new JTextField(10);
     private JLabel btlabel=new JLabel("Bil type:");
-    private JTextField btfield=new JTextField(20);
+    private JTextField btfield=new JTextField(10);
     private JLabel bmlabel=new JLabel("Bil merke:");
-    private JTextField bmfield=new JTextField(20);
+    private JTextField bmfield=new JTextField(10);
     private JLabel regårlabel=new JLabel("første registreringsår:");
-    private JTextField regårfield=new JTextField(20);
+    private JTextField regårfield=new JTextField(10);
     private JLabel kjørelabel= new JLabel("Kjørelengde per år (km): ");
-    private JTextField kjørefield= new JTextField(20);
+    private JTextField kjørefield= new JTextField(10);
     private JLabel priskm= new JLabel("pris per km");
-    private JTextField priskmfield=new JTextField(20);
+    private JTextField priskmfield=new JTextField(10);
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
-    private JTextField bilbeløpfield=new JTextField(20);
+    private JTextField bilbeløpfield=new JTextField(10);
     private JLabel bilbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea bilbettext=new JTextArea(10,40);
     private JButton lagbil=new JButton("tegn bilforsikring");
@@ -156,6 +156,7 @@ public class Vindu extends JFrame implements Serializable
     //andre tab
     private JPanel kundepanel=new JPanel();
     private JPanel m2=new JPanel();
+    private JPanel k2=new JPanel();
     private JPanel vest2=new JPanel();
     private JLabel fornavnlabel=new JLabel("Fornavn:");
     private JTextField fornavnfield=new JTextField(30);
@@ -228,6 +229,8 @@ public class Vindu extends JFrame implements Serializable
         forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
 
+        
+      
       output.setEditable(false);
       output.setPreferredSize(new Dimension(50,50));
       lagkunde.addActionListener(lytter);
@@ -239,7 +242,7 @@ public class Vindu extends JFrame implements Serializable
       m2.add(adresselabel);
       m2.add(adressefield);
       m2.add(lagkunde);
-      m2.add(output);
+      k2.add(output);
      
       ut.setEditable(false);
       
@@ -256,7 +259,10 @@ public class Vindu extends JFrame implements Serializable
       midt.add(mf, BorderLayout.SOUTH);
       vest.add(v, BorderLayout.WEST);
       vest.add(ø, BorderLayout.EAST);
-      
+      Dimension d=new Dimension(1000,250);
+      bilpanel.setPreferredSize(d);
+      båtpanel.setPreferredSize(d);
+      huspanel.setPreferredSize(d);
       
       LagFaner();
       
@@ -265,7 +271,7 @@ public class Vindu extends JFrame implements Serializable
       
       kundepanel.add(vest2, BorderLayout.WEST);
       kundepanel.add(m2, BorderLayout.CENTER);
-      
+      kundepanel.add(k2,BorderLayout.SOUTH);
 
 
       //Søk-fane 
@@ -291,7 +297,10 @@ public class Vindu extends JFrame implements Serializable
       tabell.setAutoCreateRowSorter(true);*/
       
       
-      f.add(tabbedPane);
+      p.add(tabbedPane);
+      
+      f.add(p);
+      
       f.pack();
       f.setVisible(true);
       //f.setResizable(false);
