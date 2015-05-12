@@ -1,13 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Dreadleet
- */
-public class textField {
-    
-}
+           /* huspanel1.add(hadresselabel);
+            huspanel1.add(hadressefield);
+            huspanel1.add(byggårlabel);
+            huspanel1.add(byggårfield);
+            huspanel1.add(boligtypelabel);
+            huspanel1.add(boligtypefield);
+            huspanel2.add(byggmlabel);
+            huspanel2.add(byggmfield);
+            huspanel2.add(standardlabel);
+            huspanel2.add(standardfield);
+            huspanel2.add(kvadratlabel);
+            huspanel2.add(kvadratfield);
+            huspanel2.add(byggbeløplabel);
+            huspanel2.add(byggbeløpfield);
+            huspanel2.add(innbobeløplabel);
+            huspanel2.add(innbofield);
+            huspanel3.add(husbetingelser);
+            huspanel3.add(husbettext);
+            huspanel3.add(laghus);*/
