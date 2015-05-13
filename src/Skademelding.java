@@ -9,6 +9,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -57,18 +59,25 @@ public class Skademelding implements Serializable{
     {
         return melding;
     }
-    public BufferedImage getBildet() throws IOException
+    public ImageIcon getBildet() 
     {
+        ImageIcon ny;
        String bildefil = skadenummer+".png";
         URL kilde = Skademelding.class.getResource(bildefil);
-        if(kilde!=null)
-        {
+        
+        
             
-            BufferedImage b=ImageIO.read(kilde);
-            bildet=resize(b,200,200);
-            
+            BufferedImage b;
+        try {
+            b = ImageIO.read(kilde);
+        } catch (IOException ex) {
+            b=null;
+            Logger.getLogger(Skademelding.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return(bildet);
+            bildet=resize(b,200,200);
+            ny=new ImageIcon(bildet);
+        
+        return(ny);
     }
     public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
     Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);

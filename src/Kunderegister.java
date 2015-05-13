@@ -11,9 +11,13 @@
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Kunderegister implements Serializable  {
     
@@ -87,22 +91,22 @@ public class Kunderegister implements Serializable  {
          Skademelding[] skader=getSkademeldinger();
          Object[][] s=new Object[skader.length][6];
          
-         for (int i=0; i<skader.length;i++)
+        
+         for (int i=1; i<skader.length;i++)
          {
              
              if(skader[i]!=null)
              {
+                 
+                 
+                 
                 s[i][0]=skader[i].getKunde().getForsikringsnummer();
                 s[i][1]=skader[i].getType();
                 s[i][2]=skader[i].getDato();
                 s[i][3]=skader[i].getTakst();
                 s[i][4]=skader[i].getMelding();
-                 try {
-                     s[i][5]=skader[i].getBildet();
-                 } catch (IOException ex) {
-                     Logger.getLogger(Kunderegister.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-         
+                s[i][5]=skader[i].getBildet();
+                
              }
          }
          

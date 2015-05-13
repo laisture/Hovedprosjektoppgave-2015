@@ -31,9 +31,9 @@ class Tabell extends AbstractTableModel
         {
             return kolonnenavn[ kolonne];
         }
-        public Class getColumnClass( int kolonne)
-        {
-            return tabellskader[ 0][ kolonne].getClass();
+        public Class getColumnClass(int column){
+        Object value=this.getValueAt(0,column);
+        return (value==null?Object.class:value.getClass());
         }
         public int getColumnCount()
         {

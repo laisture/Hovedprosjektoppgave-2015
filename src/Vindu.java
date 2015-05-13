@@ -210,6 +210,7 @@ public class Vindu extends JFrame implements Serializable
         lesFil();
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
+        //System.out.println(tabell.getValueAt(1, 5));
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
