@@ -31,7 +31,7 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
-    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ]{2,30}$";
+    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ ]{2,30}$";
     public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
     public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
@@ -155,7 +155,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea husbettext=new JTextArea(10,40);
     private JButton laghus=new JButton("tegn båtforsikring");
-    
+    //End of husforsikring
     
     
     //andre tab
@@ -434,6 +434,7 @@ public class Vindu extends JFrame implements Serializable
         huspanel3.add(husbetingelser);
         huspanel3.add(husbettext);
         huspanel3.add(laghus);
+        laghus.addActionListener(lytter);
         // End of husforsikring
     }
    
@@ -802,15 +803,33 @@ public class Vindu extends JFrame implements Serializable
         try
         {
             String adresse = hadressefield.getText();
-            String byggår = byggårfield.getText();
+            String byggår2 = byggårfield.getText();
             String boligtype = boligtypefield.getText();
             String byggmat = byggmfield.getText();
             String standard = standardfield.getText();
-            String kvadrat = kvadratfield.getText();
-            String byggbeløp = byggbeløpfield.getText();
-            String innbobeløp = innbofield.getText();
+            String kvadrat2 = kvadratfield.getText();
+            String byggbeløp2 = byggbeløpfield.getText();
+            String innbobeløp2 = innbofield.getText();
             String betingelser = husbettext.getText();
             
+            if(!match(regexAdresse,adresse))
+            {
+                ut.setText("Feil adresse feltet, kun lov med bokstaver og tall(maks 30 tegn)n\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexRegår,byggår2))
+            {
+                ut.setText("Feil i byggår felt, kun tillatt med 4 tall\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNavn,boligtype))
+            {
+                ut.setText("Feil i boligtype felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
             Boolean ok = false;
             if(ok)
             {
