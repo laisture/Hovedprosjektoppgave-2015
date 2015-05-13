@@ -889,7 +889,7 @@ public class Vindu extends JFrame implements Serializable
             Husforsikring hus = new Husforsikring(adresse,byggår,boligtype,byggmat,kvadrat,standard,byggbeløp,innbobeløp,forsbeløp,betingelser);
             Boolean ok = register.lagForsikring(k,hus);
             if(ok)
-            {
+                {
                 hadressefield.setText("");
                 byggårfield.setText("");
                 boligtypefield.setText("");
