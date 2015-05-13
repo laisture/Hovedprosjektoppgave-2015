@@ -160,7 +160,9 @@ public class SkademeldingVindu  extends JFrame  {
        int k=Integer.parseInt(kundefield.getText());
        String t=(String)type.getSelectedItem();
        frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());
-       File outputfile = new File("saved.png");
+       int n=frame.getSkadenummer();
+       
+       File outputfile = new File(n+".png");
        ImageIO.write(bildet, "png", outputfile);
     }
     

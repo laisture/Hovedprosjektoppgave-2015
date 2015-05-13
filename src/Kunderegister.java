@@ -38,6 +38,17 @@ public class Kunderegister implements Serializable  {
         s.setNestenummer(n+1);
         k.setNestenummer(i+1);
     }
+    public int getSkadenummer()
+    {
+        int n=0;
+        
+        for (int j=0;j<register.size();j++)
+        {
+           
+           n+=register.get(j).getAntallSkader();
+        }
+        return (n);
+    }
     
     public void SendSkademelding(int k, String m, String t, String v)
     {

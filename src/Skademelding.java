@@ -71,6 +71,10 @@ public class Skademelding implements Serializable{
     {
         nestenummer=i;
     }
+    public int getSkadenummer()
+    {
+     return skadenummer;   
+    }
     public Boolean harForsikring()
     {
        ArrayList f=kunde.getForsikringer();
