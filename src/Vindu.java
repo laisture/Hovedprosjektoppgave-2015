@@ -187,9 +187,8 @@ public class Vindu extends JFrame implements Serializable
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(20,40);
-    private DefaultListModel fstring = new DefaultListModel();
     private JList<String> forsikringsliste=new JList<>();
-    private JList forsikringsliste=new JList();
+   
     
     //skademeldings tabell
     private Tabell modell;
