@@ -596,6 +596,10 @@ public class Vindu extends JFrame implements Serializable
     {
         register.SendSkademelding(k, m, t, v);
     }
+    public int getSkadenummer()
+    {
+        return register.getSkadenummer();
+    }
     /*
         Metoden har som oppgave å legge til bilforsikring hos kunden.
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
