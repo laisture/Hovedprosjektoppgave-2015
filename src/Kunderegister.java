@@ -27,7 +27,15 @@ public class Kunderegister implements Serializable  {
     public void Start()
     {
         Kunde k=new Kunde("","","");
+        Skademelding s= new Skademelding(k,"","","");
+        int n=0;
         int i=register.size();
+        for (int j=0;j<register.size();j++)
+        {
+           
+           n+=register.get(j).getAntallSkader();
+        }
+        s.setNestenummer(n+1);
         k.setNestenummer(i+1);
     }
     
