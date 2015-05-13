@@ -150,7 +150,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextField kvadratfield= new JTextField(4);
     private JLabel byggbeløplabel= new JLabel("forsikringsbeløp for byggnings");
     private JTextField byggbeløpfield= new JTextField(20);
-    private JLabel innbobeløplabel=new JLabel("Motorstyrke (HK):");
+    private JLabel innbobeløplabel=new JLabel("Innboforsikrings premie:");
     private JTextField innbofield=new JTextField(20);
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea husbettext=new JTextArea(10,40);
@@ -189,6 +189,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextArea output2=new JTextArea(20,40);
     private DefaultListModel fstring = new DefaultListModel();
     private JList<String> forsikringsliste=new JList<>();
+    private JList forsikringsliste=new JList();
     
     //skademeldings tabell
     private Tabell modell;
@@ -795,6 +796,41 @@ public class Vindu extends JFrame implements Serializable
             ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
+    
+    public void lagHus()
+    {
+        
+        try
+        {
+            String adresse = hadressefield.getText();
+            String byggår = byggårfield.getText();
+            String boligtype = boligtypefield.getText();
+            String byggmat = byggmfield.getText();
+            String standard = standardfield.getText();
+            String kvadrat = kvadratfield.getText();
+            String byggbeløp = byggbeløpfield.getText();
+            String innbobeløp = innbofield.getText();
+            String betingelser = husbettext.getText();
+            
+            Boolean ok = false;
+            if(ok)
+            {
+                hadressefield.setText("");
+                byggårfield.setText("");
+                boligtypefield.setText("");
+                byggmfield.setText("");
+                standardfield.setText("");
+                kvadratfield.setText("");
+                byggbeløpfield.setText("");
+                innbofield.setText("");
+                husbettext.setText("");
+            }
+        }
+        catch(NullPointerException npe)
+        {
+            ut.setText("Du havna i fella ja");
+        }
+    }
     // Kommenter plz
     private class Kommandolytter implements ActionListener
     {
@@ -811,6 +847,8 @@ public class Vindu extends JFrame implements Serializable
             lagBil();
           else if(e.getSource()==lagbåt)
             lagBåt();
+          else if(e.getSource()==laghus)
+            lagHus();
                   
         }
     }
