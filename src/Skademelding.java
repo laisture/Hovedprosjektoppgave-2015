@@ -1,10 +1,16 @@
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,10 +57,29 @@ public class Skademelding implements Serializable{
     {
         return melding;
     }
-    public BufferedImage getBildet()
+    public BufferedImage getBildet() throws IOException
     {
-        return bildet;
+       String bildefil = skadenummer+".png";
+        URL kilde = Skademelding.class.getResource(bildefil);
+        if(kilde!=null)
+        {
+            
+            BufferedImage b=ImageIO.read(kilde);
+            bildet=resize(b,200,200);
+            
+        }
+        return(bildet);
     }
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+    BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+    Graphics2D g2d = dimg.createGraphics();
+    g2d.drawImage(tmp, 0, 0, null);
+    g2d.dispose();
+
+    return dimg;
+}  
     public int getTakst()
     {
         return takst;

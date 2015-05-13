@@ -9,8 +9,11 @@
  * @author Joakim
  */
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Kunderegister implements Serializable  {
     
@@ -82,7 +85,7 @@ public class Kunderegister implements Serializable  {
      {
          
          Skademelding[] skader=getSkademeldinger();
-         Object[][] s=new Object[skader.length][5];
+         Object[][] s=new Object[skader.length][6];
          
          for (int i=0; i<skader.length;i++)
          {
@@ -94,7 +97,11 @@ public class Kunderegister implements Serializable  {
                 s[i][2]=skader[i].getDato();
                 s[i][3]=skader[i].getTakst();
                 s[i][4]=skader[i].getMelding();
-             //s[i][5]=skader[i].getBildet();
+                 try {
+                     s[i][5]=skader[i].getBildet();
+                 } catch (IOException ex) {
+                     Logger.getLogger(Kunderegister.class.getName()).log(Level.SEVERE, null, ex);
+                 }
          
              }
          }
