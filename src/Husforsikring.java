@@ -14,7 +14,7 @@ public class Husforsikring extends Forsikring {
     private int innbobeløp;
     public static final String type="hus";
     
-    public Husforsikring(String a, int b, String t, String m, int k, String sta, int bygg, int i, int premie, int beløp, String beskrivelse )
+    public Husforsikring(String a, int b, String t, String m, int k, String sta, int bygg, int premie, int beløp, String beskrivelse )
     {
         super(premie,beløp,beskrivelse,type);
         adresse=a;
@@ -24,7 +24,6 @@ public class Husforsikring extends Forsikring {
         standard=sta;
         byggebeløp=bygg;
         kvadratmeter=k;
-        innbobeløp=i;
        
         
     }
