@@ -138,7 +138,7 @@ public class Vindu extends JFrame implements Serializable
     
     private JLabel hadresselabel=new JLabel("Husadresse");
     private JTextField hadressefield=new JTextField(20);
-    private JLabel byggårlabel=new JLabel("Byggeår");
+    private JLabel byggårlabel=new JLabel("Byggeår:");
     private JTextField byggårfield=new JTextField(20);
     private JLabel boligtypelabel=new JLabel("Bolig type:");
     private JTextField boligtypefield=new JTextField(20);
@@ -148,10 +148,12 @@ public class Vindu extends JFrame implements Serializable
     private JTextField standardfield=new JTextField(4);
     private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField kvadratfield= new JTextField(4);
-    private JLabel byggbeløplabel= new JLabel("forsikringsbeløp for byggnings");
+    private JLabel byggbeløplabel= new JLabel("forsikringsbeløp for byggnings:");
     private JTextField byggbeløpfield= new JTextField(20);
     private JLabel innbobeløplabel=new JLabel("Innboforsikrings premie:");
     private JTextField innbofield=new JTextField(20);
+    private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
+    private JTextField husbeløpfield = new JTextField(20);
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea husbettext=new JTextArea(10,40);
     private JButton laghus=new JButton("tegn båtforsikring");
@@ -430,6 +432,8 @@ public class Vindu extends JFrame implements Serializable
         huspanel2.add(byggbeløpfield);
         huspanel2.add(innbobeløplabel);
         huspanel2.add(innbofield);
+        huspanel2.add(husbeløplabel);
+        huspanel2.add(husbeløpfield);
         huspanel3.add(husbetingelser);
         huspanel3.add(husbettext);
         huspanel3.add(laghus);
@@ -641,7 +645,7 @@ public class Vindu extends JFrame implements Serializable
             }
             if(!match(regexBetingelser,betingelser))
             {
-                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500\n");
+                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500(ingen spesial tegn er lov) \n");
                 ut.append("Registering ble ikke fulført");
                 return;
             }
@@ -655,7 +659,7 @@ public class Vindu extends JFrame implements Serializable
             Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
                 kjørelengde,priskm,bonus, bilbeløp, betingelser);
             
-            Boolean ok=register.LagForsikring(k, bil);
+            Boolean ok=register.lagForsikring(k, bil);
             if(ok)
             {
                 eierfield.setText("");
@@ -761,7 +765,7 @@ public class Vindu extends JFrame implements Serializable
             }
             if(!match(regexBetingelser,betingelser))
             {
-                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn\n");
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
@@ -773,7 +777,7 @@ public class Vindu extends JFrame implements Serializable
             int beløp = Integer.parseInt(beløp2);
             Båtforsikring båt = new Båtforsikring(båteier,regnr,båtmodell,lengde,år,
                                                   motortype,motorstyrke,premie,beløp,betingelser);
-            Boolean ok=register.LagForsikring(k, båt);
+            Boolean ok=register.lagForsikring(k, båt);
             if(ok)
             {
                 båteierfield.setText("");
@@ -787,6 +791,7 @@ public class Vindu extends JFrame implements Serializable
                 premiefield.setText("");
                 båtbeløpfield.setText("");
                 båtbettext.setText("");
+                ut.setText("Båtforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
             }
             
         }
@@ -809,7 +814,9 @@ public class Vindu extends JFrame implements Serializable
             String kvadrat2 = kvadratfield.getText();
             String byggbeløp2 = byggbeløpfield.getText();
             String innbobeløp2 = innbofield.getText();
+            String forsbeløp2 = husbeløpfield.getText();
             String betingelser = husbettext.getText();
+            
             
             if(!match(regexAdresse,adresse))
             {
@@ -829,7 +836,58 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registering ble ikke fulført");
                 return;
             }
-            Boolean ok = false;
+            if(!match(regexNavn,byggmat))
+            {
+                ut.setText("Feil i byggmateriale felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNavn,standard))
+            {
+                ut.setText("Feil i standard felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexMotorstyrke,kvadrat2))
+            {
+                ut.setText("Feil i kvadrat felt, kun tilatt med tall(maks 4 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNr,byggbeløp2))
+            {
+                ut.setText("Feil byggbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,innbobeløp2))
+            {
+                ut.setText("Feil innbobeløfelt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,forsbeløp2))
+            {
+                ut.setText("Feil forsirkingbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            
+            int byggår = Integer.parseInt(byggår2);
+            int kvadrat = Integer.parseInt(kvadrat2);
+            int byggbeløp = Integer.parseInt(byggbeløp2);
+            int innbobeløp = Integer.parseInt(innbobeløp2);
+            int forsbeløp = Integer.parseInt(forsbeløp2);
+            
+            //Boolean ok=register.LagForsikring(k, båt);
+            Husforsikring hus = new Husforsikring(adresse,byggår,boligtype,byggmat,kvadrat,standard,byggbeløp,innbobeløp,forsbeløp,betingelser);
+            Boolean ok = register.lagForsikring(k,hus);
             if(ok)
             {
                 hadressefield.setText("");
@@ -841,11 +899,12 @@ public class Vindu extends JFrame implements Serializable
                 byggbeløpfield.setText("");
                 innbofield.setText("");
                 husbettext.setText("");
-            }
+                husbeløpfield.setText("");
+            }   ut.setText("Båtforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
         }
         catch(NullPointerException npe)
         {
-            ut.setText("Du havna i fella ja");
+            ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
     // Kommenter plz

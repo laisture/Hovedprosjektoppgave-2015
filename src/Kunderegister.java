@@ -105,7 +105,7 @@ public class Kunderegister implements Serializable  {
         }
         return null;
     }
-    public Boolean LagForsikring(Kunde k, Forsikring f)
+    public Boolean lagForsikring(Kunde k, Forsikring f)
     {
         Boolean ok=k.addForsikring(f);
         return ok;
