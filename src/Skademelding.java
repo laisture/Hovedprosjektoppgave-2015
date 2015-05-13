@@ -26,11 +26,13 @@ public class Skademelding implements Serializable{
     private int takst;
     private String datoopprettet;
     private BufferedImage bildet;
+    private int skadenummer;
+    private static int nestenummer = 1;
     
     public Skademelding (Kunde k, String s, String t,String v)
             
     {
-        
+        skadenummer=nestenummer++;
         kunde=k;
         melding=s;
         type=t;
@@ -64,6 +66,10 @@ public class Skademelding implements Serializable{
     public String getDato()
     {
         return datoopprettet;
+    }
+    public void setNestenummer(int i)
+    {
+        nestenummer=i;
     }
     public Boolean harForsikring()
     {

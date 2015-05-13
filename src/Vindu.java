@@ -188,6 +188,10 @@ public class Vindu extends JFrame implements Serializable
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(20,40);
     private JList<String> forsikringsliste=new JList<>();
+    private JButton deaktiver=new JButton ("Deaktiver forsikring");
+    
+    
+    
    
     
     //skademeldings tabell
@@ -294,8 +298,27 @@ public class Vindu extends JFrame implements Serializable
      forsikringsliste.setFixedCellHeight(50);
      forsikringsliste.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
      forsikringsliste.setSelectedIndex(4);
-      
-      
+     deaktiver.setVisible(false);
+     
+     forsikringsliste.addListSelectionListener( new ListSelectionListener() {
+       public void valueChanged( ListSelectionEvent e)
+      {
+        if ( !e.getValueIsAdjusting() )
+         {
+           
+           int i=forsikringsliste.getSelectedIndex();
+           
+            ArrayList<Forsikring> forsikringer=k.getForsikringer();
+            
+            output2.setText(forsikringer.get(i).toString());
+            deaktiver.setVisible(true);
+           
+           
+         }
+       }
+     });
+      deaktiver.addActionListener(lytter);
+      søkVest.add(deaktiver);
       søkNord.add(søkefelt);
       søkNord.add(søkButton);
       søkCenter.add(output2);
@@ -495,7 +518,6 @@ public class Vindu extends JFrame implements Serializable
     public void finnForsikringer(Kunde k)
     {
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
-        ListIterator<Forsikring> iterator = forsikringer.listIterator();
         String[] s=new String[forsikringer.size()];
         for (int i = 0; i < forsikringer.size(); i++) 
         {
@@ -503,7 +525,7 @@ public class Vindu extends JFrame implements Serializable
                
         }
         forsikringsliste.setListData(s);
-         forsikringsliste.setVisibleRowCount(10);
+        forsikringsliste.setVisibleRowCount(10);
        
     }
     public void søkKunde()
@@ -681,7 +703,21 @@ public class Vindu extends JFrame implements Serializable
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
         Metoden har regex lagt til i hvert input felt, i tillegg er der lag til try/catch blokker.
     */
+    public void deaktiverf()
+    {
      
+            int i=forsikringsliste.getSelectedIndex();
+           
+            ArrayList<Forsikring> forsikringer=k.getForsikringer();
+            
+            forsikringer.get(i).setGyldig(false);
+            
+//            forsikringsliste.remove(i);
+            output.setText(k.toString());
+      
+        
+        
+    }
     public void lagBåt()
     {
         
@@ -867,6 +903,8 @@ public class Vindu extends JFrame implements Serializable
             lagBåt();
           else if(e.getSource()==laghus)
             lagHus();
+          else if(e.getSource()==deaktiver)
+             deaktiverf();
                   
         }
     }

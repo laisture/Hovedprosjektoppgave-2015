@@ -62,9 +62,22 @@ public class Kunde implements Serializable {
     {
          return (fornavn);
     }
+    
     public String getEtternavn()
     {
         return (etternavn);
+    }
+    public int getAntallSkader()
+    {
+        int n=0;
+        for (int i=0;i<skademeldinger.length;i++)
+        {
+            if(skademeldinger[i]!=null)
+            {
+                n++;
+            }
+        }
+        return n;
     }
     public int getForsikringsnummer()
     {
