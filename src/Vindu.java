@@ -31,7 +31,7 @@ public class Vindu extends JFrame implements Serializable
     private Kunde k;
     
     //RegEx
-    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ]{2,30}$";
+    public final static String regexFulltnavn = "^[a-zæøåA-ZÆØÅ ]{2,30}$";
     public final static String regexNavn = "^[a-zæøåA-ZÆØÅ]{1,15}$";
     public final static String regexAdresse = "^[a-zæøåA-ZÆØÅ_0-9 -]{1,25}$";
     public final static String regexNr = "^[0-9]{1,10}$";
@@ -62,6 +62,8 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilpanel=new JPanel();
     private JPanel båtpanel=new JPanel();
     private JPanel huspanel=new JPanel();
+    private JPanel fritidpanel = new JPanel();
+    private JPanel reisepanel = new JPanel();
     //login
     private JLabel utkunde=new JLabel("Du må søke etter en kunde før du kan tegne forsikring!");
     
@@ -78,8 +80,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilprisp=new JPanel();
     private JPanel bilbeløpp=new JPanel();
     private JPanel bilbetp=new JPanel();
-
-    
     
     private JLabel eierlabel=new JLabel("Bil eier:");
     private JTextField eierfield=new JTextField(10);
@@ -100,7 +100,7 @@ public class Vindu extends JFrame implements Serializable
     
     private JTextArea bilbettext=new JTextArea(10,40);
     private JButton lagbil=new JButton("tegn bilforsikring");
-
+    // End of bilpanel
     //båteier
     private JPanel båtpanel1=new JPanel();
     private JPanel båtpanel2=new JPanel();
@@ -138,26 +138,73 @@ public class Vindu extends JFrame implements Serializable
     
     private JLabel hadresselabel=new JLabel("Husadresse");
     private JTextField hadressefield=new JTextField(20);
-    private JLabel byggårlabel=new JLabel("Byggeår");
+    private JLabel byggårlabel=new JLabel("Byggeår:");
     private JTextField byggårfield=new JTextField(20);
     private JLabel boligtypelabel=new JLabel("Bolig type:");
     private JTextField boligtypefield=new JTextField(20);
     private JLabel byggmlabel=new JLabel("Byggmateriale:");
     private JTextField byggmfield=new JTextField(20);
-    private JLabel standardlabel=new JLabel("standard:");
+    private JLabel standardlabel=new JLabel("Standard:");
     private JTextField standardfield=new JTextField(4);
     private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField kvadratfield= new JTextField(4);
-    private JLabel byggbeløplabel= new JLabel("forsikringsbeløp for byggnings");
+    private JLabel byggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
     private JTextField byggbeløpfield= new JTextField(20);
-    private JLabel innbobeløplabel=new JLabel("Innboforsikrings premie:");
+    private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField innbofield=new JTextField(20);
+    private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
+    private JTextField husbeløpfield = new JTextField(20);
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea husbettext=new JTextArea(10,40);
-    private JButton laghus=new JButton("tegn båtforsikring");
+    private JButton laghus=new JButton("tegn husforsikring");
+    //End of husforsikring
+    //Fritidsboligforsikring
+    private JPanel fritidpanel1=new JPanel();
+    private JPanel fritidpanel2=new JPanel();
+    private JPanel fritidpanel3=new JPanel();
+    private JPanel fritidpanel4=new JPanel();
     
+    private JLabel fAdresselabel=new JLabel("Fritidsbolig adresse:");
+    private JTextField fAdressefield=new JTextField(20);
+    private JLabel fByggårlabel=new JLabel("Byggeår:");
+    private JTextField fByggårfield=new JTextField(20);
+    private JLabel fBoligtypelabel=new JLabel("Bolig type:");
+    private JTextField fboligtypefield=new JTextField(20);
+    private JLabel fbyggmlabel=new JLabel("Byggmateriale:");
+    private JTextField fbyggmfield=new JTextField(20);
+    private JLabel fstandardlabel=new JLabel("Standard:");
+    private JTextField fstandardfield=new JTextField(4);
+    private JLabel fkvadratlabel= new JLabel("Antall kvadratmeter:");
+    private JTextField fkvadratfield= new JTextField(4);
+    private JLabel fbyggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
+    private JTextField fbyggbeløpfield= new JTextField(20);
+    private JLabel fInnbobeløplabel=new JLabel("Innboforsikrings beløp:");
+    private JTextField fInnbofield=new JTextField(20);
+    private JLabel fPremielabel=new JLabel("Forsikringspremie:");
+    private JTextField fPremiefield=new JTextField(20);
+    private JLabel fHusbeløplabel = new JLabel("Forsikringsbeløp:");
+    private JTextField fHusbeløpfield = new JTextField(20);
+    private JLabel fHusbetingelser=new JLabel("Forsikringsbetingelser:");
+    private JTextArea fHusbettext=new JTextArea(10,40);
+    private JButton fLaghus=new JButton("tegn fritidsboligforsikring");
+    //End of Fritidsboligforsikring
     
+    //Reiseforsikring
+    private JPanel reisepanel1=new JPanel();
+    private JPanel reisepanel2=new JPanel();
     
+    private JLabel områdelabel = new JLabel("Forsikringsområde");
+    private JTextField områdefield = new JTextField(10);
+    private JLabel rforsikringsumlabel = new JLabel("Forsikringssum:");
+    private JTextField rforsikringssumfield = new JTextField(10);
+    private JLabel rpremielabel = new JLabel("Forsikringspremie:");
+    private JTextField rpremiefield = new JTextField(10);
+    private JLabel rbeløplabel = new JLabel("Forsikringsbeløp");
+    private JTextField rbeløpfield = new JTextField(10);
+    private JLabel rbetingelserlabel = new JLabel("Forsikringsbetingelser:");
+    private JTextArea rbetingelsertext = new JTextArea(10,40);
+    private JButton lagreise = new JButton("tegn reiseforsikring");
+    // End of reiseforsikring
     //andre tab
     private JPanel kundepanel=new JPanel();
     private JPanel m2=new JPanel();
@@ -187,9 +234,12 @@ public class Vindu extends JFrame implements Serializable
     private JTextField søkefelt=new JTextField(20);
     private JButton søkButton=new JButton("Finn kunde");
     private JTextArea output2=new JTextArea(20,40);
-    private DefaultListModel fstring = new DefaultListModel();
     private JList<String> forsikringsliste=new JList<>();
-    private JList forsikringsliste=new JList();
+    private JButton deaktiver=new JButton ("Deaktiver forsikring");
+    
+    
+    
+   
     
     //skademeldings tabell
     private Tabell modell;
@@ -205,6 +255,7 @@ public class Vindu extends JFrame implements Serializable
         lesFil();
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
+        //System.out.println(tabell.getValueAt(1, 5));
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -237,8 +288,12 @@ public class Vindu extends JFrame implements Serializable
         //hus
         forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
-
-        
+        //Fritidsbolig
+        forsikringer.addTab("fritidsbolig forsikring",null, fritidpanel, "Does nothing");
+        forsikringer.setMnemonicAt(1, KeyEvent.VK_4);
+        //Reiseforsikring
+        forsikringer.addTab("reise forsikring",null, reisepanel, "Does nothing");
+        forsikringer.setMnemonicAt(1, KeyEvent.VK_5);
       
       output.setEditable(false);
       output2.setEditable(false);
@@ -274,6 +329,8 @@ public class Vindu extends JFrame implements Serializable
       bilpanel.setPreferredSize(d);
       båtpanel.setPreferredSize(d);
       huspanel.setPreferredSize(d);
+      fritidpanel.setPreferredSize(d);
+      reisepanel.setPreferredSize(d);
       
       LagFaner();
       
@@ -295,8 +352,27 @@ public class Vindu extends JFrame implements Serializable
      forsikringsliste.setFixedCellHeight(50);
      forsikringsliste.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
      forsikringsliste.setSelectedIndex(4);
-      
-      
+     deaktiver.setVisible(false);
+     
+     forsikringsliste.addListSelectionListener( new ListSelectionListener() {
+       public void valueChanged( ListSelectionEvent e)
+      {
+        if ( !e.getValueIsAdjusting() )
+         {
+           
+           int i=forsikringsliste.getSelectedIndex();
+           
+            ArrayList<Forsikring> forsikringer=k.getForsikringer();
+            
+            output2.setText(forsikringer.get(i).toString());
+            deaktiver.setVisible(true);
+           
+           
+         }
+       }
+     });
+      deaktiver.addActionListener(lytter);
+      søkVest.add(deaktiver);
       søkNord.add(søkefelt);
       søkNord.add(søkButton);
       søkCenter.add(output2);
@@ -432,10 +508,60 @@ public class Vindu extends JFrame implements Serializable
         huspanel2.add(byggbeløpfield);
         huspanel2.add(innbobeløplabel);
         huspanel2.add(innbofield);
+        huspanel2.add(husbeløplabel);
+        huspanel2.add(husbeløpfield);
         huspanel3.add(husbetingelser);
         huspanel3.add(husbettext);
         huspanel3.add(laghus);
+        laghus.addActionListener(lytter);
         // End of husforsikring
+        // Fritidsbolig forsikring
+        fritidpanel.setLayout(new BorderLayout());
+        fritidpanel.add(fritidpanel1, BorderLayout.NORTH);
+        fritidpanel.add(fritidpanel2, BorderLayout.CENTER);
+        fritidpanel.add(fritidpanel3, BorderLayout.SOUTH);
+        fritidpanel1.add(fAdresselabel);
+        fritidpanel1.add(fAdressefield);
+        fritidpanel1.add(fByggårlabel);
+        fritidpanel1.add(fByggårfield);
+        fritidpanel1.add(fBoligtypelabel);
+        fritidpanel1.add(fboligtypefield);
+        fritidpanel2.add(fbyggmlabel);
+        fritidpanel2.add(fbyggmfield);
+        fritidpanel2.add(fstandardlabel);
+        fritidpanel2.add(fstandardfield);
+        fritidpanel2.add(fkvadratlabel);
+        fritidpanel2.add(fkvadratfield);
+        fritidpanel2.add(fbyggbeløplabel);
+        fritidpanel2.add(fbyggbeløpfield);
+        fritidpanel2.add(fInnbobeløplabel);
+        fritidpanel2.add(fInnbofield);
+        fritidpanel3.add(fPremielabel);
+        fritidpanel3.add(fPremiefield);
+        fritidpanel3.add(fHusbeløplabel);
+        fritidpanel3.add(fHusbeløpfield);
+        fritidpanel3.add(fHusbetingelser);
+        fritidpanel3.add(fHusbettext);
+        fritidpanel3.add(fLaghus);
+        fLaghus.addActionListener(lytter);
+        // End of fritidsbolig forsikring
+        // ReiseForsikring
+        reisepanel.setLayout(new BorderLayout());
+        reisepanel.add(reisepanel1,BorderLayout.CENTER);
+        reisepanel.add(reisepanel2,BorderLayout.SOUTH);
+        reisepanel1.add(områdelabel);
+        reisepanel1.add(områdefield);
+        reisepanel1.add(rforsikringsumlabel);
+        reisepanel1.add(rforsikringssumfield);
+        reisepanel1.add(rpremielabel);
+        reisepanel1.add(rpremiefield);
+        reisepanel1.add(rbeløplabel);
+        reisepanel1.add(rbeløpfield);
+        reisepanel2.add(rbetingelserlabel);
+        reisepanel2.add(rbetingelsertext);
+        reisepanel2.add(lagreise);
+        lagreise.addActionListener(lytter);
+        // End of Reiseforsikring
     }
    
     public boolean match(String regex, String inn)
@@ -495,7 +621,6 @@ public class Vindu extends JFrame implements Serializable
     public void finnForsikringer(Kunde k)
     {
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
-        ListIterator<Forsikring> iterator = forsikringer.listIterator();
         String[] s=new String[forsikringer.size()];
         for (int i = 0; i < forsikringer.size(); i++) 
         {
@@ -503,7 +628,7 @@ public class Vindu extends JFrame implements Serializable
                
         }
         forsikringsliste.setListData(s);
-         forsikringsliste.setVisibleRowCount(10);
+        forsikringsliste.setVisibleRowCount(10);
        
     }
     public void søkKunde()
@@ -574,6 +699,10 @@ public class Vindu extends JFrame implements Serializable
     {
         register.SendSkademelding(k, m, t, v);
     }
+    public int getSkadenummer()
+    {
+        return register.getSkadenummer();
+    }
     /*
         Metoden har som oppgave å legge til bilforsikring hos kunden.
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
@@ -642,7 +771,7 @@ public class Vindu extends JFrame implements Serializable
             }
             if(!match(regexBetingelser,betingelser))
             {
-                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500\n");
+                ut.setText("Feil i betingelser felt, minimum 10 tegn og maksimum 500(ingen spesial tegn er lov) \n");
                 ut.append("Registering ble ikke fulført");
                 return;
             }
@@ -656,7 +785,7 @@ public class Vindu extends JFrame implements Serializable
             Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
                 kjørelengde,priskm,bonus, bilbeløp, betingelser);
             
-            Boolean ok=register.LagForsikring(k, bil);
+            Boolean ok=register.lagForsikring(k, bil);
             if(ok)
             {
                 eierfield.setText("");
@@ -681,7 +810,21 @@ public class Vindu extends JFrame implements Serializable
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
         Metoden har regex lagt til i hvert input felt, i tillegg er der lag til try/catch blokker.
     */
+    public void deaktiverf()
+    {
      
+            int i=forsikringsliste.getSelectedIndex();
+           
+            ArrayList<Forsikring> forsikringer=k.getForsikringer();
+            
+            forsikringer.get(i).setGyldig(false);
+            
+//            forsikringsliste.remove(i);
+            output.setText(k.toString());
+      
+        
+        
+    }
     public void lagBåt()
     {
         
@@ -762,7 +905,7 @@ public class Vindu extends JFrame implements Serializable
             }
             if(!match(regexBetingelser,betingelser))
             {
-                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn\n");
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
@@ -774,7 +917,7 @@ public class Vindu extends JFrame implements Serializable
             int beløp = Integer.parseInt(beløp2);
             Båtforsikring båt = new Båtforsikring(båteier,regnr,båtmodell,lengde,år,
                                                   motortype,motorstyrke,premie,beløp,betingelser);
-            Boolean ok=register.LagForsikring(k, båt);
+            Boolean ok=register.lagForsikring(k, båt);
             if(ok)
             {
                 båteierfield.setText("");
@@ -788,6 +931,7 @@ public class Vindu extends JFrame implements Serializable
                 premiefield.setText("");
                 båtbeløpfield.setText("");
                 båtbettext.setText("");
+                ut.setText("Båtforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
             }
             
         }
@@ -796,23 +940,98 @@ public class Vindu extends JFrame implements Serializable
             ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
-    
+    /*
+        Metoden prøver å henter data fra input feltene i husforsikringsvinduet.
+        Hvis dette går gjennom vil husforsikringen bli lagret på kunden.
+        NB Det er krav at kunden må søkt opp via søkefeltet på toppen av siden.
+        Validering av input via regex og nødvendige try/catch blokker.
+    */
     public void lagHus()
     {
         
         try
         {
             String adresse = hadressefield.getText();
-            String byggår = byggårfield.getText();
+            String byggår2 = byggårfield.getText();
             String boligtype = boligtypefield.getText();
             String byggmat = byggmfield.getText();
             String standard = standardfield.getText();
-            String kvadrat = kvadratfield.getText();
-            String byggbeløp = byggbeløpfield.getText();
-            String innbobeløp = innbofield.getText();
+            String kvadrat2 = kvadratfield.getText();
+            String byggbeløp2 = byggbeløpfield.getText();
+            String innbobeløp2 = innbofield.getText();
+            String forsbeløp2 = husbeløpfield.getText();
             String betingelser = husbettext.getText();
             
-            Boolean ok = false;
+            
+            if(!match(regexAdresse,adresse))
+            {
+                ut.setText("Feil adresse feltet, kun lov med bokstaver og tall(maks 30 tegn)n\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexRegår,byggår2))
+            {
+                ut.setText("Feil i byggår felt, kun tillatt med 4 tall\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNavn,boligtype))
+            {
+                ut.setText("Feil i boligtype felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNavn,byggmat))
+            {
+                ut.setText("Feil i byggmateriale felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNavn,standard))
+            {
+                ut.setText("Feil i standard felt, kun tilatt med bokstaver(maks 20 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexMotorstyrke,kvadrat2))
+            {
+                ut.setText("Feil i kvaddrat felt, kun tilatt med tall(maks 4 tegn)\n");
+                ut.append("Registering ble ikke fulført");
+                return;
+            }
+            if(!match(regexNr,byggbeløp2))
+            {
+                ut.setText("Feil byggbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,innbobeløp2))
+            {
+                ut.setText("Feil innbobeløfelt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,forsbeløp2))
+            {
+                ut.setText("Feil forsirkingbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            
+            int byggår = Integer.parseInt(byggår2);
+            int kvadrat = Integer.parseInt(kvadrat2);
+            int byggbeløp = Integer.parseInt(byggbeløp2);
+            int innbobeløp = Integer.parseInt(innbobeløp2);
+            int forsbeløp = Integer.parseInt(forsbeløp2);
+            
+            Husforsikring hus = new Husforsikring(adresse,byggår,boligtype,byggmat,kvadrat,standard,byggbeløp,innbobeløp,forsbeløp,betingelser);
+            Boolean ok = register.lagForsikring(k,hus);
             if(ok)
             {
                 hadressefield.setText("");
@@ -824,11 +1043,102 @@ public class Vindu extends JFrame implements Serializable
                 byggbeløpfield.setText("");
                 innbofield.setText("");
                 husbettext.setText("");
+                husbeløpfield.setText("");
+               ut.setText("Båtforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
             }
         }
         catch(NullPointerException npe)
         {
-            ut.setText("Du havna i fella ja");
+            ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
+        }
+    }
+    /*
+    
+    */
+    public void lagFritidsbolig()
+    {
+        try
+        {
+            String adresse = fAdressefield.getText();
+            String byggår2 = fByggårfield.getText();
+            String boligtype = fboligtypefield.getText();
+            String byggmateriale = fbyggmfield.getText();
+            String standard = fstandardfield.getText();
+            String kvadrat2 = fkvadratfield.getText();
+            String byggbeløp2 = fbyggbeløpfield.getText();
+            String innbo2 = fInnbofield.getText();
+            String premie2 = fPremiefield.getText();
+        }
+        catch(NullPointerException npe)
+        {
+            ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
+        }
+    }
+    /*
+        Metoden prøver å henter data fra input feltene i reiseforsikrings vinduet.
+        Hvis dette går gjennom vil reiseforsirkngen bli lagret på kunden.
+        NB Det er krav at kunden må søkt opp via søkefeltet på toppen av siden.
+        Validering av input via regex og nødvendige try/catch blokker.
+    */
+    public void lagReise()
+    {
+        try
+        {
+            String område = områdefield.getText();
+            String forssum2 = rforsikringssumfield.getText();
+            String forspremie2 = rpremiefield.getText();
+            String forsbeløp2 = rbeløpfield.getText();
+            String betingelser = rbetingelsertext.getText();
+            
+            if(!match(regexNavn,område))
+            {
+                ut.setText("Feil i område felt, kun tillatt med bokstaver\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,forssum2))
+            {
+                ut.setText("Feil forsikringssum felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,forspremie2))
+            {
+                ut.setText("Feil forsirkingspremie felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexNr,forsbeløp2))
+            {
+                ut.setText("Feil forsirkingbeløp felt, kun tall er lov(maks 10 tegn)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            if(!match(regexBetingelser,betingelser))
+            {
+                ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
+                ut.append("Registrering ble ikke fullført");
+                return;
+            }
+            int forssum = Integer.parseInt(forssum2);
+            int forspremie = Integer.parseInt(forspremie2);
+            int forsbeløp = Integer.parseInt(forsbeløp2);
+            
+            Reiseforsikring reise = new Reiseforsikring(område,forssum,forspremie,forsbeløp,betingelser);
+            Boolean ok = register.lagForsikring(k,reise);
+            if(ok)
+            {
+                områdefield.setText("");
+                rforsikringssumfield.setText("");
+                rpremiefield.setText("");
+                rbeløpfield.setText("");
+                rbetingelsertext.setText("");
+                ut.setText("Båtforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
+            }
+        }
+        catch(NullPointerException npe)
+        {
+            ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
     // Kommenter plz
@@ -849,6 +1159,10 @@ public class Vindu extends JFrame implements Serializable
             lagBåt();
           else if(e.getSource()==laghus)
             lagHus();
+          else if(e.getSource()==lagreise)
+            lagReise();
+          else if(e.getSource()==deaktiver)
+             deaktiverf();
                   
         }
     }

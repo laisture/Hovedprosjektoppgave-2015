@@ -16,12 +16,12 @@ public class Bilforsikring extends Forsikring {
     public static final String type="bil";
     
     
-    public Bilforsikring(String n, String reg,String type, String m, int år, int lengde, int k, int premie, int beløp, String beskrivelse)
+    public Bilforsikring(String n, String reg,String t, String m, int år, int lengde, int k, int premie, int beløp, String beskrivelse)
     {
         super(premie,beløp,beskrivelse,type);
         navn=n;
         reginr=reg;
-        biltype=type;
+        biltype=t;
         modell=m;
         regiår=år;
         kjørelengde=lengde;

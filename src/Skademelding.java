@@ -1,10 +1,18 @@
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,11 +35,13 @@ public class Skademelding implements Serializable{
     private String datoopprettet;
     private BufferedImage bildet;
     private long opprettetlang;
+    private int skadenummer;
+    private static int nestenummer = 1;
     
     public Skademelding (Kunde k, String s, String t,String v)
             
     {
-        
+        skadenummer=nestenummer++;
         kunde=k;
         melding=s;
         type=t;
@@ -53,10 +63,36 @@ public class Skademelding implements Serializable{
     {
         return melding;
     }
-    public BufferedImage getBildet()
+    public ImageIcon getBildet() 
     {
-        return bildet;
+        ImageIcon ny;
+       String bildefil = skadenummer+".png";
+        URL kilde = Skademelding.class.getResource(bildefil);
+        
+        
+            
+            BufferedImage b;
+        try {
+            b = ImageIO.read(kilde);
+        } catch (IOException ex) {
+            b=null;
+            Logger.getLogger(Skademelding.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            bildet=resize(b,200,200);
+            ny=new ImageIcon(bildet);
+        
+        return(ny);
     }
+    public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+    BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+    Graphics2D g2d = dimg.createGraphics();
+    g2d.drawImage(tmp, 0, 0, null);
+    g2d.dispose();
+
+    return dimg;
+}  
     public int getTakst()
     {
         return takst;
@@ -68,6 +104,14 @@ public class Skademelding implements Serializable{
     public String getDato()
     {
         return datoopprettet;
+    }
+    public void setNestenummer(int i)
+    {
+        nestenummer=i;
+    }
+    public int getSkadenummer()
+    {
+     return skadenummer;   
     }
     public Boolean harForsikring()
     {

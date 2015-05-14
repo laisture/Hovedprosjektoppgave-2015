@@ -76,6 +76,7 @@ public class SkademeldingVindu  extends JFrame  {
     lytter = new Kommandolytter();
     bbutton.addActionListener(lytter);
     knapp.addActionListener(lytter);
+    beskrivelse.setLineWrap(true);
     
     n.add(kundelabel);
     n.add(kundefield);
@@ -84,7 +85,7 @@ public class SkademeldingVindu  extends JFrame  {
     n.add(typelabel);
     n.add(type);
     m.add(beskrivelselabel);
-    m.add(beskrivelse);
+    m.add(new JScrollPane(beskrivelse));
     s.add(bbutton);
     
     s.add(knapp);
@@ -160,7 +161,9 @@ public class SkademeldingVindu  extends JFrame  {
        int k=Integer.parseInt(kundefield.getText());
        String t=(String)type.getSelectedItem();
        frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());
-       File outputfile = new File("saved.png");
+       int n=frame.getSkadenummer();
+       
+       File outputfile = new File(n+".png");
        ImageIO.write(bildet, "png", outputfile);
     }
     
