@@ -150,7 +150,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextField kvadratfield= new JTextField(4);
     private JLabel byggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
     private JTextField byggbeløpfield= new JTextField(20);
-    private JLabel innbobeløplabel=new JLabel("Innboforsikrings premie:");
+    private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField innbofield=new JTextField(20);
     private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
     private JTextField husbeløpfield = new JTextField(20);
@@ -178,7 +178,7 @@ public class Vindu extends JFrame implements Serializable
     private JTextField fkvadratfield= new JTextField(4);
     private JLabel fbyggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
     private JTextField fbyggbeløpfield= new JTextField(20);
-    private JLabel fInnbobeløplabel=new JLabel("Innboforsikrings premie:");
+    private JLabel fInnbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField fInnbofield=new JTextField(20);
     private JLabel fPremielabel=new JLabel("Forsikringspremie:");
     private JTextField fPremiefield=new JTextField(20);
@@ -199,11 +199,11 @@ public class Vindu extends JFrame implements Serializable
     private JTextField rforsikringssumfield = new JTextField(10);
     private JLabel rpremielabel = new JLabel("Forsikringspremie:");
     private JTextField rpremiefield = new JTextField(10);
-    private JLabel rbeløplabel = new JLabel("Forsikringssum:");
+    private JLabel rbeløplabel = new JLabel("Forsikringsbeløp");
     private JTextField rbeløpfield = new JTextField(10);
-    private JLabel rbetingelserlabel = new JLabel("tegn reiseforsikring:");
+    private JLabel rbetingelserlabel = new JLabel("Forsikringsbetingelser:");
     private JTextArea rbetingelsertext = new JTextArea(10,40);
-    private JButton lagreise = new JButton("Bekreft");
+    private JButton lagreise = new JButton("tegn reiseforsikring");
     // End of reiseforsikring
     //andre tab
     private JPanel kundepanel=new JPanel();
