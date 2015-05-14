@@ -25,9 +25,7 @@ public class test {
 		
                             final SkademeldingVindu skadevindu= new SkademeldingVindu();
                             
-			
-		
-        
+
     }
    
 
