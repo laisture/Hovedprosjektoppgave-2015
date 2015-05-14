@@ -607,46 +607,44 @@ public class Vindu extends JFrame implements Serializable
     */
     public void LagKunde()
     {
-        Boolean ok = true;
         try
         {
             String fornavn=fornavnfield.getText();
             if(!match(regexNavn,fornavn))
-                ok = false;
+            {
+                output.setText("Feil i fornavn felt, vennligst bruk kun bokstaver (maks 15 tegn)");
+                output.append("\nVennligst prøv igjen");
+                return;
+            }
             String etternavn = etternavnfield.getText();
             if(!match(regexNavn,etternavn))
-                ok=false;
+            {
+                output.setText("Feil i etternavn felt, vennligst bruk kun bokstaver (maks 15 tegn)");
+                output.append("\nVennligst prøv igjen");
+                return;
+            }
             String adresse = adressefield.getText();
             if(!match(regexAdresse, adresse))
-                ok= false;
+            {
+                output.setText("Feil i adresse felt, spesialtegn er ikke lov kun bokstaver og tall (maks 30 tegn)");
+                output.append("\nVennligst prøv igjen");
+                return;
+            }
             Boolean ok2=register.nyKunde(fornavn,etternavn,adresse);
-            if(!ok2)
-                ok= false;
-            if(ok)
+            if(ok2)
+            {
                 output.setText("Kunde er registert med kundenummer : " /*+ kundenr*/);
+                fornavnfield.setText("");
+                etternavnfield.setText("");
+                adressefield.setText("");
+            }
             else
-                output.setText("");
+                output.setText("Kunde kunne ikke opprettes, prøv igjen");
         }
-        catch(NumberFormatException | NullPointerException | PatternSyntaxException nfe)
+        catch(NumberFormatException | NullPointerException nfe)
         {
             output.setText("Feil i innput, prøv igjen");
         }
-        /*String fornavn=fornavnfield.getText();
-        String etternavn=etternavnfield.getText();
-        String adresse=adressefield.getText();
-        Boolean ok=register.nyKunde(fornavn,etternavn,adresse);
-        if (ok)
-        {
-
-         output.setText("Kunde er opprettet");
-        }
-        else
-        {
-            output.setText("Kunde ble ikke opprettet");
-        }*/
-        fornavnfield.setText("");
-        etternavnfield.setText("");
-        adressefield.setText("");
         
     }
     public void finnForsikringer(Kunde k)
@@ -692,7 +690,7 @@ public class Vindu extends JFrame implements Serializable
             }
             søkefelt.setText("");
         }
-        catch(NullPointerException | PatternSyntaxException npe)
+        catch(NullPointerException npe)
         {
             søkefelt.setText("");
             output2.setText("Exception please doddodo");
@@ -710,20 +708,35 @@ public class Vindu extends JFrame implements Serializable
     }
     public void finnKunde()
     {
-        int kundeNr = Integer.parseInt(topfield.getText());
-        Kunde kunden1 = register.finnKunde(kundeNr);
-        if(kunden1 !=null)
+        try
         {
+            String kundeNr2 = topfield.getText();
+            if(!match(regexNr,kundeNr2))
+            {
+                ut.setText("Vennligst fyll inn kun nummer i søkefeltet.");
+                ut.append("\nVennligst prøv igjen.");
+                return;
+            }
+            int kundeNr = Integer.parseInt(kundeNr2);
+            Kunde kunden1 = register.finnKunde(kundeNr);
             
-            ut.setText(kunden1.AlttoString());
-            k=kunden1;
-            Bileier();
+            if(kunden1 !=null)
+            {
+
+                ut.setText(kunden1.AlttoString());
+                k=kunden1;
+                Bileier();
+            }
+            else
+            {
+                ut.setText("Finnes ingen kunder med dette kundenummeret");
+            }
+            topfield.setText("");
         }
-        else
+        catch(NullPointerException | NumberFormatException npe)
         {
-            ut.setText("Finnes ingen kunder med dette kundenummeret");
+            ut.setText("Fella ja");
         }
-        topfield.setText("");
           
     }
     public void sendSkademelding(int k, String m, String t, String v)
