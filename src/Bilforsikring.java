@@ -2,6 +2,7 @@
 //her lagres også metode for å regne ut bonusordningen. Dette er en subklasse av klassen Forsikring.
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Bilforsikring extends Forsikring {
     private String navn;
@@ -66,27 +67,28 @@ public class Bilforsikring extends Forsikring {
         Kunde kunde=k;
         int dager =  24* 3600 * 1000;
         long år = 365; 
-        long opprettet = super.getOpprettetlong()/dager;
+        long opprettet = Skademelding.getOpprettetlang()/dager;
         long dagensDato = (long) (new Date().getTime())/dager;
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();
         Skademelding siste=null;
-        /*
+        
         for (int i=0; i<s.length;i++)
         {
             if(s[i].getType()=="bil")
             {
-                if (siste==null || s[i].getDato()>siste)
+                if (siste==null || opprettet>siste)
                 {
-                    siste=s[i];
+                  siste=s[i];
                 }
             }
         }
         
-        if ( )
+        if (opprettet == dagensDato )
         {
             bonus+=20;
         }
+        
         long forskjell = dagensDato-opprettet;
         while(forskjell >= 0)
         {
@@ -97,22 +99,22 @@ public class Bilforsikring extends Forsikring {
                 bonus+=10;
             }
         }
-        if (teller >= 5 && bonus==70 && utbetalteErstatninger.length=0) // må fikse skademeldings type før det funker med bonus
-        { // må fikse type skade melding og antall skader av de typene som skal påvirke bonus
+        if (teller >= 5 && bonus==70) // Øker bonusen hvis antall år 
+        {
             bonus=75;
         }
         else
         {
            bonus=70;
         }
-        if(utbetalteErstatninger.length>0 && bonus==75 && teller<6) 
+        if(s.length>0 && bonus==75 && teller<6) 
         {
             bonus=60;
         }
-        else if(bonus<75 & utbetalteErstatninger.length>0)
+        else if(bonus<75 & s.length>0)
         {
             bonus-=30;
         }
-        */
+        
     }
 }

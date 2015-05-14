@@ -20,7 +20,8 @@ class Tabell extends AbstractTableModel
         {
             tabellskader=t;
         }
-       public static final int ERSTATNINGSKOLONNE = 4;
+       public static final int ERSTATNINGSKOLONNE = 3;
+       public static final int BILDEKOLONNE = 5;
         
         private String[] kolonnenavn =
         {
@@ -55,5 +56,6 @@ class Tabell extends AbstractTableModel
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
         }
+       
         
 }
