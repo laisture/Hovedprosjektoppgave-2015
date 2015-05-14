@@ -67,6 +67,10 @@ public class Kunde implements Serializable {
     {
         return (etternavn);
     }
+    public int getPremie()
+    {
+        return premie;
+    }
     public int getAntallSkader()
     {
         int n=0;
@@ -190,6 +194,9 @@ public class Kunde implements Serializable {
                 melding+=skademeldinger[i].toString();
             }
         }
+        årligPremie();
+        melding +="\n"+ "Årlig premie: "+premie;
+        melding+= "\n"+ "utbetalt erstatnign: "+utbetalteErstatninger();
         
         return melding;
     }

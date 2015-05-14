@@ -106,6 +106,8 @@ public class Kunderegister implements Serializable  {
                 s[i][3]=skader[i].getTakst();
                 s[i][4]=skader[i].getMelding();
                 s[i][5]=skader[i].getBildet();
+                s[i][6]=skader[i].getSjekket();
+                s[i][7]=skader[i].getSkadenummer();
                 
              }
          }

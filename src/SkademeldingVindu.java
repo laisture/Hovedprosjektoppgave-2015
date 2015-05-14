@@ -76,6 +76,7 @@ public class SkademeldingVindu  extends JFrame  {
     lytter = new Kommandolytter();
     bbutton.addActionListener(lytter);
     knapp.addActionListener(lytter);
+    beskrivelse.setLineWrap(true);
     
     n.add(kundelabel);
     n.add(kundefield);
@@ -84,7 +85,7 @@ public class SkademeldingVindu  extends JFrame  {
     n.add(typelabel);
     n.add(type);
     m.add(beskrivelselabel);
-    m.add(beskrivelse);
+    m.add(new JScrollPane(beskrivelse));
     s.add(bbutton);
     
     s.add(knapp);

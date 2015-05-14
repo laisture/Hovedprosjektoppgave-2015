@@ -19,9 +19,7 @@ public class test {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Kunderegister register= new Kunderegister();
-        //SkademeldingVindu vinduetd = new SkademeldingVindu();
-       // Boolean ok = register.k.totalKunde();
+        Kunderegister register= new Kunderegister();
         
        
 			
@@ -33,22 +31,31 @@ public class test {
         
     }
    
-//    class TabellFrame extends JFrame
-//    {
-//        public TabellFrame(JTextField textField)
-//        {
-//            setTitle("Statistikk modell");
-//            setSize(500, 500);
-//            
-//            
-//            
-//            tabell.setRowHeight(100);
-//            
-//            Container c = getContentPane();
-//            c.add(new JScrollPane(tabell), BorderLayout.CENTER);
-//            tabell.setAutoCreateRowSorter(true);
-//            
-//        }
-//    }
+   class TabellFrame extends JFrame
+   {
+       public TabellFrame()
+       {
+            setTitle("Statistikk modell");
+           setSize(500, 500);
+           JComboBox<Integer> utbetalt = new JComboBox<>();
+           int min=0; int max=100000000;
+           for(int i=min; i<=max; i++)
+           {
+               utbetalt.addItem(new Integer(i));
+           }
+           JTable tabell = new JTable();
+           tabell.setAutoCreateRowSorter(true);
+        TableCellEditor utbetalteditor = new DefaultCellEditor(utbetalt);
+      //Installerer editoren for månekolonnen.
+        TableColumnModel kolonnemodell = tabell.getColumnModel();
+        TableColumn utbetaltkolonne =
+        kolonnemodell.getColumn(Tabell.ERSTATNINGSKOLONNE);
+        utbetaltkolonne.setCellEditor(utbetalteditor);
+           
+           
+            
+          
+       }
+    }
     
 }
