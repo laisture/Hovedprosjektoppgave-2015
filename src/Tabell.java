@@ -25,7 +25,7 @@ class Tabell extends AbstractTableModel
         
         private String[] kolonnenavn =
         {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder"
+           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder", "Sjekket", "Skadenr"
         };
             
         public String getColumnName( int kolonne )

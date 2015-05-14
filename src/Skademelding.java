@@ -37,6 +37,7 @@ public class Skademelding implements Serializable{
     private long opprettetlang;
     private int skadenummer;
     private static int nestenummer = 1;
+    private boolean sjekket=false;
     
     public Skademelding (Kunde k, String s, String t,String v)
             
@@ -50,6 +51,10 @@ public class Skademelding implements Serializable{
         Date cal = new Date();
         datoopprettet= dateFormat.format(cal.getTime());
         opprettetlang = (long) (cal.getTime());
+    }
+    public boolean getSjekket()
+    {
+        return sjekket;
     }
     public long getOpprettetlang()
     {
