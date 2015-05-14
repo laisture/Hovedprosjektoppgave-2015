@@ -24,16 +24,16 @@ class Tabell extends AbstractTableModel
         
         private String[] kolonnenavn =
         {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding"
+           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder"
         };
             
         public String getColumnName( int kolonne )
         {
             return kolonnenavn[ kolonne];
         }
-        public Class getColumnClass( int kolonne)
-        {
-            return tabellskader[ 0][ kolonne].getClass();
+        public Class getColumnClass(int column){
+        Object value=this.getValueAt(0,column);
+        return (value==null?Object.class:value.getClass());
         }
         public int getColumnCount()
         {
