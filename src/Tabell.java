@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Joakim
  */
-class Tabell extends AbstractTableModel
+public class Tabell extends AbstractTableModel
     {
      private Object[][] tabellskader;
     
