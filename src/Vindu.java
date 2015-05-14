@@ -415,8 +415,10 @@ public class Vindu extends JFrame implements Serializable
       
       innutpanel.add(utpanel, BorderLayout.CENTER);
      innpanel.add(new JScrollPane(inntabell));
+     innpanel.setPreferredSize(new Dimension(100,150)); 
      utpanel.add(new JScrollPane(uttabell));
-      
+     utpanel.setPreferredSize(new Dimension(100,150));
+     
       p.add(tabbedPane);
       
       f.add(p);
