@@ -21,10 +21,11 @@ class Tabell extends AbstractTableModel
             tabellskader=t;
         }
        public static final int ERSTATNINGSKOLONNE = 3;
+       public static final int BILDEKOLONNE = 5;
         
         private String[] kolonnenavn =
         {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder"
+           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder", "Sjekket", "Skadenr"
         };
             
         public String getColumnName( int kolonne )
@@ -55,5 +56,6 @@ class Tabell extends AbstractTableModel
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
         }
+       
         
 }
