@@ -33,22 +33,5 @@ public class test {
         
     }
    
-//    class TabellFrame extends JFrame
-//    {
-//        public TabellFrame(JTextField textField)
-//        {
-//            setTitle("Statistikk modell");
-//            setSize(500, 500);
-//            
-//            
-//            
-//            tabell.setRowHeight(100);
-//            
-//            Container c = getContentPane();
-//            c.add(new JScrollPane(tabell), BorderLayout.CENTER);
-//            tabell.setAutoCreateRowSorter(true);
-//            
-//        }
-//    }
-    
+
 }

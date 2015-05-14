@@ -238,8 +238,15 @@ public class Vindu extends JFrame implements Serializable
     private JButton deaktiver=new JButton ("Deaktiver forsikring");
     
     
-    
-   
+    // Intekter og utgifter
+    private JPanel innutpanel= new JPanel();
+    private Inntektstabell inn;
+    private JTable inntabell;
+    private Utgiftstabell utgift;
+    private JTable uttabell;
+    private JPanel innpanel=new JPanel();
+    private JPanel utpanel=new JPanel();
+    private JPanel sumpanel=new JPanel();
     
     //skademeldings tabell
     private Tabell modell;
@@ -255,6 +262,11 @@ public class Vindu extends JFrame implements Serializable
         lesFil();
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
+        
+        inn=new Inntektstabell(register.get2dinn());
+        inntabell=new JTable(inn);
+        utgift=new Utgiftstabell(register.get2dut());
+        uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
@@ -278,7 +290,11 @@ public class Vindu extends JFrame implements Serializable
 
         tabbedPane.addTab("Skademeldinger",null, skadepanel, "Se, vurder og endre på skademeldinger som er blitt sendt inn.");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_4);
-        
+       
+        tabbedPane.addTab("Inntekter og Utgifter",null, innutpanel, "Alle inntekter og utgifter i selskapet");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_5);
+     
+       
         
         forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
@@ -393,6 +409,13 @@ public class Vindu extends JFrame implements Serializable
       skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
       tabell.setAutoCreateRowSorter(true);
       
+      
+      innutpanel.setLayout(new BorderLayout());
+      innutpanel.add(innpanel, BorderLayout.PAGE_START);
+      
+      innutpanel.add(utpanel, BorderLayout.CENTER);
+     innpanel.add(new JScrollPane(inntabell));
+     utpanel.add(new JScrollPane(uttabell));
       
       p.add(tabbedPane);
       

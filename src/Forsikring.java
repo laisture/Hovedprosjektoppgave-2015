@@ -66,7 +66,14 @@ public class Forsikring implements Serializable {
         melding+="Årlig premie: "+årligPremie+"\n";
         melding+= "Forsikringsbeløp: "+forsikringsbeløp+"\n";
         melding+="Betingelser:"+"\n"+betingelser+"\n\n";
-        
+        if(gyldig)
+        {
+            melding+= "Aktiv: Forsikringeng er aktiv.";
+        }
+        else
+        {
+            melding+="Aktiv: Forsikringen er IKKE aktiv.";
+        }
         return melding;
     }
             
