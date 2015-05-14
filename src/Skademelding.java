@@ -34,7 +34,7 @@ public class Skademelding implements Serializable{
     private int takst;
     private String datoopprettet;
     private BufferedImage bildet;
-    private long opprettetlang;
+    private long opprettetlong;
     private int skadenummer;
     private static int nestenummer = 1;
     private boolean sjekket=false;
@@ -50,15 +50,15 @@ public class Skademelding implements Serializable{
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date cal = new Date();
         datoopprettet= dateFormat.format(cal.getTime());
-        opprettetlang = (long) (cal.getTime());
+        opprettetlong = (long) (cal.getTime());
     }
     public boolean getSjekket()
     {
         return sjekket;
     }
-    public long getOpprettetlang()
+    public long getOpprettetlong()
     {
-        return opprettetlang;
+        return opprettetlong;
     }
     public Kunde getKunde()
     {

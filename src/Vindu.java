@@ -818,19 +818,21 @@ public class Vindu extends JFrame implements Serializable
     */
     public void deaktiverf()
     {
-     
-            int i=forsikringsliste.getSelectedIndex();
-           
-            ArrayList<Forsikring> forsikringer=k.getForsikringer();
-            
-            forsikringer.get(i).setGyldig(false);
-            
+        int i=forsikringsliste.getSelectedIndex();
+
+        ArrayList<Forsikring> forsikringer=k.getForsikringer();
+
+        forsikringer.get(i).setGyldig(false);
+
 //            forsikringsliste.remove(i);
-            output.setText(k.toString());
-      
-        
-        
+        output.setText(k.toString());    
     }
+    /*
+        Metoden prøver å henter data fra input feltene i båtforsikringsvinduet.
+        Hvis dette går gjennom vil båtforsikringen bli lagret på kunden.
+        NB Det er krav at kunden må søkt opp via søkefeltet på toppen av siden.
+        Validering av input via regex og nødvendige try/catch blokker.
+    */
     public void lagBåt()
     {
         
@@ -1059,7 +1061,10 @@ public class Vindu extends JFrame implements Serializable
         }
     }
     /*
-    
+        Metoden prøver å henter data fra input feltene i fritidsboligforsikrings vinduet.
+        Hvis dette går gjennom vil fritidsboligforsikringen bli lagret på kunden.
+        NB Det er krav at kunden må søkt opp via søkefeltet på toppen av siden.
+        Validering av input via regex og nødvendige try/catch blokker.
     */
     public void lagFritidsbolig()
     {
