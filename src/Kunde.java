@@ -67,6 +67,7 @@ public class Kunde implements Serializable {
     {
         return (etternavn);
     }
+
     public int getPremie()
     {
         return premie;
@@ -119,9 +120,13 @@ public class Kunde implements Serializable {
         
         for(int i = 0; i < skademeldinger.length; i++)
         {
+            if(skademeldinger[i]!=null)
+            {
             utbetalteErstatninger += skademeldinger[i].getTakst();
+            }
         }
         return utbetalteErstatninger;
+    
     }/*
     public int årligPremie()
     {
@@ -194,9 +199,10 @@ public class Kunde implements Serializable {
                 melding+=skademeldinger[i].toString();
             }
         }
+        int e=utbetalteErstatninger();
         årligPremie();
         melding +="\n"+ "Årlig premie: "+premie;
-        melding+= "\n"+ "utbetalt erstatnign: "+utbetalteErstatninger();
+        melding += "\n"+ "utbetalt erstatnign: "+e;
         
         return melding;
     }

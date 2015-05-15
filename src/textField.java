@@ -1,40 +1,34 @@
 
-/*  private JLabel områdelabel = new JLabel("Forsikringsområde");
-    private JTextField områdefield = new JTextField(10);
-    private JLabel rforsikringsumlabel = new JLabel("Forsikringssum:");
-    private JTextField rforsikringssumfield = new JTextField(10);
-    private JLabel rpremielabel = new JLabel("Forsikrinspremie:");
-    private JTextField rpremiefield = new JTextField(10);
-    private JLabel rbeløplabel = new JLabel("Forsikringssum:");
-    private JTextField rbeløpfield = new JTextField(10);
-    private JLabel rbetingelserlabel = new JLabel("Betingelser:");
-    private JTextArea rbetingelsertext = new JTextArea(10,40);
-    private JButton lagreise = new JButton("Bekreft");
-    fritidpanel.setLayout(new BorderLayout());
-    fritidpanel.add(fritidpanel1, BorderLayout.NORTH);
-    fritidpanel.add(fritidpanel2, BorderLayout.CENTER);
-    fritidpanel.add(fritidpanel3, BorderLayout.SOUTH);
-    fritidpanel1.add(fAdresselabel);
-    fritidpanel1.add(fAdressefield);
-    fritidpanel1.add(fByggårlabel);
-    fritidpanel1.add(fByggårfield);
-    fritidpanel1.add(fBoligtypelabel);
-    fritidpanel1.add(fboligtypefield);
-    fritidpanel2.add(fbyggmlabel);
-    fritidpanel2.add(fbyggmfield);
-    fritidpanel2.add(fstandardlabel);
-    fritidpanel2.add(fstandardfield);
-    fritidpanel2.add(fkvadratlabel);
-    fritidpanel2.add(fkvadratfield);
-    fritidpanel2.add(fbyggbeløplabel);
-    fritidpanel2.add(fbyggbeløpfield);
-    fritidpanel2.add(fInnbobeløplabel);
-    fritidpanel2.add(fInnbofield);
-    fritidpanel3.add(fPremielabel);
-    fritidpanel3.add(fPremiefield);
-    fritidpanel3.add(fHusbeløplabel);
-    fritidpanel3.add(fHusbeløpfield);
-    fritidpanel3.add(fHusbetingelser);
-    fritidpanel3.add(fHusbettext);
-    fritidpanel3.add(fLaghus);
-*/
+/*Boolean ok = true;
+        int kundeNr;
+        try
+        {
+            String søk = søkefelt.getText();
+            if(!match(regexNr,søk))
+                ok = false;
+            if(ok)
+                kundeNr = Integer.parseInt(søk);
+            else
+            {
+                output2.setText("Feil input, bruk kun nummer");
+                søkefelt.setText("");
+                return;
+            }
+            Kunde kunden = register.finnKundeInt(kundeNr);
+            if(kunden !=null)
+            {
+                output2.setText(kunden.toString());
+                k=kunden;
+                finnForsikringer(k);
+            }
+            else
+            {
+                output2.setText("Finnes ingen kunder med dette kundenummeret");
+            }
+            søkefelt.setText("");
+        }
+        catch(NullPointerException npe)
+        {
+            søkefelt.setText("");
+            output2.setText("Exception please doddodo");
+        }*/

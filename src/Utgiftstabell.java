@@ -11,21 +11,20 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Joakim
  */
-public class Tabell extends AbstractTableModel
+class Utgiftstabell extends AbstractTableModel
     {
-     private Object[][] tabellskader;
+     private Object[][] inntekter;
     
      
-     public Tabell(Object[][] t)
+     public Utgiftstabell(Object[][] t)
         {
-            tabellskader=t;
+            inntekter=t;
         }
        public static final int ERSTATNINGSKOLONNE = 3;
-       public static final int BILDEKOLONNE = 5;
         
         private String[] kolonnenavn =
         {
-           "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder", "Sjekket", "Skadenr"
+           "forsikringstype","beløp"
         };
             
         public String getColumnName( int kolonne )
@@ -38,15 +37,15 @@ public class Tabell extends AbstractTableModel
         }
         public int getColumnCount()
         {
-            return tabellskader[ 0].length;
+            return inntekter[ 0].length;
         }
         public int getRowCount()
         {
-            return tabellskader.length;
+            return inntekter.length;
         }
         public Object getValueAt(int rad, int kolonne)
     {
-      return tabellskader[ rad][ kolonne];
+      return inntekter[ rad][ kolonne];
     }
         public boolean istabellskaderEditable(int rad, int kolonne )
         {
@@ -54,8 +53,7 @@ public class Tabell extends AbstractTableModel
         }
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
-            tabellskader[ rad][ kolonne] = nyVerdi;
+            inntekter[ rad][ kolonne] = nyVerdi;
         }
-       
         
 }

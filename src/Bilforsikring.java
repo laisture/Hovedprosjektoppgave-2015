@@ -68,7 +68,7 @@ public class Bilforsikring extends Forsikring {
         int dager =  24* 3600 * 1000;
         long år = 365;
         long opprettet;
-        Skademelding.getOpprettetlang() = opprettet;
+        Skademelding.getOpprettetlong() = opprettet;
         long dagensDato = (long) (new Date().getTime())/dager;
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();

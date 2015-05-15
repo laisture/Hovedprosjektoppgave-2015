@@ -60,7 +60,7 @@ public class Kunderegister implements Serializable  {
     public void SendSkademelding(int k, String m, String t, String v)
     {
         
-        Kunde kunde=finnKunde(k);
+        Kunde kunde=finnKundeInt(k);
         kunde.addSkademelding(kunde,m,t,v);
     }
     
@@ -85,6 +85,94 @@ public class Kunderegister implements Serializable  {
         return skade;
         
     }
+     public int getPremie(String s)
+     {
+         int sum=0;
+         ArrayList<Forsikring> f;
+         for (Kunde kunde : register)
+        {
+            f=kunde.getForsikringer();
+            for(Forsikring forsikring : f)
+            {
+                if(forsikring.getType()==s)
+                {
+                    sum+=forsikring.getPremie();
+                }
+            }
+        }
+         return sum;
+     }
+     public int getErstatning(String s)
+     {
+         int sum=0;
+         Skademelding[] sm;
+         for (Kunde kunde : register)
+        {
+            sm=kunde.getSkademeldinger();
+            for(int i=0;i<sm.length;i++)
+            {
+                if(sm[i]!=null && sm[i].getType()==s)
+                {
+                    sum+=sm[i].getTakst();
+                }
+            }
+        }
+         return sum;
+     }
+     
+     public Object[][] get2dinn()
+     {
+         Object[][] inn =new Object[6][2];
+         
+         inn[0][0]="Bilforsikring";
+         inn[1][0]="Båtforsikring";
+         inn[2][0]="Husforsikring";
+         inn[3][0]="Fritidsboligforsikring";
+         inn[4][0]="Reiseforsikring";
+         inn[5][0]="Sum";
+         
+         int bil=getPremie("bil");
+         int båt=getPremie("båt");
+         int hus=getPremie("hus");
+         int fri=getPremie("fritid");
+         int reise=getPremie("reise");
+         
+         inn[0][1]=bil;
+         inn[1][1]=båt;
+         inn[2][1]=hus;
+         inn[3][1]=fri;
+         inn[4][1]=reise;
+         inn[5][1]=bil+båt+hus+fri+reise;
+         return inn;
+     }
+     public Object[][] get2dut()
+     {
+         Object[][] ut =new Object[6][2];
+         
+         ut[0][0]="Bilforsikring";
+         ut[1][0]="Båtforsikring";
+         ut[2][0]="Husforsikring";
+         ut[3][0]="Fritidsboligforsikring";
+         ut[4][0]="Reiseforsikring";
+         ut[5][0]="Sum";
+         
+         int bil=getErstatning("bil");
+         int båt=getErstatning("båt");
+         int hus=getErstatning("hus");
+         int fri=getErstatning("fritid");
+         int reise=getErstatning("reise");
+         
+         ut[0][1]=bil;
+         ut[1][1]=båt;
+         ut[2][1]=hus;
+         ut[3][1]=fri;
+         ut[4][1]=reise;
+         ut[5][1]=bil+båt+hus+fri+reise;
+         return ut;
+     }
+         
+     
+     
      public Object[][] get2dSkade()
      {
          
@@ -123,9 +211,12 @@ public class Kunderegister implements Serializable  {
     {
         Kunde b=new Kunde(f,e,a);
         settInn(b);
-        return true;
+        if(b == null)
+            return false;
+        else
+            return true;
     }
-    public Kunde finnKunde(int k)
+    public Kunde finnKundeInt(int k)
     {
 //       
         for (Kunde kunde : register)
@@ -142,19 +233,24 @@ public class Kunderegister implements Serializable  {
         Boolean ok=k.addForsikring(f);
         return ok;
     }
-    /*
-    public Kunde finnKunde(String n)
+    
+    public Kunde finnKundeString(String n)
     {
-        Iterator<Kunde> iterator = register.iterator();
+        /*Iterator<Kunde> iterator = register.iterator();
         while (iterator.hasNext())
         {
             if(iterator.next().getEtternavn()==n || iterator.next().getFornavn()==n || iterator.next().getNavn()==n)
             {
                 return (iterator.next());
             }
+        }*/
+        for (Kunde kunde : register)
+        {
+            if(kunde.getEtternavn().toLowerCase().equals(n.toLowerCase())/* || kunde.getNavn().toLowerCase().equals(n.toLowerCase())*/)
+                return kunde;
         }
         return null;
-    }*/
+    }
     
     
     public String toString()

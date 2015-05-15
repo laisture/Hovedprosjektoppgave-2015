@@ -10,12 +10,12 @@ public class Fritidsforsikring extends Forsikring {
     private String standard;
     private int kvadratm;
     //beløp for:
-    private int bygging;
+    private int byggbeløp;
     private int innbo;
     public static final String type="fritid";
     private boolean utleie;
     
-    public Fritidsforsikring(String a, int b, String t, String m, String sta,int k, int bygg,Boolean u, int premie, int beløp, String beskrivelse )
+    public Fritidsforsikring(String a, int b, String t, String m, String sta,int k, int bygg,int inb,Boolean u, int premie, int beløp, String beskrivelse )
     {
         super(premie,beløp,beskrivelse,type);
         fritidsadresse=a;
@@ -24,7 +24,8 @@ public class Fritidsforsikring extends Forsikring {
         byggmate=m;
         standard=sta;
         kvadratm=k;
-        bygging=bygg;
+        byggbeløp=bygg;
+        innbo = inb;
         utleie=u;
         
     }
@@ -55,6 +56,6 @@ public class Fritidsforsikring extends Forsikring {
     }
     public int getBygging()
     {
-        return bygging;
+        return byggbeløp;
     }
 }
