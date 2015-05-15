@@ -649,20 +649,27 @@ public class Vindu extends JFrame implements Serializable
     }
     public void finnForsikringer(Kunde k)
     {
+        try
+        {
+        //forsikringsliste.clearSelection();
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
         String[] s=new String[forsikringer.size()];
         for (int i = 0; i < forsikringer.size(); i++) 
         {
-		s[i]=forsikringer.get(i).type;
-               
+		s[i]=(String)forsikringer.get(i).getType();   
         }
         forsikringsliste.setListData(s);
-        forsikringsliste.setVisibleRowCount(10);
+        forsikringsliste.setVisibleRowCount(6);
+        }
+        catch(ArrayIndexOutOfBoundsException inde)
+        {
+            JOptionPane.showMessageDialog(null,"Hallo hallo");
+        }
        
     }
     public void søkKunde()
     {
-        Boolean ok = true;
+        /*Boolean ok = true;
         int kundeNr;
         try
         {
@@ -677,7 +684,7 @@ public class Vindu extends JFrame implements Serializable
                 søkefelt.setText("");
                 return;
             }
-            Kunde kunden = register.finnKunde(kundeNr);
+            Kunde kunden = register.finnKundeInt(kundeNr);
             if(kunden !=null)
             {
                 output2.setText(kunden.toString());
@@ -694,6 +701,53 @@ public class Vindu extends JFrame implements Serializable
         {
             søkefelt.setText("");
             output2.setText("Exception please doddodo");
+        }*/
+        try
+        {
+            String kundeNr2 = søkefelt.getText();
+            if(match(regexNr,kundeNr2))
+            {
+                int kundeNr = Integer.parseInt(kundeNr2);
+                Kunde kunden1 = register.finnKundeInt(kundeNr);
+
+                if(kunden1 !=null)
+                {
+
+                    output2.setText(kunden1.toString());
+                    k=kunden1;
+                    finnForsikringer(k);
+                }
+                else
+                {
+                    output2.setText("Finnes ingen kunder med dette kundenummeret");
+                }
+                søkefelt.setText("");
+                return;
+            }
+            else if(match(regexNavn,kundeNr2))
+            {
+                Kunde kunden1 = register.finnKundeString(kundeNr2);
+
+                if(kunden1 !=null)
+                {
+                    output2.setText(kunden1.toString());
+                    k=kunden1;
+                    finnForsikringer(k);
+                }
+                else
+                {
+                    output2.setText("Finnes ingen kunder med dette etternavnet.");
+                }
+                søkefelt.setText("");
+            }
+            else
+            {
+                output2.setText("Vennligst fyll inn etternavn eller kundenummer.");
+            }
+        }
+        catch(NullPointerException | NumberFormatException npe)
+        {
+            output2.setText("Fella ja");
         }
         
     }
@@ -711,33 +765,50 @@ public class Vindu extends JFrame implements Serializable
         try
         {
             String kundeNr2 = topfield.getText();
-            if(!match(regexNr,kundeNr2))
+            if(match(regexNr,kundeNr2))
             {
-                ut.setText("Vennligst fyll inn kun nummer i søkefeltet.");
-                ut.append("\nVennligst prøv igjen.");
+                int kundeNr = Integer.parseInt(kundeNr2);
+                Kunde kunden1 = register.finnKundeInt(kundeNr);
+
+                if(kunden1 !=null)
+                {
+
+                    ut.setText(kunden1.AlttoString());
+                    k=kunden1;
+                    Bileier();
+                }
+                else
+                {
+                    ut.setText("Finnes ingen kunder med dette kundenummeret");
+                }
+                topfield.setText("");
                 return;
             }
-            int kundeNr = Integer.parseInt(kundeNr2);
-            Kunde kunden1 = register.finnKunde(kundeNr);
-            
-            if(kunden1 !=null)
+            else if(match(regexNavn,kundeNr2))
             {
+                Kunde kunden1 = register.finnKundeString(kundeNr2);
 
-                ut.setText(kunden1.AlttoString());
-                k=kunden1;
-                Bileier();
+                if(kunden1 !=null)
+                {
+                    ut.setText(kunden1.AlttoString());
+                    k=kunden1;
+                    Bileier();
+                }
+                else
+                {
+                    ut.setText("Finnes ingen kunder med dette navnet.");
+                }
+                topfield.setText("");
             }
             else
             {
-                ut.setText("Finnes ingen kunder med dette kundenummeret");
+                ut.setText("Vennligst fyll inn etternavn eller kundenummer.");
             }
-            topfield.setText("");
         }
         catch(NullPointerException | NumberFormatException npe)
         {
             ut.setText("Fella ja");
-        }
-          
+        }    
     }
     public void sendSkademelding(int k, String m, String t, String v)
     {

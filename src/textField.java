@@ -1,12 +1,34 @@
 
-/*  
-            String adresse = fAdressefield.getText();
-            String byggår2 = fByggårfield.getText();
-            String boligtype = fboligtypefield.getText();
-            String byggmat = fbyggmfield.getText();
-            String standard = fstandardfield.getText();
-            String kvadrat2 = fkvadratfield.getText();
-            String byggbeløp2 = fbyggbeløpfield.getText();
-            String innbo2 = fInnbofield.getText();
-            String premie2 = fPremiefield.getText();
-*/
+/*Boolean ok = true;
+        int kundeNr;
+        try
+        {
+            String søk = søkefelt.getText();
+            if(!match(regexNr,søk))
+                ok = false;
+            if(ok)
+                kundeNr = Integer.parseInt(søk);
+            else
+            {
+                output2.setText("Feil input, bruk kun nummer");
+                søkefelt.setText("");
+                return;
+            }
+            Kunde kunden = register.finnKundeInt(kundeNr);
+            if(kunden !=null)
+            {
+                output2.setText(kunden.toString());
+                k=kunden;
+                finnForsikringer(k);
+            }
+            else
+            {
+                output2.setText("Finnes ingen kunder med dette kundenummeret");
+            }
+            søkefelt.setText("");
+        }
+        catch(NullPointerException npe)
+        {
+            søkefelt.setText("");
+            output2.setText("Exception please doddodo");
+        }*/

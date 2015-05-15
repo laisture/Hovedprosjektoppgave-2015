@@ -60,7 +60,7 @@ public class Kunderegister implements Serializable  {
     public void SendSkademelding(int k, String m, String t, String v)
     {
         
-        Kunde kunde=finnKunde(k);
+        Kunde kunde=finnKundeInt(k);
         kunde.addSkademelding(kunde,m,t,v);
     }
     
@@ -94,7 +94,7 @@ public class Kunderegister implements Serializable  {
             f=kunde.getForsikringer();
             for(Forsikring forsikring : f)
             {
-                if(forsikring.type==s)
+                if(forsikring.getType()==s)
                 {
                     sum+=forsikring.getPremie();
                 }
@@ -216,7 +216,7 @@ public class Kunderegister implements Serializable  {
         else
             return true;
     }
-    public Kunde finnKunde(int k)
+    public Kunde finnKundeInt(int k)
     {
 //       
         for (Kunde kunde : register)
@@ -233,19 +233,24 @@ public class Kunderegister implements Serializable  {
         Boolean ok=k.addForsikring(f);
         return ok;
     }
-    /*
-    public Kunde finnKunde(String n)
+    
+    public Kunde finnKundeString(String n)
     {
-        Iterator<Kunde> iterator = register.iterator();
+        /*Iterator<Kunde> iterator = register.iterator();
         while (iterator.hasNext())
         {
             if(iterator.next().getEtternavn()==n || iterator.next().getFornavn()==n || iterator.next().getNavn()==n)
             {
                 return (iterator.next());
             }
+        }*/
+        for (Kunde kunde : register)
+        {
+            if(kunde.getEtternavn().toLowerCase().equals(n.toLowerCase())/* || kunde.getNavn().toLowerCase().equals(n.toLowerCase())*/)
+                return kunde;
         }
         return null;
-    }*/
+    }
     
     
     public String toString()

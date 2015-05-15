@@ -67,6 +67,7 @@ public class Kunde implements Serializable {
     {
         return (etternavn);
     }
+
     public int getPremie()
     {
         return premie;
