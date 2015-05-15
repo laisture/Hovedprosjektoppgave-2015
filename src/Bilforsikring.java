@@ -66,8 +66,9 @@ public class Bilforsikring extends Forsikring {
     {   
         Kunde kunde=k;
         int dager =  24* 3600 * 1000;
-        long år = 365; 
-        long opprettet = Skademelding.getOpprettetlang()/dager;
+        long år = 365;
+        long opprettet;
+        Skademelding.getOpprettetlang() = opprettet;
         long dagensDato = (long) (new Date().getTime())/dager;
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();
@@ -77,9 +78,11 @@ public class Bilforsikring extends Forsikring {
         {
             if(s[i].getType()=="bil")
             {
-                if (siste==null || opprettet>siste)
+                if (siste==null)
                 {
-                  siste=s[i];
+                  if(opprettet>siste){
+                      siste=s[i];
+                  }
                 }
             }
         }
@@ -97,8 +100,7 @@ public class Bilforsikring extends Forsikring {
             {
                 teller++;
                 bonus+=10;
-            }
-        }
+        
         if (teller >= 5 && bonus==70) // Øker bonusen hvis antall år 
         {
             bonus=75;
@@ -114,6 +116,8 @@ public class Bilforsikring extends Forsikring {
         else if(bonus<75 & s.length>0)
         {
             bonus-=30;
+        }
+            }
         }
         
     }
