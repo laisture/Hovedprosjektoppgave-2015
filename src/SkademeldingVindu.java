@@ -153,18 +153,61 @@ public class SkademeldingVindu  extends JFrame  {
                 Logger.getLogger(SkademeldingVindu.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+    }
  
-
+    public void varsel(String s)
+    {
+        JOptionPane.showMessageDialog(null,s);
     }
     public void SendSkademelding() throws IOException
     {
-       int k=Integer.parseInt(kundefield.getText());
+       try
+       {
+           String kundenr2 = kundefield.getText();
+           String vitne = vitnefield.getText();
+           String beskrivelsen = (String)beskrivelse.getText();
+           
+           if(!frame.match(Vindu.regexNr,kundenr2))
+            {
+                varsel("Feil i kundenummer felt, kun nummer tilatt(maks 10 tegn)\n"
+                        + "(små bokstaver er tilatt)\nSkademelding ble ikke registrert, prøv igjen");
+                return;
+            }
+           if(!frame.match(Vindu.regexFulltnavn,vitne))
+            {
+                varsel("Feil i vitne felt, kun tilatt med bokstaver(maks 40 tegn)\n"
+                        + "Skademelding ble ikke registrert, prøv igjen");
+                return;
+            }
+           if(!frame.match(Vindu.regexBetingelser,beskrivelsen))
+           {
+               varsel("Feil i beskrivelse felt, ikke tillatt med spesialtegn(minimum 10 tegn og maksimum 500.\n"
+                        + "Skademelding ble ikke registrert, prøv igjen");
+                return;
+           }
+           String t = (String)type.getSelectedItem();
+           int kundenr = Integer.parseInt(kundenr2  );
+           
+           frame.sendSkademelding(kundenr,beskrivelsen,t,vitne);
+           int n=frame.getSkadenummer(); // Hva er dette??
+           //Må sjekke for illegalArgumentException her.
+           File outputfile = new File(n+".png");
+               
+           ImageIO.write(bildet, "png", outputfile);
+           
+           kundefield.setText("");
+           vitnefield.setText("");
+           beskrivelse.setText("");
+           varsel("Takk for skademeldingen, du vil får svar så fort som mulig");
+       }
+       catch(/*NullPointerException | */IllegalArgumentException npe)
+       {
+           varsel("Vennligst legg med bildet.");
+       }
+       /*int k=Integer.parseInt(kundefield.getText());
        String t=(String)type.getSelectedItem();
-       frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());
-       int n=frame.getSkadenummer();
+       frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());*/
        
-       File outputfile = new File(n+".png");
-       ImageIO.write(bildet, "png", outputfile);
     }
     
     private class Kommandolytter implements ActionListener

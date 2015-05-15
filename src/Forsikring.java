@@ -15,7 +15,7 @@ public class Forsikring implements Serializable {
     private int forsikringsbeløp;
     private String betingelser;
     private Boolean gyldig;
-    public static String type;
+    private String type;
     
     public Forsikring(int p, int beløp, String b,String t)
     {
@@ -54,6 +54,10 @@ public class Forsikring implements Serializable {
     public String getBetingelser()
     {
         return betingelser;
+    }
+    public String getType()
+    {
+        return type;
     }
     public void setGyldig(Boolean b)
     {
