@@ -68,7 +68,21 @@ public class Tabell extends AbstractTableModel implements Serializable
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
+            LagreEndring(nyVerdi, rad, kolonne);
         }
-       
-        
+       public void LagreEndring(Object n, int r, int k)
+       {
+           int sn=(int)getValueAt(r,7);
+           for (int i=0; i<tabellskader.length;i++)
+           {
+               if ((int)tabellskader[i][7]==sn)
+               {
+                   tabellskader[i][k]=n;
+               }
+           }
+       }
+       public Object[][] getTabellskader()
+       {
+           return tabellskader;
+       }
 }

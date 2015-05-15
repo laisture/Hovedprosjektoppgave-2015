@@ -259,7 +259,7 @@ public class Vindu extends JFrame implements Serializable
     
     
     private Kommandolytter lytter;
-    
+    private TableModelListener endring;
     public Vindu()
     {
         super("Main frame");
@@ -268,6 +268,7 @@ public class Vindu extends JFrame implements Serializable
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
         
+        modell.addTableModelListener(endring);
         tabell.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
      
