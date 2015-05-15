@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import static java.util.Locale.filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Joakim
  */
 
-public class SkademeldingVindu  extends JFrame  {
+public class SkademeldingVindu  extends JFrame implements Serializable {
     
     final Vindu frame= new Vindu();
     

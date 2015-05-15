@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Kunderegister implements Serializable  {
@@ -177,15 +178,16 @@ public class Kunderegister implements Serializable  {
      {
          
          Skademelding[] skader=getSkademeldinger();
-         Object[][] s=new Object[skader.length][6];
+         Object[][] s=new Object[skader.length][8];
          
-        
+         JButton[] knapper= new JButton[100];
+         
          for (int i=1; i<skader.length;i++)
          {
              
              if(skader[i]!=null)
              {
-                 
+                 knapper[i] = new JButton();
                  
                  
                 s[i][0]=skader[i].getKunde().getForsikringsnummer();
@@ -193,7 +195,7 @@ public class Kunderegister implements Serializable  {
                 s[i][2]=skader[i].getDato();
                 s[i][3]=skader[i].getTakst();
                 s[i][4]=skader[i].getMelding();
-                s[i][5]=skader[i].getBildet();
+                s[i][5]="Vis bildet!";
                 s[i][6]=skader[i].getSjekket();
                 s[i][7]=skader[i].getSkadenummer();
                 

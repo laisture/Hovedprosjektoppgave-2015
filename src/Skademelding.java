@@ -72,10 +72,11 @@ public class Skademelding implements Serializable{
     {
         ImageIcon ny;
        String bildefil = skadenummer+".png";
+       
         URL kilde = Skademelding.class.getResource(bildefil);
         
-        
-            
+        System.out.println(kilde);
+         
             BufferedImage b;
         try {
             b = ImageIO.read(kilde);

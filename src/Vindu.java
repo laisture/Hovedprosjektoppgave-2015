@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -265,6 +267,29 @@ public class Vindu extends JFrame implements Serializable
         lesFil();
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
+        
+        tabell.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+     
+      JTable target = (JTable)e.getSource();
+      int row = target.getSelectedRow();
+      int column = target.getSelectedColumn();
+      int nummer=(int)tabell.getValueAt(row, 7);
+      if (column==5)
+      {
+          Skademelding[] s=register.getSkademeldinger();
+          
+          for (int i=0; i<s.length;i++)
+          {
+              if(s[i].getSkadenummer()==nummer)
+              {
+                  JOptionPane.showMessageDialog(null,s[i].getBildet());
+                  
+              }
+          }
+      }
+    }
+    });
         
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
@@ -1359,6 +1384,8 @@ public class Vindu extends JFrame implements Serializable
        
         public void actionPerformed( ActionEvent e )
         {
+            
+           
           if ( e.getSource() == lagkunde )
             LagKunde();
           else if(e.getSource() == søkButton  )
