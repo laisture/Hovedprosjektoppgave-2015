@@ -327,7 +327,13 @@ public class Vindu extends JFrame implements Serializable
         
         JTabbedPane tabbedPane = new JTabbedPane();
         JTabbedPane forsikringer=new JTabbedPane();
+        Icon bil = new ImageIcon(getClass().getResource("/Ikoner/bil.png"));
+        Icon båt = new ImageIcon(getClass().getResource("/Ikoner/båt.png"));
+        Icon hus = new ImageIcon(getClass().getResource("/Ikoner/hus.png"));
+        Icon hytte = new ImageIcon(getClass().getResource("/Ikoner/hytte.png"));
+        Icon reise = new ImageIcon(getClass().getResource("/Ikoner/reise.png"));
 
+        
         tabbedPane.addTab("ny forsikring",null, panel, "Tegn forsikringer på kunde");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -345,19 +351,19 @@ public class Vindu extends JFrame implements Serializable
      
        
         
-        forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
+        forsikringer.addTab("bil forsikring",bil, bilpanel, "Does nothing");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
 
-        forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
+        forsikringer.addTab("båt forsikring",båt, båtpanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
         //hus
-        forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
+        forsikringer.addTab("hus forsikring",hus, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
         //Fritidsbolig
-        forsikringer.addTab("fritidsbolig forsikring",null, fritidpanel, "Does nothing");
+        forsikringer.addTab("fritidsbolig forsikring",hytte, fritidpanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_4);
         //Reiseforsikring
-        forsikringer.addTab("reise forsikring",null, reisepanel, "Does nothing");
+        forsikringer.addTab("reise forsikring",reise, reisepanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_5);
       
       output.setEditable(false);
@@ -533,9 +539,9 @@ public class Vindu extends JFrame implements Serializable
         //båtpanel
         båtpanel.setLayout(new BorderLayout());
         båtpanel.add(båtpanel1, BorderLayout.NORTH);
-        båtpanel1.setLayout(new GridLayout(2,3));
+        båtpanel1.setLayout(new GridLayout(3,3));
         båtpanel.add(båtpanel2, BorderLayout.CENTER);
-        båtpanel2.setLayout(new GridLayout(1,4));
+        
         båtpanel.add(båtpanel3, BorderLayout.SOUTH);
         
         båtpanel1.add(båteierp);
@@ -544,11 +550,11 @@ public class Vindu extends JFrame implements Serializable
         båtpanel1.add(båtmp);
         båtpanel1.add(båtårp);
         båtpanel1.add(båtlengdep);
-        båtpanel2.add(båtmotorp);
-        båtpanel2.add(båthkp);
-        båtpanel2.add(båtpremiep);
-        båtpanel2.add(båtbeløpp);
-        båtpanel2.add(premielabel);
+        båtpanel1.add(båtmotorp);
+        båtpanel1.add(båthkp);
+        båtpanel1.add(båtpremiep);
+        båtpanel1.add(båtbeløpp);
+        
         
         båteierp.add(båteierlabel);
         båteierp.add(båteierfield);
@@ -568,12 +574,19 @@ public class Vindu extends JFrame implements Serializable
         båthkp.add(motorsfield);
         båtpremiep.add(premielabel);
         båtpremiep.add(premiefield);
+        båtbeløpp.add(båtbeløplabel);
+        båtbeløpp.add(båtbeløpfield);
         
-        båtpanel3.add(båtbetingelser);
-        båtpanel3.add(båtbettext);
+        
+        båtpanel2.add(båtbettext);
         båtpanel3.add(lagbåt);   
         lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
+        
+        Border båtramme=BorderFactory.createLineBorder(Color.BLACK);
+        Border båttittel=BorderFactory.createTitledBorder(bilramme, "Forsikringsbetingelser");
+        båtbettext.setBorder(biltittel);
+        
         
         // Husforsikring
         huspanel.setLayout(new BorderLayout());
