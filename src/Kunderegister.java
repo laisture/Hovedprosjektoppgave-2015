@@ -191,9 +191,22 @@ public class Kunderegister implements Serializable  {
          
          for (int i=0;i<a.length;i++)
          {
-          Skademelding s=finnSkademelding((int)a[i][7]);
-          s.setTakst((int)a[i][3]);
-          s.setSjekket((Boolean)a[i][6]);
+             if(a[i][7]!=null)
+             {
+                 Skademelding s=finnSkademelding((int)a[i][7]);
+              s.setTakst(Integer.parseInt((String)a[i][3]));
+              s.setSjekket((Boolean)a[i][6]);
+              
+              for (Kunde k : register)
+              {
+                  if (k.getForsikringsnummer()==(int)a[i][0])
+                  {
+                      k.setSkademelding(s);
+                      
+                  }
+              }
+             }
+          
          }
      }
      
@@ -203,14 +216,12 @@ public class Kunderegister implements Serializable  {
          Skademelding[] skader=getSkademeldinger();
          Object[][] s=new Object[skader.length][8];
          
-         JButton[] knapper= new JButton[100];
-         
          for (int i=1; i<skader.length;i++)
          {
              
              if(skader[i]!=null)
              {
-                 knapper[i] = new JButton();
+                
                  
                  
                 s[i][0]=skader[i].getKunde().getForsikringsnummer();

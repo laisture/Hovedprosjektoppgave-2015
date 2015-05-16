@@ -108,26 +108,39 @@ public class Vindu extends JFrame implements Serializable
     private JPanel båtpanel2=new JPanel();
     private JPanel båtpanel3=new JPanel();
     
+    
+    private JPanel båteierp=new JPanel();
+    private JPanel båtregp=new JPanel();
+    private JPanel båttp=new JPanel();
+    private JPanel båtmp=new JPanel();
+    private JPanel båtårp=new JPanel();
+    private JPanel båtlengdep=new JPanel();
+    private JPanel båtmotorp=new JPanel();
+    private JPanel båthkp=new JPanel();
+    private JPanel båtpremiep=new JPanel();
+    private JPanel båtbeløpp=new JPanel();
+    private JPanel båtbetp=new JPanel();
+    
     private JLabel båteierlabel=new JLabel("Båt eier:");
-    private JTextField båteierfield=new JTextField(20);
+    private JTextField båteierfield=new JTextField(10);
     private JLabel båtreglabel=new JLabel("registreringsnummer:");
-    private JTextField båtregfield=new JTextField(20);
+    private JTextField båtregfield=new JTextField(10);
     private JLabel båttlabel=new JLabel("Båt type:");
-    private JTextField båttfield=new JTextField(20);
+    private JTextField båttfield=new JTextField(10);
     private JLabel båtmlabel=new JLabel("Båt modell:");
-    private JTextField båtmfield=new JTextField(20);
+    private JTextField båtmfield=new JTextField(10);
     private JLabel båtårlabel=new JLabel("første registreringsår:");
     private JTextField båtårfield=new JTextField(4);
     private JLabel lengdelabel= new JLabel("Båtlengde (fot):");
     private JTextField lengdefield= new JTextField(4);
     private JLabel motortlabel= new JLabel("Motortype:");
-    private JTextField motortfield= new JTextField(20);
+    private JTextField motortfield= new JTextField(10);
     private JLabel motorslabel=new JLabel("Motorstyrke (HK):");
-    private JTextField motorsfield=new JTextField(20);
+    private JTextField motorsfield=new JTextField(10);
     private JLabel premielabel = new JLabel("Forsikringspremie:");
     private JTextField premiefield = new JTextField(10);
     private JLabel båtbeløplabel=new JLabel("Forsikringsbeløp:");
-    private JTextField båtbeløpfield=new JTextField(20);
+    private JTextField båtbeløpfield=new JTextField(10);
     private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea båtbettext=new JTextArea(10,40);
     private JButton lagbåt=new JButton("tegn båtforsikring");
@@ -297,6 +310,13 @@ public class Vindu extends JFrame implements Serializable
         utgift=new Utgiftstabell(register.get2dut());
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
+        
+        try { 
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+      e.printStackTrace();
+        }   
+        
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -513,28 +533,42 @@ public class Vindu extends JFrame implements Serializable
         //båtpanel
         båtpanel.setLayout(new BorderLayout());
         båtpanel.add(båtpanel1, BorderLayout.NORTH);
+        båtpanel1.setLayout(new GridLayout(2,3));
         båtpanel.add(båtpanel2, BorderLayout.CENTER);
+        båtpanel2.setLayout(new GridLayout(1,4));
         båtpanel.add(båtpanel3, BorderLayout.SOUTH);
-        båtpanel1.add(båteierlabel);
-        båtpanel1.add(båteierfield);
-        båtpanel1.add(båtreglabel);
-        båtpanel1.add(båtregfield);
-        båtpanel1.add(båttlabel);
-        båtpanel1.add(båttfield);
-        båtpanel2.add(båtmlabel);
-        båtpanel2.add(båtmfield);
-        båtpanel2.add(båtårlabel);
-        båtpanel2.add(båtårfield);
-        båtpanel2.add(lengdelabel);
-        båtpanel2.add(lengdefield);
-        båtpanel2.add(motortlabel);
-        båtpanel2.add(motortfield);
-        båtpanel2.add(motorslabel);
-        båtpanel2.add(motorsfield);
+        
+        båtpanel1.add(båteierp);
+        båtpanel1.add(båtregp);
+        båtpanel1.add(båttp);
+        båtpanel1.add(båtmp);
+        båtpanel1.add(båtårp);
+        båtpanel1.add(båtlengdep);
+        båtpanel2.add(båtmotorp);
+        båtpanel2.add(båthkp);
+        båtpanel2.add(båtpremiep);
+        båtpanel2.add(båtbeløpp);
         båtpanel2.add(premielabel);
-        båtpanel2.add(premiefield);
-        båtpanel2.add(båtbeløplabel);
-        båtpanel2.add(båtbeløpfield);
+        
+        båteierp.add(båteierlabel);
+        båteierp.add(båteierfield);
+        båtregp.add(båtreglabel);
+        båtregp.add(båtregfield);
+        båttp.add(båttlabel);
+        båttp.add(båttfield);
+        båtmp.add(båtmlabel);
+        båtmp.add(båtmfield);
+        båtårp.add(båtårlabel);
+        båtårp.add(båtårfield);
+        båtlengdep.add(lengdelabel);
+        båtlengdep.add(lengdefield);
+        båtmotorp.add(motortlabel);
+        båtmotorp.add(motortfield);
+        båthkp.add(motorslabel);
+        båthkp.add(motorsfield);
+        båtpremiep.add(premielabel);
+        båtpremiep.add(premiefield);
+        
         båtpanel3.add(båtbetingelser);
         båtpanel3.add(båtbettext);
         båtpanel3.add(lagbåt);   

@@ -112,6 +112,23 @@ public class Kunde implements Serializable {
     {
         return totalkunde;
     }
+    
+    public int finnSkademeldingsplasering(int t)
+    {
+        for (int i=0; i<skademeldinger.length;i++)
+        {
+            if (skademeldinger[i].getSkadenummer()==t)
+            {
+                return (i);
+            }
+        }
+        return -1;
+    }
+    public void setSkademelding(Skademelding s)
+    {
+        int i=finnSkademeldingsplasering(s.getSkadenummer());
+        skademeldinger[i]=s;
+    }
     // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
     // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
     public int utbetalteErstatninger()

@@ -75,7 +75,7 @@ public class Tabell extends AbstractTableModel implements Serializable
            int sn=(int)getValueAt(r,7);
            for (int i=0; i<tabellskader.length;i++)
            {
-               if ((int)tabellskader[i][7]==sn)
+               if (tabellskader[i][7]!=null &&(int)tabellskader[i][7]==sn)
                {
                    tabellskader[i][k]=n;
                }
