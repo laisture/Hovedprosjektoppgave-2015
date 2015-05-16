@@ -80,6 +80,7 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilårp=new JPanel();
     private JPanel bilkjørep=new JPanel();
     private JPanel bilprisp=new JPanel();
+    private JPanel bilpremie =new JPanel();
     private JPanel bilbeløpp=new JPanel();
     private JPanel bilbetp=new JPanel();
     
@@ -97,6 +98,8 @@ public class Vindu extends JFrame implements Serializable
     private JTextField kjørefield= new JTextField(10);
     private JLabel priskm= new JLabel("pris per km");
     private JTextField priskmfield=new JTextField(10);
+    private JLabel bpremielabel= new JLabel("Forsikringspremie:");
+    private JTextField bpremiefield=new JTextField(10);
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
     private JTextField bilbeløpfield=new JTextField(10);
     
@@ -325,19 +328,19 @@ public class Vindu extends JFrame implements Serializable
      
        
         
-        forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
+        forsikringer.addTab("bil forsikring",null, bilpanel, "Lage ny bil forsikring");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
 
-        forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
+        forsikringer.addTab("båt forsikring",null, båtpanel, "Lage ny båt forsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
         //hus
-        forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
+        forsikringer.addTab("hus forsikring",null, huspanel, "Lage ny hus forsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
         //Fritidsbolig
-        forsikringer.addTab("fritidsbolig forsikring",null, fritidpanel, "Does nothing");
+        forsikringer.addTab("fritidsbolig forsikring",null, fritidpanel, "Lage ny fritidsbolig forsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_4);
         //Reiseforsikring
-        forsikringer.addTab("reise forsikring",null, reisepanel, "Does nothing");
+        forsikringer.addTab("reise forsikring",null, reisepanel, "Lage ny reise forsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_5);
       
       output.setEditable(false);
@@ -482,6 +485,7 @@ public class Vindu extends JFrame implements Serializable
         
         bilpanel2.add(bilårp);
         bilpanel2.add(bilkjørep);
+        bilpanel2.add(bilpremie);
         bilpanel2.add(bilbeløpp);
         
         
@@ -498,6 +502,8 @@ public class Vindu extends JFrame implements Serializable
         bilårp.add(regårfield);
         bilkjørep.add(kjørelabel);
         bilkjørep.add(kjørefield);
+        bilpremie.add(premielabel);
+        bilpremie.add(premiefield);
         bilbeløpp.add(bilbeløplabel);
         bilbeløpp.add(bilbeløpfield);
         
@@ -860,7 +866,6 @@ public class Vindu extends JFrame implements Serializable
         int regår;
         int kjørelengde;
         int priskm = 1;
-        int bonus;
         int bilbeløp;
         //Boolean ok= true;
         try
@@ -871,6 +876,7 @@ public class Vindu extends JFrame implements Serializable
             String bilmerke= bmfield.getText();
             String regår2 = regårfield.getText();
             String kjørelengde2= kjørefield.getText();
+            String premie2 = premiefield.getText();
             String bilbeløp2 = bilbeløpfield.getText();
             String betingelser = bilbettext.getText();
             if(!match(regexFulltnavn,bileier))
@@ -910,6 +916,12 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("\nRegistering ble ikke fulført");
                 return;
             }
+            if(!match(regexNr,premie2))
+            {
+                ut.setText("Feil i forsikringspremie felt, det er kun lov med nummer(maks 10 tegn)\n");
+                ut.append("\nRegistering ble ikke fulført");
+                return;
+            }
             if(!match(regexNr,bilbeløp2))
             {
                 ut.setText("Feil i forsikringsbeløp felt, kun nummer tilatt(maks 10 tegn)\n");
@@ -926,11 +938,11 @@ public class Vindu extends JFrame implements Serializable
             
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
-            bonus=20;
+            int premie = Integer.parseInt(premie2);
             bilbeløp=Integer.parseInt(bilbeløp2);
             
             Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
-                kjørelengde,priskm,bonus, bilbeløp, betingelser);
+                kjørelengde,priskm,premie, bilbeløp, betingelser);
             
             Boolean ok=register.lagForsikring(k, bil);
             if(ok)
@@ -942,6 +954,7 @@ public class Vindu extends JFrame implements Serializable
                 bilbeløpfield.setText("");
                 kjørefield.setText("");
                 regårfield.setText("");
+                premiefield.setText("");
                 bilbettext.setText("");
                 ut.setText("bilforsikring ble registert på kundenummer:" + k.getForsikringsnummer());
             }
@@ -1462,7 +1475,7 @@ public class Vindu extends JFrame implements Serializable
         try (ObjectOutputStream utfil = new ObjectOutputStream(
              new FileOutputStream("src/liste.data")))
         {
-            lagreEndring();
+            //lagreEndring();
             utfil.writeObject(register);
         }
         catch( NotSerializableException nse )
