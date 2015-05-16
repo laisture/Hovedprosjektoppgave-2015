@@ -844,6 +844,12 @@ public class Vindu extends JFrame implements Serializable
     {
         return register.getSkadenummer();
     }
+    public void lagreEndring()
+    {
+      Object [][]  a=modell.getTabellskader();
+      register.Endring(a);
+    }
+    
     /*
         Metoden har som oppgave å legge til bilforsikring hos kunden.
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
@@ -1456,6 +1462,7 @@ public class Vindu extends JFrame implements Serializable
         try (ObjectOutputStream utfil = new ObjectOutputStream(
              new FileOutputStream("src/liste.data")))
         {
+            lagreEndring();
             utfil.writeObject(register);
         }
         catch( NotSerializableException nse )

@@ -52,6 +52,14 @@ public class Skademelding implements Serializable{
         datoopprettet= dateFormat.format(cal.getTime());
         opprettetlong = (long) (cal.getTime());
     }
+    public void setTakst(int i)
+    {
+        takst=i;
+    }
+    public void setSjekket(Boolean b)
+    {
+        sjekket=b;
+    }
     public boolean getSjekket()
     {
         return sjekket;
