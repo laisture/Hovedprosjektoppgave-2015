@@ -86,6 +86,19 @@ public class Kunderegister implements Serializable  {
         return skade;
         
     }
+     public Skademelding finnSkademelding(int s)
+     {
+         Skademelding [] sm=getSkademeldinger();
+         
+         for (int i=0; i<sm.length;i++)
+         {
+             if (sm[i].getSkadenummer()==s)
+             {
+                 return sm[i];
+             }
+         }
+         return null;
+     }
      public int getPremie(String s)
      {
          int sum=0;
@@ -172,7 +185,17 @@ public class Kunderegister implements Serializable  {
          return ut;
      }
          
-     
+     public void Endring (Object[][] a)
+     {
+         
+         
+         for (int i=0;i<a.length;i++)
+         {
+          Skademelding s=finnSkademelding((int)a[i][7]);
+          s.setTakst((int)a[i][3]);
+          s.setSjekket((Boolean)a[i][6]);
+         }
+     }
      
      public Object[][] get2dSkade()
      {
