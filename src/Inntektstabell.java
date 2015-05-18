@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Joakim
  */
-class Inntektstabell extends AbstractTableModel
+class Inntektstabell extends AbstractTableModel 
     {
      private Object[][] inntekter;
     

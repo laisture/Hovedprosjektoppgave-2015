@@ -68,7 +68,8 @@ public class Bilforsikring extends Forsikring {
         Kunde kunde=k;
         int dager =  24* 3600 * 1000;
         long år = 365;
-        long opprettet=this.getOpprettetlong();
+        long opprettet;
+        opprettet=this.getOpprettetlong();
         long dagensDato = (long) (new Date().getTime())/dager;
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();
@@ -78,10 +79,13 @@ public class Bilforsikring extends Forsikring {
         {
             if(s[i].getType()=="bil")// Sjekker om skademeldingstypen er en bil
             {
-                  if(siste==null || s[i].getOpprettetlong()>siste.getOpprettetlong() ){
+                
+                
+                  if(siste==null || s[i].getOpprettetlong()>siste.getOpprettetlong()){
                       siste=s[i];
                       // gjør sånn at kun den siste skademeldingen med type bil blir sjekket for å beregne bonusen
                   }
+                
             }
         }
         

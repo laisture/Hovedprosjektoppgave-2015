@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import javax.swing.table.AbstractTableModel;
 
 /*
@@ -11,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Joakim
  */
-public class Tabell extends AbstractTableModel
+public class Tabell extends AbstractTableModel implements Serializable
     {
      private Object[][] tabellskader;
     
@@ -34,7 +35,10 @@ public class Tabell extends AbstractTableModel
         }
         public Class getColumnClass(int column){
         Object value=this.getValueAt(0,column);
-        return (value==null?Object.class:value.getClass());
+        
+       return column == 6 ? Boolean.class : super.getColumnClass(column);
+
+       // return (value==null?Object.class:value.getClass());
         }
         public int getColumnCount()
         {
@@ -48,14 +52,37 @@ public class Tabell extends AbstractTableModel
     {
       return tabellskader[ rad][ kolonne];
     }
-        public boolean istabellskaderEditable(int rad, int kolonne )
+        
+        
+     
+        
+        public boolean isCellEditable(int rad, int kolonne )
         {
-            return kolonne == ERSTATNINGSKOLONNE;
+            
+            if(kolonne==3||kolonne==6)
+            {
+                return true;
+            }
+            return false;
         }
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
+            LagreEndring(nyVerdi, rad, kolonne);
         }
-       
-        
+       public void LagreEndring(Object n, int r, int k)
+       {
+           int sn=(int)getValueAt(r,7);
+           for (int i=0; i<tabellskader.length;i++)
+           {
+               if (tabellskader[i][7]!=null &&(int)tabellskader[i][7]==sn)
+               {
+                   tabellskader[i][k]=n;
+               }
+           }
+       }
+       public Object[][] getTabellskader()
+       {
+           return tabellskader;
+       }
 }

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Kunderegister implements Serializable  {
@@ -85,6 +86,19 @@ public class Kunderegister implements Serializable  {
         return skade;
         
     }
+     public Skademelding finnSkademelding(int s)
+     {
+         Skademelding [] sm=getSkademeldinger();
+         
+         for (int i=0; i<sm.length;i++)
+         {
+             if (sm[i].getSkadenummer()==s)
+             {
+                 return sm[i];
+             }
+         }
+         return null;
+     }
      public int getPremie(String s)
      {
          int sum=0;
@@ -171,21 +185,43 @@ public class Kunderegister implements Serializable  {
          return ut;
      }
          
-     
+     public void Endring (Object[][] a)
+     {
+         
+         
+         for (int i=0;i<a.length;i++)
+         {
+             if(a[i][7]!=null)
+             {
+                 Skademelding s=finnSkademelding((int)a[i][7]);
+              s.setTakst(Integer.parseInt((String)a[i][3]));
+              s.setSjekket((Boolean)a[i][6]);
+              
+              for (Kunde k : register)
+              {
+                  if (k.getForsikringsnummer()==(int)a[i][0])
+                  {
+                      k.setSkademelding(s);
+                      
+                  }
+              }
+             }
+          
+         }
+     }
      
      public Object[][] get2dSkade()
      {
          
          Skademelding[] skader=getSkademeldinger();
-         Object[][] s=new Object[skader.length][6];
+         Object[][] s=new Object[skader.length][8];
          
-        
          for (int i=1; i<skader.length;i++)
          {
              
              if(skader[i]!=null)
              {
-                 
+                
                  
                  
                 s[i][0]=skader[i].getKunde().getForsikringsnummer();
@@ -193,7 +229,7 @@ public class Kunderegister implements Serializable  {
                 s[i][2]=skader[i].getDato();
                 s[i][3]=skader[i].getTakst();
                 s[i][4]=skader[i].getMelding();
-                s[i][5]=skader[i].getBildet();
+                s[i][5]="Vis bildet!";
                 s[i][6]=skader[i].getSjekket();
                 s[i][7]=skader[i].getSkadenummer();
                 

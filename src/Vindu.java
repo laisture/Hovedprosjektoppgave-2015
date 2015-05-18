@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -78,6 +80,7 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilårp=new JPanel();
     private JPanel bilkjørep=new JPanel();
     private JPanel bilprisp=new JPanel();
+    private JPanel bilpremie =new JPanel();
     private JPanel bilbeløpp=new JPanel();
     private JPanel bilbetp=new JPanel();
     
@@ -95,6 +98,8 @@ public class Vindu extends JFrame implements Serializable
     private JTextField kjørefield= new JTextField(10);
     private JLabel priskm= new JLabel("pris per km");
     private JTextField priskmfield=new JTextField(10);
+    private JLabel bpremielabel= new JLabel("Forsikringspremie:");
+    private JTextField bpremiefield=new JTextField(10);
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
     private JTextField bilbeløpfield=new JTextField(10);
     
@@ -106,26 +111,39 @@ public class Vindu extends JFrame implements Serializable
     private JPanel båtpanel2=new JPanel();
     private JPanel båtpanel3=new JPanel();
     
+    
+    private JPanel båteierp=new JPanel();
+    private JPanel båtregp=new JPanel();
+    private JPanel båttp=new JPanel();
+    private JPanel båtmp=new JPanel();
+    private JPanel båtårp=new JPanel();
+    private JPanel båtlengdep=new JPanel();
+    private JPanel båtmotorp=new JPanel();
+    private JPanel båthkp=new JPanel();
+    private JPanel båtpremiep=new JPanel();
+    private JPanel båtbeløpp=new JPanel();
+    private JPanel båtbetp=new JPanel();
+    
     private JLabel båteierlabel=new JLabel("Båt eier:");
-    private JTextField båteierfield=new JTextField(20);
+    private JTextField båteierfield=new JTextField(10);
     private JLabel båtreglabel=new JLabel("registreringsnummer:");
-    private JTextField båtregfield=new JTextField(20);
+    private JTextField båtregfield=new JTextField(10);
     private JLabel båttlabel=new JLabel("Båt type:");
-    private JTextField båttfield=new JTextField(20);
+    private JTextField båttfield=new JTextField(10);
     private JLabel båtmlabel=new JLabel("Båt modell:");
-    private JTextField båtmfield=new JTextField(20);
+    private JTextField båtmfield=new JTextField(10);
     private JLabel båtårlabel=new JLabel("første registreringsår:");
     private JTextField båtårfield=new JTextField(4);
     private JLabel lengdelabel= new JLabel("Båtlengde (fot):");
     private JTextField lengdefield= new JTextField(4);
     private JLabel motortlabel= new JLabel("Motortype:");
-    private JTextField motortfield= new JTextField(20);
+    private JTextField motortfield= new JTextField(10);
     private JLabel motorslabel=new JLabel("Motorstyrke (HK):");
-    private JTextField motorsfield=new JTextField(20);
+    private JTextField motorsfield=new JTextField(10);
     private JLabel premielabel = new JLabel("Forsikringspremie:");
     private JTextField premiefield = new JTextField(10);
     private JLabel båtbeløplabel=new JLabel("Forsikringsbeløp:");
-    private JTextField båtbeløpfield=new JTextField(20);
+    private JTextField båtbeløpfield=new JTextField(10);
     private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea båtbettext=new JTextArea(10,40);
     private JButton lagbåt=new JButton("tegn båtforsikring");
@@ -257,7 +275,7 @@ public class Vindu extends JFrame implements Serializable
     
     
     private Kommandolytter lytter;
-    
+    private TableModelListener endring;
     public Vindu()
     {
         super("Main frame");
@@ -266,11 +284,42 @@ public class Vindu extends JFrame implements Serializable
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
         
+        modell.addTableModelListener(endring);
+        tabell.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+     
+      JTable target = (JTable)e.getSource();
+      int row = target.getSelectedRow();
+      int column = target.getSelectedColumn();
+      int nummer=(int)tabell.getValueAt(row, 7);
+      if (column==5)
+      {
+          Skademelding[] s=register.getSkademeldinger();
+          
+          for (int i=0; i<s.length;i++)
+          {
+              if(s[i].getSkadenummer()==nummer)
+              {
+                  JOptionPane.showMessageDialog(null,s[i].getBildet());
+                  
+              }
+          }
+      }
+    }
+    });
+        
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
         utgift=new Utgiftstabell(register.get2dut());
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
+        
+        try { 
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+      e.printStackTrace();
+        }   
+        
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -281,7 +330,13 @@ public class Vindu extends JFrame implements Serializable
         
         JTabbedPane tabbedPane = new JTabbedPane();
         JTabbedPane forsikringer=new JTabbedPane();
+        Icon bil = new ImageIcon(getClass().getResource("/Ikoner/bil.png"));
+        Icon båt = new ImageIcon(getClass().getResource("/Ikoner/båt.png"));
+        Icon hus = new ImageIcon(getClass().getResource("/Ikoner/hus.png"));
+        Icon hytte = new ImageIcon(getClass().getResource("/Ikoner/hytte.png"));
+        Icon reise = new ImageIcon(getClass().getResource("/Ikoner/reise.png"));
 
+        
         tabbedPane.addTab("ny forsikring",null, panel, "Tegn forsikringer på kunde");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -299,19 +354,19 @@ public class Vindu extends JFrame implements Serializable
      
        
         
-        forsikringer.addTab("bil forsikring",null, bilpanel, "Does nothing");
+        forsikringer.addTab("bil forsikring",bil, bilpanel, "Does nothing");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
 
-        forsikringer.addTab("båt forsikring",null, båtpanel, "Does nothing");
+        forsikringer.addTab("båt forsikring",båt, båtpanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
         //hus
-        forsikringer.addTab("hus forsikring",null, huspanel, "Does nothing");
+        forsikringer.addTab("hus forsikring",hus, huspanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
         //Fritidsbolig
-        forsikringer.addTab("fritidsbolig forsikring",null, fritidpanel, "Does nothing");
+        forsikringer.addTab("fritidsbolig forsikring",hytte, fritidpanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_4);
         //Reiseforsikring
-        forsikringer.addTab("reise forsikring",null, reisepanel, "Does nothing");
+        forsikringer.addTab("reise forsikring",reise, reisepanel, "Does nothing");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_5);
       
       output.setEditable(false);
@@ -456,6 +511,7 @@ public class Vindu extends JFrame implements Serializable
         
         bilpanel2.add(bilårp);
         bilpanel2.add(bilkjørep);
+        bilpanel2.add(bilpremie);
         bilpanel2.add(bilbeløpp);
         
         
@@ -472,6 +528,8 @@ public class Vindu extends JFrame implements Serializable
         bilårp.add(regårfield);
         bilkjørep.add(kjørelabel);
         bilkjørep.add(kjørefield);
+        bilpremie.add(premielabel);
+        bilpremie.add(premiefield);
         bilbeløpp.add(bilbeløplabel);
         bilbeløpp.add(bilbeløpfield);
         
@@ -487,33 +545,54 @@ public class Vindu extends JFrame implements Serializable
         //båtpanel
         båtpanel.setLayout(new BorderLayout());
         båtpanel.add(båtpanel1, BorderLayout.NORTH);
+        båtpanel1.setLayout(new GridLayout(3,3));
         båtpanel.add(båtpanel2, BorderLayout.CENTER);
+        
         båtpanel.add(båtpanel3, BorderLayout.SOUTH);
-        båtpanel1.add(båteierlabel);
-        båtpanel1.add(båteierfield);
-        båtpanel1.add(båtreglabel);
-        båtpanel1.add(båtregfield);
-        båtpanel1.add(båttlabel);
-        båtpanel1.add(båttfield);
-        båtpanel2.add(båtmlabel);
-        båtpanel2.add(båtmfield);
-        båtpanel2.add(båtårlabel);
-        båtpanel2.add(båtårfield);
-        båtpanel2.add(lengdelabel);
-        båtpanel2.add(lengdefield);
-        båtpanel2.add(motortlabel);
-        båtpanel2.add(motortfield);
-        båtpanel2.add(motorslabel);
-        båtpanel2.add(motorsfield);
-        båtpanel2.add(premielabel);
-        båtpanel2.add(premiefield);
-        båtpanel2.add(båtbeløplabel);
-        båtpanel2.add(båtbeløpfield);
-        båtpanel3.add(båtbetingelser);
-        båtpanel3.add(båtbettext);
+        
+        båtpanel1.add(båteierp);
+        båtpanel1.add(båtregp);
+        båtpanel1.add(båttp);
+        båtpanel1.add(båtmp);
+        båtpanel1.add(båtårp);
+        båtpanel1.add(båtlengdep);
+        båtpanel1.add(båtmotorp);
+        båtpanel1.add(båthkp);
+        båtpanel1.add(båtpremiep);
+        båtpanel1.add(båtbeløpp);
+        
+        
+        båteierp.add(båteierlabel);
+        båteierp.add(båteierfield);
+        båtregp.add(båtreglabel);
+        båtregp.add(båtregfield);
+        båttp.add(båttlabel);
+        båttp.add(båttfield);
+        båtmp.add(båtmlabel);
+        båtmp.add(båtmfield);
+        båtårp.add(båtårlabel);
+        båtårp.add(båtårfield);
+        båtlengdep.add(lengdelabel);
+        båtlengdep.add(lengdefield);
+        båtmotorp.add(motortlabel);
+        båtmotorp.add(motortfield);
+        båthkp.add(motorslabel);
+        båthkp.add(motorsfield);
+        båtpremiep.add(premielabel);
+        båtpremiep.add(premiefield);
+        båtbeløpp.add(båtbeløplabel);
+        båtbeløpp.add(båtbeløpfield);
+        
+        
+        båtpanel2.add(båtbettext);
         båtpanel3.add(lagbåt);   
         lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
+        
+        Border båtramme=BorderFactory.createLineBorder(Color.BLACK);
+        Border båttittel=BorderFactory.createTitledBorder(bilramme, "Forsikringsbetingelser");
+        båtbettext.setBorder(biltittel);
+        
         
         // Husforsikring
         huspanel.setLayout(new BorderLayout());
@@ -818,6 +897,12 @@ public class Vindu extends JFrame implements Serializable
     {
         return register.getSkadenummer();
     }
+    public void lagreEndring()
+    {
+      Object [][]  a=modell.getTabellskader();
+      register.Endring(a);
+    }
+    
     /*
         Metoden har som oppgave å legge til bilforsikring hos kunden.
         Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
@@ -828,7 +913,6 @@ public class Vindu extends JFrame implements Serializable
         int regår;
         int kjørelengde;
         int priskm = 1;
-        int bonus;
         int bilbeløp;
         //Boolean ok= true;
         try
@@ -839,6 +923,7 @@ public class Vindu extends JFrame implements Serializable
             String bilmerke= bmfield.getText();
             String regår2 = regårfield.getText();
             String kjørelengde2= kjørefield.getText();
+            String premie2 = premiefield.getText();
             String bilbeløp2 = bilbeløpfield.getText();
             String betingelser = bilbettext.getText();
             if(!match(regexFulltnavn,bileier))
@@ -878,6 +963,12 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("\nRegistering ble ikke fulført");
                 return;
             }
+            if(!match(regexNr,premie2))
+            {
+                ut.setText("Feil i forsikringspremie felt, det er kun lov med nummer(maks 10 tegn)\n");
+                ut.append("\nRegistering ble ikke fulført");
+                return;
+            }
             if(!match(regexNr,bilbeløp2))
             {
                 ut.setText("Feil i forsikringsbeløp felt, kun nummer tilatt(maks 10 tegn)\n");
@@ -894,11 +985,11 @@ public class Vindu extends JFrame implements Serializable
             
             regår=Integer.parseInt(regår2);
             kjørelengde=Integer.parseInt(kjørelengde2);
-            bonus=20;
+            int premie = Integer.parseInt(premie2);
             bilbeløp=Integer.parseInt(bilbeløp2);
             
             Bilforsikring bil=new Bilforsikring(bileier, regNr,biltype,bilmerke,regår,
-                kjørelengde,priskm,bonus, bilbeløp, betingelser);
+                kjørelengde,priskm,premie, bilbeløp, betingelser);
             
             Boolean ok=register.lagForsikring(k, bil);
             if(ok)
@@ -910,6 +1001,7 @@ public class Vindu extends JFrame implements Serializable
                 bilbeløpfield.setText("");
                 kjørefield.setText("");
                 regårfield.setText("");
+                premiefield.setText("");
                 bilbettext.setText("");
                 ut.setText("bilforsikring ble registert på kundenummer:" + k.getForsikringsnummer());
             }
@@ -1359,6 +1451,8 @@ public class Vindu extends JFrame implements Serializable
        
         public void actionPerformed( ActionEvent e )
         {
+            
+           
           if ( e.getSource() == lagkunde )
             LagKunde();
           else if(e.getSource() == søkButton  )
@@ -1428,6 +1522,7 @@ public class Vindu extends JFrame implements Serializable
         try (ObjectOutputStream utfil = new ObjectOutputStream(
              new FileOutputStream("src/liste.data")))
         {
+            //lagreEndring();
             utfil.writeObject(register);
         }
         catch( NotSerializableException nse )

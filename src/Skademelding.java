@@ -52,6 +52,14 @@ public class Skademelding implements Serializable{
         datoopprettet= dateFormat.format(cal.getTime());
         opprettetlong = (long) (cal.getTime());
     }
+    public void setTakst(int i)
+    {
+        takst=i;
+    }
+    public void setSjekket(Boolean b)
+    {
+        sjekket=b;
+    }
     public boolean getSjekket()
     {
         return sjekket;
@@ -72,10 +80,11 @@ public class Skademelding implements Serializable{
     {
         ImageIcon ny;
        String bildefil = skadenummer+".png";
+       
         URL kilde = Skademelding.class.getResource(bildefil);
         
-        
-            
+        System.out.println(kilde);
+         
             BufferedImage b;
         try {
             b = ImageIO.read(kilde);
