@@ -35,6 +35,7 @@ public class Kunde implements Serializable {
     public Boolean addForsikring(Forsikring f)
     {
         forsikringer.add(f);
+        oppdaterKunde(); // La til metode for å oppdatere kunden hvis forsikringene får endring
         return true;
     }
     public void addSkademelding(Kunde k, String m, String t, String v)
@@ -129,6 +130,12 @@ public class Kunde implements Serializable {
         int i=finnSkademeldingsplasering(s.getSkadenummer());
         skademeldinger[i]=s;
     }
+    //La til ny metode, brukes til å oppdatere om kunden er totalkunde hvis endring av forsikringer skjer. SLETT SENERE
+    public void oppdaterKunde()
+    {
+        totalKunde(); // NY! Nå oppdateres totalkunde for Hver gang programmet legger til forsikring. SLETT Senere
+        årligPremie(); //NY Må kalles på hver gang en forsikring blir lagt til . SLETT SENERE.
+    }
     // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
     // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
     public int utbetalteErstatninger()
@@ -139,7 +146,7 @@ public class Kunde implements Serializable {
         {
             if(skademeldinger[i]!=null)
             {
-            utbetalteErstatninger += skademeldinger[i].getTakst();
+                utbetalteErstatninger += skademeldinger[i].getTakst();
             }
         }
         return utbetalteErstatninger;
@@ -181,8 +188,11 @@ public class Kunde implements Serializable {
        Iterator<Forsikring> iterator = forsikringer.iterator();
        while(iterator.hasNext())
        {
-           premie += (iterator.next().getPremie());
-       } 
+           if(iterator.next().getGyldig().equals(true)) // NY La til if test for å sjekke om forsikren er aktiv eller ikke. SLETT SENERE
+            premie += (iterator.next().getPremie());
+       }
+       if(totalkunde)
+           premie *= 0.9;
     }
     /* Metoden har som oppgave å finne ut om kunden har minst 3 forskjellige forsikringer.
     Hvis dette er tilfellet er kunden en totalkunde og får 10 rabatt på forsikringspremien sin, metoden returner da true, hvis ikke false.*/
