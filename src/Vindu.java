@@ -287,26 +287,30 @@ public class Vindu extends JFrame implements Serializable
         modell.addTableModelListener(endring);
         tabell.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-     
-      JTable target = (JTable)e.getSource();
-      int row = target.getSelectedRow();
-      int column = target.getSelectedColumn();
-      int nummer=(int)tabell.getValueAt(row, 7);
-      if (column==5)
-      {
-          Skademelding[] s=register.getSkademeldinger();
-          
-          for (int i=0; i<s.length;i++)
-          {
-              if(s[i].getSkadenummer()==nummer)
-              {
-                  JOptionPane.showMessageDialog(null,s[i].getBildet());
-                  
-              }
-          }
-      }
-    }
-    });
+     try{
+        JTable target = (JTable)e.getSource();
+        int row = target.getSelectedRow();
+        int column = target.getSelectedColumn();
+        int nummer=(int)tabell.getValueAt(row, 7);
+        if (column==5)
+        {
+            Skademelding[] s=register.getSkademeldinger();
+
+            for (int i=0; i<s.length;i++)
+            {
+                if(s[i].getSkadenummer()==nummer)
+                {
+                    JOptionPane.showMessageDialog(null,s[i].getBildet());
+
+                }
+            }
+        }
+        }
+        catch(NullPointerException npe)
+            {
+                //JOptionPane.showMessageDialog(null,"Hei og hopp");
+            }
+     }});
         
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
@@ -826,7 +830,7 @@ public class Vindu extends JFrame implements Serializable
         }
         catch(NullPointerException | NumberFormatException npe)
         {
-            output2.setText("Fella ja");
+            output2.setText("Fella ja jajajaajajj");
         }
         
     }
@@ -851,7 +855,6 @@ public class Vindu extends JFrame implements Serializable
 
                 if(kunden1 !=null)
                 {
-
                     ut.setText(kunden1.AlttoString());
                     k=kunden1;
                     Bileier();
