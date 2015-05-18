@@ -106,11 +106,14 @@ public class Kunderegister implements Serializable  {
          for (Kunde kunde : register)
         {
             f=kunde.getForsikringer();
+            System.out.println(f);
             for(Forsikring forsikring : f)
             {
-                if(forsikring.getType()==s)
+                
+                if(forsikring.getType().equals(s))
                 {
                     sum+=forsikring.getPremie();
+                    
                 }
             }
         }
@@ -119,17 +122,10 @@ public class Kunderegister implements Serializable  {
      public int getErstatning(String s)
      {
          int sum=0;
-         Skademelding[] sm;
+        
          for (Kunde kunde : register)
         {
-            sm=kunde.getSkademeldinger();
-            for(int i=0;i<sm.length;i++)
-            {
-                if(sm[i]!=null && sm[i].getType()==s)
-                {
-                    sum+=sm[i].getTakst();
-                }
-            }
+            sum+= kunde.Erstatning(s);
         }
          return sum;
      }
@@ -170,11 +166,11 @@ public class Kunderegister implements Serializable  {
          ut[4][0]="Reiseforsikring";
          ut[5][0]="Sum";
          
-         int bil=getErstatning("bil");
-         int båt=getErstatning("båt");
-         int hus=getErstatning("hus");
-         int fri=getErstatning("fritid");
-         int reise=getErstatning("reise");
+         int bil=getErstatning("Bil");
+         int båt=getErstatning("Båt");
+         int hus=getErstatning("Hus");
+         int fri=getErstatning("Fritid");
+         int reise=getErstatning("Reise");
          
          ut[0][1]=bil;
          ut[1][1]=båt;
@@ -194,12 +190,16 @@ public class Kunderegister implements Serializable  {
              if(a[i][7]!=null)
              {
                  Skademelding s=finnSkademelding((int)a[i][7]);
-              s.setTakst(Integer.parseInt((String)a[i][3]));
+                 if(a[i][3].getClass().equals(String.class))
+                 {
+                     s.setTakst(Integer.parseInt((String)a[i][3]));
+                 }
+              
               s.setSjekket((Boolean)a[i][6]);
               
               for (Kunde k : register)
               {
-                  if (k.getForsikringsnummer()==(int)a[i][0])
+                  if (k!=null && k.getForsikringsnummer()==(int)a[i][0])
                   {
                       k.setSkademelding(s);
                       

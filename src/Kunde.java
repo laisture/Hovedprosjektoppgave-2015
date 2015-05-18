@@ -144,7 +144,25 @@ public class Kunde implements Serializable {
         }
         return utbetalteErstatninger;
     
-    }/*
+    }
+    public int Erstatning(String s)
+    {
+        int sum=0;
+        
+        for(int i = 0; i < skademeldinger.length; i++)
+        {
+            
+            if(skademeldinger[i]!=null && skademeldinger[i].getType().trim().equals(s))
+            {
+            sum += skademeldinger[i].getTakst();
+            System.out.println(skademeldinger[i].getTakst());
+            }
+        }
+        return sum;
+    }
+            
+            
+            /*
     public int årligPremie()
     {
        premie = 0;

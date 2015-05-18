@@ -900,6 +900,7 @@ public class Vindu extends JFrame implements Serializable
     public void lagreEndring()
     {
       Object [][]  a=modell.getTabellskader();
+      
       register.Endring(a);
     }
     
@@ -1522,7 +1523,7 @@ public class Vindu extends JFrame implements Serializable
         try (ObjectOutputStream utfil = new ObjectOutputStream(
              new FileOutputStream("src/liste.data")))
         {
-            //lagreEndring();
+            lagreEndring();
             utfil.writeObject(register);
         }
         catch( NotSerializableException nse )
