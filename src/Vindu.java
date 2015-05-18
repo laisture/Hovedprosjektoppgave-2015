@@ -1012,11 +1012,7 @@ public class Vindu extends JFrame implements Serializable
                     + "\nFør du prøver å registere en bil forsikring");
         }
     }
-    /*
-        Metoden har som oppgave å legge til båtforsikring til kunden.
-        Først må en kunde bli funnet via søkefeltet, deretter kan informasjonen fylles ut og registeres.
-        Metoden har regex lagt til i hvert input felt, i tillegg er der lag til try/catch blokker.
-    */
+    
     public void deaktiverf()
     {
         int i=forsikringsliste.getSelectedIndex();
@@ -1024,6 +1020,7 @@ public class Vindu extends JFrame implements Serializable
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
 
         forsikringer.get(i).setGyldig(false);
+        k.oppdaterKunde(); // NY La til for å oppdatere forsikringen når forsikring blir deaktivert. SLETT SENERE
 
 //            forsikringsliste.remove(i);
         output.setText(k.toString());    
