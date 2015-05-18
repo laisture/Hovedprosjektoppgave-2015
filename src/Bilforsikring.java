@@ -26,6 +26,7 @@ public class Bilforsikring extends Forsikring {
         regiår=år;
         kjørelengde=lengde;
         kilometer=k;
+        bonus=20;
     }
     
     public String getNavn()
@@ -67,8 +68,7 @@ public class Bilforsikring extends Forsikring {
         Kunde kunde=k;
         int dager =  24* 3600 * 1000;
         long år = 365;
-        long opprettet;
-        Skademelding.getOpprettetlong() = opprettet;
+        long opprettet=this.getOpprettetlong();
         long dagensDato = (long) (new Date().getTime())/dager;
         int teller = 0;
         Skademelding[] s=k.getSkademeldinger();
@@ -76,21 +76,16 @@ public class Bilforsikring extends Forsikring {
         
         for (int i=0; i<s.length;i++)
         {
-            if(s[i].getType()=="bil")
+            if(s[i].getType()=="bil")// Sjekker om skademeldingstypen er en bil
             {
-                if (siste==null)
-                {
-                  if(opprettet>siste){
+                  if(siste==null || s[i].getOpprettetlong()>siste.getOpprettetlong() ){
                       siste=s[i];
+                      // gjør sånn at kun den siste skademeldingen med type bil blir sjekket for å beregne bonusen
                   }
-                }
             }
         }
         
-        if (opprettet == dagensDato )
-        {
-            bonus+=20;
-        }
+        
         
         long forskjell = dagensDato-opprettet;
         while(forskjell >= 0)
@@ -101,19 +96,15 @@ public class Bilforsikring extends Forsikring {
                 teller++;
                 bonus+=10;
         
-        if (teller >= 5 && bonus==70) // Øker bonusen hvis antall år 
-        {
+        if (teller >= 5 && bonus==70) // Øker bonusen hvis antall år er med eller like 5, og hvis bonusen er
+        { // 70, for så og øke bonusen til 75, som er max
             bonus=75;
         }
-        else
-        {
-           bonus=70;
-        }
-        if(s.length>0 && bonus==75 && teller<6) 
+        if(s.length==1 && bonus==75) // reduserer bonusen ved skade på bilen til 60, hvis personen har 75 i bonus fra førav
         {
             bonus=60;
         }
-        else if(bonus<75 & s.length>0)
+        else if(bonus<75 && s.length>0) 
         {
             bonus-=30;
         }
