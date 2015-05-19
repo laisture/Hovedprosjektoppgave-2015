@@ -743,6 +743,7 @@ public class Vindu extends JFrame implements Serializable
         }
         forsikringsliste.setListData(s);
         forsikringsliste.setVisibleRowCount(6);
+        //Oppdater forsikringer her? SE HER IGJEN JULIAN--------
         }
         catch(ArrayIndexOutOfBoundsException inde)
         {
@@ -1478,7 +1479,8 @@ public class Vindu extends JFrame implements Serializable
             lagReise();
           else if(e.getSource()==deaktiver)
             deaktiverf();
-                  
+            
+          inn.opprettTabell(register.get2dinn());
         }
     }
     
