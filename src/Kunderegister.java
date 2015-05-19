@@ -33,7 +33,7 @@ public class Kunderegister implements Serializable  {
        
          
     }
-    //Registerer ny kunde og henter antall skader.
+    //Registerer ny kunde, og gir kunden og kunde sin skademelding idnummer.
     public void Start()
     {
         Kunde k=new Kunde("","","");
@@ -48,7 +48,7 @@ public class Kunderegister implements Serializable  {
         s.setNestenummer(n+1);
         k.setNestenummer(i+1);
     }
-    public int getSkadenummer()
+    public int getSkadenummer()//Henter antallskader kunden har registrert.
     {
         int n=0;
         
@@ -59,7 +59,7 @@ public class Kunderegister implements Serializable  {
         }
         return (n);
     }
-    
+    //Henter kundens kundens forsikringsnummer, og sender med det, mens den legger til skademelding til kunden.
     public Boolean SendSkademelding(int k, String m, String t, String v)
     {
         
@@ -89,7 +89,7 @@ public class Kunderegister implements Serializable  {
         return skade;
         
     }//Metoden finner skademeldingsnummer.
-     public Skademelding finnSkademelding(int s)
+     public Skademelding finnSkademelding(int s)//Finner skademeldingsiden i skademeldingsarrayen.
      {
          Skademelding [] sm=getSkademeldinger();
          
@@ -132,7 +132,7 @@ public class Kunderegister implements Serializable  {
         }
          return sum;
      }
-     
+     //Legger til forsikringsobjekter i arrayet.
      public Object[][] get2dinn()
      {
          Object[][] inn =new Object[6][2];
@@ -186,7 +186,7 @@ public class Kunderegister implements Serializable  {
          
      public void Endring (Object[][] a)
      {
-         
+         //Finner og endrer takst og skademelding hvis noe har blitt forandret eller lagt til.
          
          for (int i=0;i<a.length;i++)
          {
@@ -212,7 +212,7 @@ public class Kunderegister implements Serializable  {
           
          }
      }
-     
+     //Henter all informasjon fra skader arrayet.
      public Object[][] get2dSkade()
      {
          
@@ -246,7 +246,7 @@ public class Kunderegister implements Serializable  {
         register.add(ny);
         
     }//Registerer ny kunde.
-    public Boolean nyKunde(String f, String e, String a)
+    public Boolean nyKunde(String f, String e, String a)//Registrerer ny kunde.
     {
         Kunde b=new Kunde(f,e,a);
         settInn(b);
@@ -255,7 +255,7 @@ public class Kunderegister implements Serializable  {
         else
             return true;
     }
-    public Kunde finnKundeInt(int k)
+    public Kunde finnKundeInt(int k)//Finner kunde ved å forsikringsnummer.
     {
 //       
         for (Kunde kunde : register)
@@ -267,7 +267,7 @@ public class Kunderegister implements Serializable  {
         }
         return null;
     }
-    public Boolean lagForsikring(Kunde k, Forsikring f)
+    public Boolean lagForsikring(Kunde k, Forsikring f)//Legger til ny forsikring.
     {
         Boolean ok=k.addForsikring(f);
         return ok;

@@ -283,7 +283,7 @@ public class Vindu extends JFrame implements Serializable
         lesFil();
         modell = new Tabell(register.get2dSkade());
         tabell = new JTable(modell);
-        
+        //Legger til museklikklyttere
         modell.addTableModelListener(endring);
         tabell.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
@@ -292,7 +292,7 @@ public class Vindu extends JFrame implements Serializable
         int row = target.getSelectedRow();
         int column = target.getSelectedColumn();
         int nummer=(int)tabell.getValueAt(row, 7);
-        if (column==5)
+        if (column==5) //Henter skademelding hvis kolonnen er lik 5.
         {
             Skademelding[] s=register.getSkademeldinger();
 
@@ -308,10 +308,9 @@ public class Vindu extends JFrame implements Serializable
         }
         catch(NullPointerException npe)
             {
-                //JOptionPane.showMessageDialog(null,"Hei og hopp");
             }
      }});
-        
+        //legger til inntektstabell, og utgiftstabell.
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
         utgift=new Utgiftstabell(register.get2dut());
@@ -323,7 +322,7 @@ public class Vindu extends JFrame implements Serializable
 //    } catch (Exception e) {
 //      e.printStackTrace();
 //        }   
-        
+        //Legger til layout og icon til forsikringene.
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -340,7 +339,7 @@ public class Vindu extends JFrame implements Serializable
         Icon hytte = new ImageIcon(getClass().getResource("/Ikoner/hytte.png"));
         Icon reise = new ImageIcon(getClass().getResource("/Ikoner/reise.png"));
 
-        
+        //Legger til tabs.
         tabbedPane.addTab("ny forsikring",null, panel, "Tegn forsikringer på kunde");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -433,7 +432,7 @@ public class Vindu extends JFrame implements Serializable
      deaktiver.setVisible(false);
      
      forsikringsliste.addListSelectionListener( new ListSelectionListener() {
-       public void valueChanged( ListSelectionEvent e)
+       public void valueChanged( ListSelectionEvent e) //Sjekker om det er gjort forandringer til forsikringslisten
       {
         if ( !e.getValueIsAdjusting() )
          {
@@ -449,6 +448,7 @@ public class Vindu extends JFrame implements Serializable
          }
        }
      });
+     //Legger til søke felt og muselytter.
       deaktiver.addActionListener(lytter);
       søkVest.add(deaktiver);
       søkNord.add(søkefelt);
@@ -498,7 +498,7 @@ public class Vindu extends JFrame implements Serializable
             }
         });
     }
-    
+    //Lager faner til de forskjellige forsikringene.
     public void LagFaner()
     {
         //bilpanel
@@ -730,11 +730,10 @@ public class Vindu extends JFrame implements Serializable
         }
         
     }
-    public void finnForsikringer(Kunde k)
+    public void finnForsikringer(Kunde k) //Finner forsikringer og forsikringstype
     {
         try
         {
-        //forsikringsliste.clearSelection();
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
         String[] s=new String[forsikringer.size()];
         for (int i = 0; i < forsikringer.size(); i++) 
@@ -743,7 +742,6 @@ public class Vindu extends JFrame implements Serializable
         }
         forsikringsliste.setListData(s);
         forsikringsliste.setVisibleRowCount(6);
-        //Oppdater forsikringer her? SE HER IGJEN JULIAN--------
         }
         catch(ArrayIndexOutOfBoundsException inde)
         {
@@ -751,41 +749,8 @@ public class Vindu extends JFrame implements Serializable
         }
        
     }
-    public void søkKunde()
+    public void søkKunde() //søker på kundens sitt kunde nr, og henter ut forsikringer.
     {
-        /*Boolean ok = true;
-        int kundeNr;
-        try
-        {
-            String søk = søkefelt.getText();
-            if(!match(regexNr,søk))
-                ok = false;
-            if(ok)
-                kundeNr = Integer.parseInt(søk);
-            else
-            {
-                output2.setText("Feil input, bruk kun nummer");
-                søkefelt.setText("");
-                return;
-            }
-            Kunde kunden = register.finnKundeInt(kundeNr);
-            if(kunden !=null)
-            {
-                output2.setText(kunden.toString());
-                k=kunden;
-                finnForsikringer(k);
-            }
-            else
-            {
-                output2.setText("Finnes ingen kunder med dette kundenummeret");
-            }
-            søkefelt.setText("");
-        }
-        catch(NullPointerException npe)
-        {
-            søkefelt.setText("");
-            output2.setText("Exception please doddodo");
-        }*/
         try
         {
             String kundeNr2 = søkefelt.getText();
@@ -835,7 +800,7 @@ public class Vindu extends JFrame implements Serializable
         }
         
     }
-    public void Bileier()
+    public void Bileier() //Foreslår at eierfeltet skal være likt kundenavn. mulig og endre tilbake.
     {
         if (k!=null)
         {
@@ -844,7 +809,7 @@ public class Vindu extends JFrame implements Serializable
         }
         
     }
-    public void finnKunde()
+    public void finnKunde() //Finner kunde ved å søke på kundens kundenummer og henter med kundens opplysninger.
     {
         try
         {
@@ -893,8 +858,8 @@ public class Vindu extends JFrame implements Serializable
             ut.setText("Fella ja");
         }    
     }
-    public void sendSkademelding(int k, String m, String t, String v)
-    {
+    public void sendSkademelding(int k, String m, String t, String v) //Sjekker om den registrerte skademelding er true, hvis
+    {                                                                 //den er true så opprettes en tabell 
         Boolean ok=register.SendSkademelding(k, m, t, v);
         if (ok)
         {
@@ -907,7 +872,7 @@ public class Vindu extends JFrame implements Serializable
     {
         return register.getSkadenummer();
     }
-    public void lagreEndring()
+    public void lagreEndring() //Lagrer endringer som er gjort i tabellskader.
     {
       Object [][]  a=modell.getTabellskader();
       
@@ -925,7 +890,6 @@ public class Vindu extends JFrame implements Serializable
         int kjørelengde;
         int priskm = 1;
         int bilbeløp;
-        //Boolean ok= true;
         try
         {
             String bileier = eierfield.getText();
@@ -1023,7 +987,7 @@ public class Vindu extends JFrame implements Serializable
                     + "\nFør du prøver å registere en bil forsikring");
         }
     }
-    
+    //Deaktiverer forsikring ved å sette den til false.
     public void deaktiverf()
     {
         int i=forsikringsliste.getSelectedIndex();
@@ -1449,7 +1413,7 @@ public class Vindu extends JFrame implements Serializable
             ut.setText("Vennligst finn kunde i søkefeltet på toppen av siden.");
         }
     }
-    // Kommenter plz
+    // Legger til lyttere for de forskjellige knappene.
     private class Kommandolytter implements ActionListener
     {
        
@@ -1481,7 +1445,7 @@ public class Vindu extends JFrame implements Serializable
     }
     
      
-    
+    //Viser melding om feil, hvis det oppstår en feil i programmet.
      private void visFeilmelding(String melding)
     {
       JOptionPane.showMessageDialog(this, melding,

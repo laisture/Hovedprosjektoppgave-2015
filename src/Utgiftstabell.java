@@ -36,6 +36,7 @@ class Utgiftstabell extends AbstractTableModel
         Object value=this.getValueAt(0,column);
         return (value==null?Object.class:value.getClass());
         }
+        //Get metoder.
         public int getColumnCount()
         {
             return utgifter[ 0].length;
@@ -53,6 +54,7 @@ class Utgiftstabell extends AbstractTableModel
         {
             return kolonne == ERSTATNINGSKOLONNE;
         }
+        //Forandrer verdiene til tabellens rad og kolonne.
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
             utgifter[ rad][ kolonne] = nyVerdi;

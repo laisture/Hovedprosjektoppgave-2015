@@ -21,7 +21,7 @@ public class Tabell extends AbstractTableModel implements Serializable
         {
             opprettTabell(t);
         }
-     
+     //Oppretter tabell objektet.
      public void opprettTabell(Object[][] t)
      {
          tabellskader=t;
@@ -43,8 +43,7 @@ public class Tabell extends AbstractTableModel implements Serializable
         Object value=this.getValueAt(0,column);
         
        return column == 6 ? Boolean.class : super.getColumnClass(column);
-
-       // return (value==null?Object.class:value.getClass());
+        //Get metoder.
         }
         public int getColumnCount()
         {
@@ -71,6 +70,7 @@ public class Tabell extends AbstractTableModel implements Serializable
             }
             return false;
         }
+        
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
             tabellskader[ rad][ kolonne] = nyVerdi;

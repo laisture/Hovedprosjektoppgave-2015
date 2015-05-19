@@ -30,4 +30,5 @@ public class Reiseforsikring extends Forsikring implements Serializable
         }
         return melding;
     }
+    //Lager ny reiseforsikring og sender med innformasjon om forsikringen til registeret.
 }

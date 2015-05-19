@@ -44,7 +44,7 @@ public class Kunde implements Serializable {
         Skademelding s=new Skademelding(k,m,t,v);
         for (int i =0;i<skademeldinger.length;i++)
         {
-            if(skademeldinger[i]==null)
+            if(skademeldinger[i]==null)//Hvis skademeldingens indeks ikke er null, skal det legges til en ny skademelding.
             {
                 skademeldinger[i]=s;
                 return true;
@@ -53,6 +53,7 @@ public class Kunde implements Serializable {
         }
         return false;
     }
+    //Get og set metoder.
     public void setNestenummer(int i)
     {
         nestenummer=i;
@@ -76,6 +77,7 @@ public class Kunde implements Serializable {
     {
         return premie;
     }
+    //Henter antall skader fra skademeldinger.
     public int getAntallSkader()
     {
         int n=0;
@@ -88,6 +90,7 @@ public class Kunde implements Serializable {
         }
         return n;
     }
+    //Get og andre metoder.
     public int getForsikringsnummer()
     {
         return(forsikringsnummer);
@@ -141,7 +144,7 @@ public class Kunde implements Serializable {
     }
     // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
     // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
-    public int utbetalteErstatninger()
+    public int utbetalteErstatninger()//Henter utbetalte erstatninger hvis skademeldinger sin indeks er ulik null. og sender med utbetalt beløp.
     {
         int utbetalteErstatninger = 0;
         
@@ -155,7 +158,7 @@ public class Kunde implements Serializable {
         return utbetalteErstatninger;
     
     }
-    public int Erstatning(String s)
+    public int Erstatning(String s)//Sjekker om kunden har skademeldinger, for så å regne ut erstatnings beløp.
     {
         int sum=0;
         
@@ -213,7 +216,7 @@ public class Kunde implements Serializable {
         totalkunde = false;
 	return false; 
     }
-    public String toString()
+    public String toString()//Tostring metode som legger til kundens personlige opplysninger i melding.
     {
         String melding =fornavn+" "+etternavn+ "\n";
         melding+=forsikringsnummer+"\n\n";
@@ -231,14 +234,14 @@ public class Kunde implements Serializable {
                 melding+=skademeldinger[i].toString();
             }
         }
-        int e=utbetalteErstatninger();
+        int e=utbetalteErstatninger(); //Sender med årlig premie og utbetalt erstatning i melding.
         oppdaterKunde();
         melding +="\n"+ "Årlig premie: "+premie;
         melding += "\n"+ "utbetalt erstatnign: "+e;
         
         return melding;
     }
-    public String AlttoString()
+    public String AlttoString()//Legger til fornavn, etternavn og fakturaadresse i melding.
     {
         String melding =fornavn+" "+etternavn+ "\n";
         melding += fakturaadresse+"\n";

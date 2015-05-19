@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Joakim
  */
-
+//Oppretter skademeldingsvindu og tekstfelter og kanpper.
 public class SkademeldingVindu  extends JFrame implements Serializable {
     
     final Vindu frame= new Vindu();
@@ -68,7 +68,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
     {
         
     
-    // Create the layout
+    // lager layout til vinduet.
     BorderLayout layout = new BorderLayout();
     p.setLayout( layout );
     n.setLayout(new GridLayout(3,2));
@@ -155,12 +155,12 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
             }
     }
     }
- 
+    //Gir ut en varsel hvis det er en exception eller feil.
     public void varsel(String s)
     {
         JOptionPane.showMessageDialog(null,s);
     }
-    //Henter innformasjon fra skademeldingen og sender det med til fil.
+    //Henter innformasjon fra skademeldingen og sender det til fil.
     public void SendSkademelding() throws IOException
     {
        try
@@ -194,7 +194,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
            ImageIO.write(bildet, "png", outputfile);
            
            frame.sendSkademelding(kundenr,beskrivelsen,t,vitne);
-           int n=frame.getSkadenummer(); // Hva er dette??
+           int n=frame.getSkadenummer();
            //Må sjekke for illegalArgumentException her.
            
                
@@ -214,7 +214,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
        frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());*/
        
     }
-    
+    //Legger til lyttere til knappene.
     private class Kommandolytter implements ActionListener
     {
        
