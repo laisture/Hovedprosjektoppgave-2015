@@ -19,8 +19,13 @@ public class Tabell extends AbstractTableModel implements Serializable
      
      public Tabell(Object[][] t)
         {
-            tabellskader=t;
+            opprettTabell(t);
         }
+     
+     public void opprettTabell(Object[][] t)
+     {
+         tabellskader=t;
+     }
        public static final int ERSTATNINGSKOLONNE = 3;
        public static final int BILDEKOLONNE = 5;
         

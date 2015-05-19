@@ -190,12 +190,15 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
            String t = (String)type.getSelectedItem();
            int kundenr = Integer.parseInt(kundenr2  );
            
+           File outputfile = new File(n+".png");
+           ImageIO.write(bildet, "png", outputfile);
+           
            frame.sendSkademelding(kundenr,beskrivelsen,t,vitne);
            int n=frame.getSkadenummer(); // Hva er dette??
            //Må sjekke for illegalArgumentException her.
-           File outputfile = new File(n+".png");
+           
                
-           ImageIO.write(bildet, "png", outputfile);
+           
            
            kundefield.setText("");
            vitnefield.setText("");

@@ -13,12 +13,12 @@ import javax.swing.table.AbstractTableModel;
  */
 class Utgiftstabell extends AbstractTableModel
     {
-     private Object[][] inntekter;
+     private Object[][] utgifter;
     
      
      public Utgiftstabell(Object[][] t)
         {
-            inntekter=t;
+            utgifter=t;
         }
        public static final int ERSTATNINGSKOLONNE = 3;
         
@@ -38,15 +38,15 @@ class Utgiftstabell extends AbstractTableModel
         }
         public int getColumnCount()
         {
-            return inntekter[ 0].length;
+            return utgifter[ 0].length;
         }
         public int getRowCount()
         {
-            return inntekter.length;
+            return utgifter.length;
         }
         public Object getValueAt(int rad, int kolonne)
     {
-      return inntekter[ rad][ kolonne];
+      return utgifter[ rad][ kolonne];
     }
         //Sjekker og gjør at tabell feltene er redigerbar.
         public boolean istabellskaderEditable(int rad, int kolonne )
@@ -55,7 +55,7 @@ class Utgiftstabell extends AbstractTableModel
         }
         public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
-            inntekter[ rad][ kolonne] = nyVerdi;
+            utgifter[ rad][ kolonne] = nyVerdi;
         }
         
 }
