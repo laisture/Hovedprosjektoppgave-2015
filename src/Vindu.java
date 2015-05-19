@@ -746,7 +746,7 @@ public class Vindu extends JFrame implements Serializable
         }
         catch(ArrayIndexOutOfBoundsException inde)
         {
-            JOptionPane.showMessageDialog(null,"Hallo hallo");
+            
         }
        
     }

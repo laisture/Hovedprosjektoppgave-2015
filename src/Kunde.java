@@ -161,35 +161,19 @@ public class Kunde implements Serializable {
             
             if(skademeldinger[i]!=null && skademeldinger[i].getType().trim().equals(s))
             {
-            sum += skademeldinger[i].getTakst();
-            System.out.println(skademeldinger[i].getTakst());
+                sum += skademeldinger[i].getTakst();
             }
         }
         return sum;
     }
-            
-            
-            /*
-    public int årligPremie()
-    {
-       premie = 0;
-       Iterator<Forsikring> iterator = forsikringer.iterator();
-       while(iterator.hasNext())
-       {
-           premie += (iterator.next().getPremie());
-       }
-       return premie;   
-    }*/
-    //Ny årligPremie() metode, fordi årlig premie skal hentes fra premien sin getmetode.
-    // Metoden må kalles på hver gang forsikringer blir lagt til eller fjernet.
+
     public void årligPremie()
     {
        premie = 0;
-       Iterator<Forsikring> iterator = forsikringer.iterator();
-       while(iterator.hasNext())
+      for(Forsikring f : forsikringer)
        {
-           //if(iterator.next().getGyldig()) // NY La til if test for å sjekke om forsikren er aktiv eller ikke. SLETT SENERE
-            premie += (iterator.next().getPremie());
+           if(f.getGyldig()) // NY La til if test for å sjekke om forsikren er aktiv eller ikke. SLETT SENERE
+            premie += (f.getPremie());
        }
        if(totalkunde)
            premie *= 0.9;
