@@ -18,8 +18,12 @@ class Inntektstabell extends AbstractTableModel
      
      public Inntektstabell(Object[][] t)
         {
-            inntekter=t;
+            opprettTabell(t);
         }
+     public void opprettTabell(Object[][] t)
+     {
+         inntekter=t;
+     }
        public static final int ERSTATNINGSKOLONNE = 3;
         
         private String[] kolonnenavn =
