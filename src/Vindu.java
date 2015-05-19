@@ -1501,22 +1501,26 @@ public class Vindu extends JFrame implements Serializable
                 new FileInputStream( "src/liste.data" )))
         {
             register = (Kunderegister) innfil.readObject();
+            register.Start();
         }
         catch(ClassNotFoundException cnfe)
         {
             ut.setText(cnfe.getMessage());
             ut.append("\nOppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
         catch(FileNotFoundException fne)
         {
             ut.setText("Finner ikke datafil. Oppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
        catch(IOException ioe)
         {
             ut.setText("Innlesingsfeil. Oppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
     }
     /*

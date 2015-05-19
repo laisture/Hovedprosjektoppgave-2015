@@ -30,6 +30,7 @@ public class Kunderegister implements Serializable  {
     {
         nyKunde("ola","nordmann","testgate 1");
        SendSkademelding(1,"Dette er en test", "bil", "test");
+       
          
     }
     public void Start()
