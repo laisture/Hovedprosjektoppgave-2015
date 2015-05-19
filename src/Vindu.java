@@ -1029,12 +1029,16 @@ public class Vindu extends JFrame implements Serializable
         int i=forsikringsliste.getSelectedIndex();
 
         ArrayList<Forsikring> forsikringer=k.getForsikringer();
+        if(forsikringer.get(i).getGyldig())
+        {
+            forsikringer.get(i).setGyldig(false);
+            k.oppdaterKunde(); 
 
-        forsikringer.get(i).setGyldig(false);
-        k.oppdaterKunde(); // NY La til for å oppdatere forsikringen når forsikring blir deaktivert. SLETT SENERE
-
-//            forsikringsliste.remove(i);
-        output.setText(k.toString());    
+            output2.setText(forsikringer.get(i).toString());
+            JOptionPane.showMessageDialog(null,"Forsikringen er nå deaktivert!");
+        }
+        else
+            JOptionPane.showMessageDialog(null,"Forsikringen er allerede deaktivert!");
     }
     /*
         Metoden prøver å henter data fra input feltene i båtforsikringsvinduet.
@@ -1176,7 +1180,6 @@ public class Vindu extends JFrame implements Serializable
             String kvadrat2 = kvadratfield.getText();
             String byggbeløp2 = byggbeløpfield.getText();
             String innbobeløp2 = innbofield.getText();
-            String forsbeløp2 = husbeløpfield.getText();
             String betingelser = husbettext.getText();
             
             
@@ -1228,12 +1231,6 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
-            if(!match(regexNr,forsbeløp2))
-            {
-                ut.setText("Feil forsirkingbeløp felt, kun tall er lov(maks 10 tegn)\n");
-                ut.append("Registrering ble ikke fullført");
-                return;
-            }
             if(!match(regexBetingelser,betingelser))
             {
                 ut.setText("Feil forsikringbetingelser feltet, det skal være minimum 10 og maks 500 tegn(ingen spesial tegn er lov)\n");
@@ -1245,7 +1242,7 @@ public class Vindu extends JFrame implements Serializable
             int kvadrat = Integer.parseInt(kvadrat2);
             int byggbeløp = Integer.parseInt(byggbeløp2);
             int innbobeløp = Integer.parseInt(innbobeløp2);
-            int forsbeløp = Integer.parseInt(forsbeløp2);
+            int forsbeløp = innbobeløp + byggbeløp;
             
             Husforsikring hus = new Husforsikring(adresse,byggår,boligtype,byggmat,kvadrat,standard,byggbeløp,innbobeløp,forsbeløp,betingelser);
             Boolean ok = register.lagForsikring(k,hus);
@@ -1260,7 +1257,6 @@ public class Vindu extends JFrame implements Serializable
                 byggbeløpfield.setText("");
                 innbofield.setText("");
                 husbettext.setText("");
-                husbeløpfield.setText("");
                ut.setText("Husforsikring er opprettet hos kundenummer"+k.getForsikringsnummer());
             }
         }
