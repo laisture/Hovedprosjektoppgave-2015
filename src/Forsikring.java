@@ -65,18 +65,18 @@ public class Forsikring implements Serializable {
     }
     public String toString()
     {
-         String melding;
+        String melding;
         melding="Forsikring opprettet: "+opprettet+"\n";
         melding+="Årlig premie: "+årligPremie+"\n";
-        melding+= "Forsikringsbeløp: "+forsikringsbeløp+"\n";
+        melding+="Forsikringsbeløp: "+forsikringsbeløp+"\n";
         melding+="Betingelser:"+"\n"+betingelser+"\n\n";
         if(gyldig)
         {
-            melding+= "Aktiv: Forsikringeng er aktiv.";
+            melding+= "Forsikringen er aktiv.\n";
         }
         else
         {
-            melding+="Aktiv: Forsikringen er IKKE aktiv.";
+            melding+="Forsikringen er IKKE aktiv.\n";
         }
         return melding;
     }
