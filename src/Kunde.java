@@ -5,7 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-
+/**
+ * Filen inneholder metoder for å opprette kunde, legge til forsikring, opprette skademelding, finne premie og erstatning.
+ * Hensikten med klassen er å opprette kunde, skademelding og regne ut erstatning.
+ * Siste edit: 19.05.15
+ * @author Joakim
+ */
 
 public class Kunde implements Serializable {
     //diverse variabler med infoen som lagres på kunden:
@@ -35,7 +40,7 @@ public class Kunde implements Serializable {
     public Boolean addForsikring(Forsikring f)
     {
         forsikringer.add(f);
-        oppdaterKunde(); // La til metode for å oppdatere kunden hvis forsikringene får endring
+        oppdaterKunde(); //Metode for å oppdatere kunden hvis forsikringene får endring
         return true;
     }
     //Metoden legger til ny skademelding til kunden
@@ -58,7 +63,6 @@ public class Kunde implements Serializable {
     {
         nestenummer=i;
     }
-    //Get metoder:
     public String getNavn()
     {
         return (fornavn+ " "+ etternavn);
@@ -136,14 +140,12 @@ public class Kunde implements Serializable {
         int i=finnSkademeldingsplasering(s.getSkadenummer());
         skademeldinger[i]=s;
     }
-    //La til ny metode, brukes til å oppdatere om kunden er totalkunde hvis endring av forsikringer skjer. SLETT SENERE
     public void oppdaterKunde()
     {
-        totalKunde(); // NY! Nå oppdateres totalkunde for Hver gang programmet legger til forsikring. SLETT Senere
-        årligPremie(); //NY Må kalles på hver gang en forsikring blir lagt til . SLETT SENERE.
+        totalKunde();
+        årligPremie();
     }
     // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
-    // Fungerer ikke helt ennå.  Må sjekke om erstatning er skrevet ut.
     public int utbetalteErstatninger()//Henter utbetalte erstatninger hvis skademeldinger sin indeks er ulik null. og sender med utbetalt beløp.
     {
         int utbetalteErstatninger = 0;

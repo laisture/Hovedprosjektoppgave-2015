@@ -1,6 +1,9 @@
-//Dette er klassen for båtforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
-// Dette er en subklasse av klassen Forsikring, og består for det meste av get metoder.
-
+/**
+ * Filen inneholder all nødvendig informasjon om båtforsikring.
+ * Hensikten med klassen er å opprette de fleste get metodene for båtforsikring, som blir brukt i forsikring.
+ * Siste edit: 19.05.15
+ * @author Joakim
+ */
 
 public class Båtforsikring extends Forsikring
      {
