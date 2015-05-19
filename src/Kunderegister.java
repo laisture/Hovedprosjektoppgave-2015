@@ -108,11 +108,11 @@ public class Kunderegister implements Serializable  {
          for (Kunde kunde : register)
         {
             f=kunde.getForsikringer();
-            System.out.println(f);
+            
             for(Forsikring forsikring : f)
             {
                 
-                if(forsikring.getType().equals(s))
+                if(forsikring.getType().equals(s) && forsikring.getGyldig())
                 {
                     sum+=forsikring.getPremie();
                     
