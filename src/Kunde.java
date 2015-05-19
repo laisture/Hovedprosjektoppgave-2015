@@ -38,7 +38,7 @@ public class Kunde implements Serializable {
         oppdaterKunde(); // La til metode for å oppdatere kunden hvis forsikringene får endring
         return true;
     }
-    public void addSkademelding(Kunde k, String m, String t, String v)
+    public Boolean addSkademelding(Kunde k, String m, String t, String v)
     {
         Skademelding s=new Skademelding(k,m,t,v);
         for (int i =0;i<skademeldinger.length;i++)
@@ -46,9 +46,11 @@ public class Kunde implements Serializable {
             if(skademeldinger[i]==null)
             {
                 skademeldinger[i]=s;
-                i=skademeldinger.length+1;
+                return true;
+                
             }
         }
+        return false;
     }
     public void setNestenummer(int i)
     {

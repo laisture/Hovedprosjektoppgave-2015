@@ -318,11 +318,11 @@ public class Vindu extends JFrame implements Serializable
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
         
-        try { 
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (Exception e) {
-      e.printStackTrace();
-        }   
+//        try { 
+//    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//        }   
         
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
@@ -894,7 +894,13 @@ public class Vindu extends JFrame implements Serializable
     }
     public void sendSkademelding(int k, String m, String t, String v)
     {
-        register.SendSkademelding(k, m, t, v);
+        Boolean ok=register.SendSkademelding(k, m, t, v);
+        if (ok)
+        {
+        modell.opprettTabell(register.get2dSkade());
+        modell.fireTableDataChanged();
+    
+        }
     }
     public int getSkadenummer()
     {
@@ -1495,22 +1501,26 @@ public class Vindu extends JFrame implements Serializable
                 new FileInputStream( "src/liste.data" )))
         {
             register = (Kunderegister) innfil.readObject();
+            register.Start();
         }
         catch(ClassNotFoundException cnfe)
         {
             ut.setText(cnfe.getMessage());
             ut.append("\nOppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
         catch(FileNotFoundException fne)
         {
             ut.setText("Finner ikke datafil. Oppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
        catch(IOException ioe)
         {
             ut.setText("Innlesingsfeil. Oppretter tom liste.\n");
             register = new Kunderegister();
+            register.Start();
         }
     }
     /*

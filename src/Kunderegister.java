@@ -30,6 +30,7 @@ public class Kunderegister implements Serializable  {
     {
         nyKunde("ola","nordmann","testgate 1");
        SendSkademelding(1,"Dette er en test", "bil", "test");
+       
          
     }
     public void Start()
@@ -58,11 +59,12 @@ public class Kunderegister implements Serializable  {
         return (n);
     }
     
-    public void SendSkademelding(int k, String m, String t, String v)
+    public Boolean SendSkademelding(int k, String m, String t, String v)
     {
         
         Kunde kunde=finnKundeInt(k);
-        kunde.addSkademelding(kunde,m,t,v);
+        Boolean ok=kunde.addSkademelding(kunde,m,t,v);
+        return ok;
     }
     
      public Skademelding[] getSkademeldinger()
@@ -106,11 +108,11 @@ public class Kunderegister implements Serializable  {
          for (Kunde kunde : register)
         {
             f=kunde.getForsikringer();
-            System.out.println(f);
+            
             for(Forsikring forsikring : f)
             {
                 
-                if(forsikring.getType().equals(s))
+                if(forsikring.getType().equals(s) && forsikring.getGyldig())
                 {
                     sum+=forsikring.getPremie();
                     
