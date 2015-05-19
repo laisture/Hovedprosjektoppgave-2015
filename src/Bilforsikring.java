@@ -1,6 +1,9 @@
-//Dette er klassen for bilforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
-//her lagres også metode for å regne ut bonusordningen. Dette er en subklasse av klassen Forsikring.
-
+/**
+ * Filen inneholder all nødvendig informasjon om Bilforsikring
+ * Hensikten med klassen er å opprette de fleste get metodene for bilforsikring, som blir brukt i forsikring.
+ * Siste edit: 19.05.15
+ * @author Kristan
+ */
 import java.util.Date;
 import java.text.SimpleDateFormat;
 

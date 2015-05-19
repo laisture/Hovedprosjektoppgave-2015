@@ -21,7 +21,9 @@ import javax.swing.ImageIcon;
  */
 
 /**
- *
+ * Filen inneholder get og set metoder for oppretting av skademelding.
+ * Hensikten med klassen er å lage konstruktører og metoder for oppretting av skademelding.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 public class Skademelding implements Serializable{
