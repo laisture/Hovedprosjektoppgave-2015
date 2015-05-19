@@ -3,15 +3,8 @@
 import java.io.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -39,7 +32,7 @@ public class Vindu extends JFrame implements Serializable
     public final static String regexNr = "^[0-9]{1,10}$";
     public final static String regexRegår = "^[0-9]{4}$";
     public final static String regexRegNr = "^[a-zæøåA-ZÆØÅ_0-9]{7}$";
-    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ]{10,500}$";
+    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ,./]{10,500}$";
     public final static String regexMotorstyrke = "^[0-9]{1,4}$";
     //Slutt på Regex
     private JPanel panel=new JPanel();
@@ -82,7 +75,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilprisp=new JPanel();
     private JPanel bilpremie =new JPanel();
     private JPanel bilbeløpp=new JPanel();
-    private JPanel bilbetp=new JPanel();
     
     private JLabel eierlabel=new JLabel("Bil eier:");
     private JTextField eierfield=new JTextField(10);
@@ -122,7 +114,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel båthkp=new JPanel();
     private JPanel båtpremiep=new JPanel();
     private JPanel båtbeløpp=new JPanel();
-    private JPanel båtbetp=new JPanel();
     
     private JLabel båteierlabel=new JLabel("Båt eier:");
     private JTextField båteierfield=new JTextField(10);
@@ -144,7 +135,6 @@ public class Vindu extends JFrame implements Serializable
     private JTextField premiefield = new JTextField(10);
     private JLabel båtbeløplabel=new JLabel("Forsikringsbeløp:");
     private JTextField båtbeløpfield=new JTextField(10);
-    private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea båtbettext=new JTextArea(10,40);
     private JButton lagbåt=new JButton("tegn båtforsikring");
     //End of båtpanel
@@ -170,8 +160,6 @@ public class Vindu extends JFrame implements Serializable
     private JTextField byggbeløpfield= new JTextField(20);
     private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField innbofield=new JTextField(20);
-    private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField husbeløpfield = new JTextField(20);
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea husbettext=new JTextArea(10,40);
     private JButton laghus=new JButton("tegn husforsikring");
@@ -180,7 +168,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel fritidpanel1=new JPanel();
     private JPanel fritidpanel2=new JPanel();
     private JPanel fritidpanel3=new JPanel();
-    private JPanel fritidpanel4=new JPanel();
     
     private JLabel fAdresselabel=new JLabel("Fritidsbolig adresse:");
     private JTextField fAdressefield=new JTextField(20);
@@ -203,8 +190,6 @@ public class Vindu extends JFrame implements Serializable
     private JComboBox utleiefield = new JComboBox(utleievalg);
     private JLabel fPremielabel=new JLabel("Forsikringspremie:");
     private JTextField fPremiefield=new JTextField(20);
-    private JLabel fHusbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField fHusbeløpfield = new JTextField(20);
     private JLabel fHusbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea fHusbettext=new JTextArea(10,40);
     private JButton fLaghus=new JButton("tegn fritidsboligforsikring");
@@ -216,8 +201,6 @@ public class Vindu extends JFrame implements Serializable
     
     private JLabel områdelabel = new JLabel("Forsikringsområde");
     private JTextField områdefield = new JTextField(10);
-    private JLabel rforsikringsumlabel = new JLabel("Forsikringssum:");
-    private JTextField rforsikringssumfield = new JTextField(10);
     private JLabel rpremielabel = new JLabel("Forsikringspremie:");
     private JTextField rpremiefield = new JTextField(10);
     private JLabel rbeløplabel = new JLabel("Forsikringsbeløp");
@@ -315,7 +298,6 @@ public class Vindu extends JFrame implements Serializable
         inntabell=new JTable(inn);
         utgift=new Utgiftstabell(register.get2dut());
         uttabell=new JTable(utgift);
-        //System.out.println(tabell.getValueAt(1, 5));
         
         try { 
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -487,8 +469,7 @@ public class Vindu extends JFrame implements Serializable
       
       f.pack();
       f.setVisible(true);
-      //f.setResizable(false);
-      //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      f.setResizable(false);
       f.addWindowListener( 
         new WindowAdapter() {
             public void windowClosing(WindowEvent e)
@@ -620,8 +601,6 @@ public class Vindu extends JFrame implements Serializable
         huspanel2.add(byggbeløpfield);
         huspanel2.add(innbobeløplabel);
         huspanel2.add(innbofield);
-        huspanel2.add(husbeløplabel);
-        huspanel2.add(husbeløpfield);
         huspanel3.add(husbetingelser);
         huspanel3.add(husbettext);
         huspanel3.add(laghus);
@@ -653,8 +632,6 @@ public class Vindu extends JFrame implements Serializable
         fritidpanel2.add(utleiefield);
         fritidpanel3.add(fPremielabel);
         fritidpanel3.add(fPremiefield);
-        fritidpanel3.add(fHusbeløplabel);
-        fritidpanel3.add(fHusbeløpfield);
         fritidpanel3.add(fHusbetingelser);
         fritidpanel3.add(fHusbettext);
         fritidpanel3.add(fLaghus);
@@ -666,8 +643,6 @@ public class Vindu extends JFrame implements Serializable
         reisepanel.add(reisepanel2,BorderLayout.SOUTH);
         reisepanel1.add(områdelabel);
         reisepanel1.add(områdefield);
-        reisepanel1.add(rforsikringsumlabel);
-        reisepanel1.add(rforsikringssumfield);
         reisepanel1.add(rpremielabel);
         reisepanel1.add(rpremiefield);
         reisepanel1.add(rbeløplabel);
@@ -743,8 +718,8 @@ public class Vindu extends JFrame implements Serializable
         {
 		s[i]=(String)forsikringer.get(i).getType();   
         }
-        forsikringsliste.setListData(s);
-        forsikringsliste.setVisibleRowCount(6);
+            forsikringsliste.setListData(s);
+            forsikringsliste.setVisibleRowCount(6);
         }
         catch(ArrayIndexOutOfBoundsException inde)
         {
@@ -799,7 +774,7 @@ public class Vindu extends JFrame implements Serializable
         }
         catch(NullPointerException | NumberFormatException npe)
         {
-            output2.setText("Fella ja jajajaajajj");
+            output2.setText("Det skjedde en feil, vennligst prøv igjen.");
         }
         
     }
@@ -1360,7 +1335,6 @@ public class Vindu extends JFrame implements Serializable
         try
         {
             String område = områdefield.getText();
-            String forssum2 = rforsikringssumfield.getText();
             String forspremie2 = rpremiefield.getText();
             String forsbeløp2 = rbeløpfield.getText();
             String betingelser = rbetingelsertext.getText();
@@ -1368,12 +1342,6 @@ public class Vindu extends JFrame implements Serializable
             if(!match(regexNavn,område))
             {
                 ut.setText("Feil i område felt, kun tillatt med bokstaver\n");
-                ut.append("Registrering ble ikke fullført");
-                return;
-            }
-            if(!match(regexNr,forssum2))
-            {
-                ut.setText("Feil forsikringssum felt, kun tall er lov(maks 10 tegn)\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
@@ -1395,16 +1363,14 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
-            int forssum = Integer.parseInt(forssum2);
             int forspremie = Integer.parseInt(forspremie2);
             int forsbeløp = Integer.parseInt(forsbeløp2);
             
-            Reiseforsikring reise = new Reiseforsikring(område,forssum,forspremie,forsbeløp,betingelser);
+            Reiseforsikring reise = new Reiseforsikring(område,forspremie,forsbeløp,betingelser);
             Boolean ok = register.lagForsikring(k,reise);
             if(ok)
             {
                 områdefield.setText("");
-                rforsikringssumfield.setText("");
                 rpremiefield.setText("");
                 rbeløpfield.setText("");
                 rbetingelsertext.setText("");
@@ -1457,7 +1423,7 @@ public class Vindu extends JFrame implements Serializable
     /*
         Metoden blir kalt opp hver gang programmet starter og blir lagret i minne.
         Metoden har som ansvar for å lese filen liste.data, som skal inneholde all data om kundene i systemet.
-        Hvis den er tom, dvs kunderegisteret ikke er blitt opprettet ennå, vil den automatisk bli opprettet første gang.
+        Hvis den er tom, eller andre feil, vil den automatisk bli opprettet første gang.
         I tillegg er det lagt til try/catch blokker for feilbehandling.
     */ 
     public void lesFil()
