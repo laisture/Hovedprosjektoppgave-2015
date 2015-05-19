@@ -32,6 +32,7 @@ public class Kunderegister implements Serializable  {
        SendSkademelding(1,"Dette er en test", "bil", "test");
          
     }
+    //Registerer ny kunde og henter antall skader.
     public void Start()
     {
         Kunde k=new Kunde("","","");
@@ -85,7 +86,7 @@ public class Kunderegister implements Serializable  {
         skade = skademeldinger.toArray(skade);
         return skade;
         
-    }
+    }//Metoden finner skademeldingsnummer.
      public Skademelding finnSkademelding(int s)
      {
          Skademelding [] sm=getSkademeldinger();
@@ -115,7 +116,7 @@ public class Kunderegister implements Serializable  {
             }
         }
          return sum;
-     }
+     }//Finner kundensskademelding og skadetype, får å hente ut takst.
      public int getErstatning(String s)
      {
          int sum=0;
@@ -242,7 +243,7 @@ public class Kunderegister implements Serializable  {
     {
         register.add(ny);
         
-    }
+    }//Registerer ny kunde.
     public Boolean nyKunde(String f, String e, String a)
     {
         Kunde b=new Kunde(f,e,a);

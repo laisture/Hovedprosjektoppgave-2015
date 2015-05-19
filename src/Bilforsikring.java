@@ -62,7 +62,6 @@ public class Bilforsikring extends Forsikring {
         return bonus;
     }
     // Metoden har som oppgave å regne ut bonus hos forsikringskunden. Maks bonus er 75 prosentpoeng.
-    // Comment: Må kunne lagre opparbeidet bonus en plass?
     public void bonus(Kunde k)
     {   
         Kunde kunde=k;

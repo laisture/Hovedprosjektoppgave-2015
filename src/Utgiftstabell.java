@@ -26,11 +26,12 @@ class Utgiftstabell extends AbstractTableModel
         {
            "forsikringstype","beløp"
         };
-            
+        //Henter kolonnenavnet.
         public String getColumnName( int kolonne )
         {
             return kolonnenavn[ kolonne];
         }
+        //Henter kolonneklassen
         public Class getColumnClass(int column){
         Object value=this.getValueAt(0,column);
         return (value==null?Object.class:value.getClass());
@@ -47,6 +48,7 @@ class Utgiftstabell extends AbstractTableModel
     {
       return inntekter[ rad][ kolonne];
     }
+        //Sjekker og gjør at tabell feltene er redigerbar.
         public boolean istabellskaderEditable(int rad, int kolonne )
         {
             return kolonne == ERSTATNINGSKOLONNE;

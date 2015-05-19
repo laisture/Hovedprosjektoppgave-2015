@@ -37,6 +37,7 @@ public class Kunde implements Serializable {
         forsikringer.add(f);
         return true;
     }
+    //Metoden legger til ny skademelding til kunden
     public void addSkademelding(Kunde k, String m, String t, String v)
     {
         Skademelding s=new Skademelding(k,m,t,v);
@@ -112,7 +113,7 @@ public class Kunde implements Serializable {
     {
         return totalkunde;
     }
-    
+    //Metoden finner skademeldingsnummeret fra skademeldinger
     public int finnSkademeldingsplasering(int t)
     {
         for (int i=0; i<skademeldinger.length;i++)
@@ -144,7 +145,8 @@ public class Kunde implements Serializable {
         }
         return utbetalteErstatninger;
     
-    }/*
+    }
+    /*
     public int årligPremie()
     {
        premie = 0;

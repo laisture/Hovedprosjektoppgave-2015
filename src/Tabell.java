@@ -28,11 +28,12 @@ public class Tabell extends AbstractTableModel implements Serializable
         {
            "KundeID", "Skadetype", "Dato", "Utbetalt erstatning", "Skademelding","Bilder", "Sjekket", "Skadenr"
         };
-            
+        //Finner kolonne navnet.
         public String getColumnName( int kolonne )
         {
             return kolonnenavn[ kolonne];
         }
+        //Henter kolonneklassen
         public Class getColumnClass(int column){
         Object value=this.getValueAt(0,column);
         
@@ -55,7 +56,7 @@ public class Tabell extends AbstractTableModel implements Serializable
         
         
      
-        
+        //Sjekker og gjør at tabell feltene er redigerbar.
         public boolean isCellEditable(int rad, int kolonne )
         {
             
@@ -69,7 +70,7 @@ public class Tabell extends AbstractTableModel implements Serializable
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
             LagreEndring(nyVerdi, rad, kolonne);
-        }
+        }//Lagrer endringer gjort til tabellen.
        public void LagreEndring(Object n, int r, int k)
        {
            int sn=(int)getValueAt(r,7);

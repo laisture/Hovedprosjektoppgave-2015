@@ -129,7 +129,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
         });
     }
     
-    }
+    }//Henter bildet fra datamaskinen til brukeren, og legger det til å skademeldingen.
     public void Bildet()
     {
         chooser.setFileFilter(filter);
@@ -160,6 +160,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
     {
         JOptionPane.showMessageDialog(null,s);
     }
+    //Henter innformasjon fra skademeldingen og sender det med til fil.
     public void SendSkademelding() throws IOException
     {
        try

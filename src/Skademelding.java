@@ -75,7 +75,7 @@ public class Skademelding implements Serializable{
     public String getMelding()
     {
         return melding;
-    }
+    }//Henter skademeldings bildet som ble lagret med skademeldingen.
     public ImageIcon getBildet() 
     {
         ImageIcon ny;
@@ -126,7 +126,7 @@ public class Skademelding implements Serializable{
     public int getSkadenummer()
     {
      return skadenummer;   
-    }
+    }//Sjekker om kunden har forsikring.
     public Boolean harForsikring()
     {
        ArrayList f=kunde.getForsikringer();
