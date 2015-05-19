@@ -29,7 +29,7 @@ public class Forsikring implements Serializable {
         opprettetlong = (long) (cal.getTime());
         gyldig=true;
        
-        // <opprettingsdato>
+        // Get metoder.
     }
     public int getPremie()
     {
@@ -64,13 +64,13 @@ public class Forsikring implements Serializable {
         gyldig=b;
     }
     public String toString()
-    {
+    {//Tostring metode for å skrive ut melding om Forsikringen.
         String melding;
         melding="Forsikring opprettet: "+opprettet+"\n";
         melding+="Årlig premie: "+årligPremie+"\n";
         melding+="Forsikringsbeløp: "+forsikringsbeløp+"\n";
         melding+="Betingelser:"+"\n"+betingelser+"\n\n";
-        if(gyldig)
+        if(gyldig)//Sjekker om forsikringen er gyldig eller ugyldig.
         {
             melding+= "Forsikringen er aktiv.\n";
         }

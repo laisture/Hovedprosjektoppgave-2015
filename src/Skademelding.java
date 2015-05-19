@@ -52,6 +52,7 @@ public class Skademelding implements Serializable{
         datoopprettet= dateFormat.format(cal.getTime());
         opprettetlong = (long) (cal.getTime());
     }
+    //Get og set metoder.
     public void setTakst(int i)
     {
         takst=i;
@@ -75,7 +76,7 @@ public class Skademelding implements Serializable{
     public String getMelding()
     {
         return melding;
-    }
+    }//Henter bildet som ble lagret med skademeldingen.
     public ImageIcon getBildet() 
     {
         ImageIcon ny;
@@ -97,6 +98,7 @@ public class Skademelding implements Serializable{
         
         return(ny);
     }
+    //skalerer bildet.
     public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
     Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
     BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
@@ -106,7 +108,7 @@ public class Skademelding implements Serializable{
     g2d.dispose();
 
     return dimg;
-}  
+}  //Get og set metoder.
     public int getTakst()
     {
         return takst;
@@ -126,7 +128,7 @@ public class Skademelding implements Serializable{
     public int getSkadenummer()
     {
      return skadenummer;   
-    }
+    }//Sjekker om kunden har forsikring.
     public Boolean harForsikring()
     {
        ArrayList f=kunde.getForsikringer();

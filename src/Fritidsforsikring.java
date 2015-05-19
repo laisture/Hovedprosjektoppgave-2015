@@ -29,7 +29,7 @@ public class Fritidsforsikring extends Forsikring {
         utleie=u;
         
     }
-    
+    // Get metoder.
     public String getFritidsadresse()
     {
         return fritidsadresse;

@@ -24,7 +24,7 @@ public class Båtforsikring extends Forsikring
         motor = moto;
         motorstyrke = motorsty;
     }
-    
+    //Get moetoder
     public String getNavn()
     {
         return navn;

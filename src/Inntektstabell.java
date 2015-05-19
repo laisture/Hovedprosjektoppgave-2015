@@ -20,7 +20,7 @@ class Inntektstabell extends AbstractTableModel
         {
             opprettTabell(t);
         }
-     public void opprettTabell(Object[][] t)
+     public void opprettTabell(Object[][] t)// oppretter inntekt tabell.
      {
          inntekter=t;
      }
@@ -30,11 +30,12 @@ class Inntektstabell extends AbstractTableModel
         {
            "forsikringstype","beløp"
         };
-            
+         //Henter kolonnenavnet.   
         public String getColumnName( int kolonne )
         {
             return kolonnenavn[ kolonne];
         }
+        //Henter kolonneklassen.
         public Class getColumnClass(int column){
         Object value=this.getValueAt(0,column);
         return (value==null?Object.class:value.getClass());
@@ -47,15 +48,16 @@ class Inntektstabell extends AbstractTableModel
         {
             return inntekter.length;
         }
-        public Object getValueAt(int rad, int kolonne)
+        public Object getValueAt(int rad, int kolonne) //henter verdien til rad og kolonne.
     {
       return inntekter[ rad][ kolonne];
     }
+    //Sjekker og gjør at tabell feltene er redigerbare.
         public boolean istabellskaderEditable(int rad, int kolonne )
         {
             return kolonne == ERSTATNINGSKOLONNE;
         }
-        public void setValueAt( Object nyVerdi, int rad, int kolonne )
+        public void setValueAt( Object nyVerdi, int rad, int kolonne )//Forandrer verdien hvis rad eller kolonne har blitt forandret.
         {
             inntekter[ rad][ kolonne] = nyVerdi;
         }
