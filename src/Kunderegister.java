@@ -58,11 +58,12 @@ public class Kunderegister implements Serializable  {
         return (n);
     }
     
-    public void SendSkademelding(int k, String m, String t, String v)
+    public Boolean SendSkademelding(int k, String m, String t, String v)
     {
         
         Kunde kunde=finnKundeInt(k);
-        kunde.addSkademelding(kunde,m,t,v);
+        Boolean ok=kunde.addSkademelding(kunde,m,t,v);
+        return ok;
     }
     
      public Skademelding[] getSkademeldinger()

@@ -894,7 +894,13 @@ public class Vindu extends JFrame implements Serializable
     }
     public void sendSkademelding(int k, String m, String t, String v)
     {
-        register.SendSkademelding(k, m, t, v);
+        Boolean ok=register.SendSkademelding(k, m, t, v);
+        if (ok)
+        {
+        modell.opprettTabell(register.get2dSkade());
+        modell.fireTableDataChanged();
+    
+        }
     }
     public int getSkadenummer()
     {
