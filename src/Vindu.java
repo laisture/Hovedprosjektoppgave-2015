@@ -14,8 +14,11 @@ import javax.swing.event.*;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- *
- * @author Jules
+ * Filen inneholder vindu komponenter: tekstfelt, knapper, lyttemetoder, paneler og regex.
+ * Filen inneholder også noen metoder for lagring av kunde, søke metoder for kunde, forsikring og skademelding.
+ * Siste edit: 19.05.15
+ * @author Julian, Joakim og Kristian.
+ * Hensikten med klassen er å opprette vindu komponentene og noen metoder som blir brukt i vinduet og til tabell.
  */
 public class Vindu extends JFrame implements Serializable 
 {

@@ -9,7 +9,8 @@ import javax.swing.table.*;
  */
 
 /**
- *
+ *Filen inneholder main metoden for å kjøre programmet.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 public class test {
