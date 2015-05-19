@@ -20,10 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileNameExtensionFilter;
-//import java.net.URL; //Ikon
 
 /**
- *
+ * Filen inneholder skademeldings komponenter: tekstfelt, knapper, lyttemetoder og paneler for oppretting av skademelding.
+ * Hensikten med klassen er å opprette et skademeldingsvindu hvor man kan registrere en skademelding.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 //Oppretter skademeldingsvindu og tekstfelter og kanpper.
@@ -195,7 +196,6 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
            
            frame.sendSkademelding(kundenr,beskrivelsen,t,vitne);
            int n=frame.getSkadenummer();
-           //Må sjekke for illegalArgumentException her.
            
                
            
@@ -205,13 +205,10 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
            beskrivelse.setText("");
            varsel("Takk for skademeldingen, du vil får svar så fort som mulig");
        }
-       catch(/*NullPointerException | */IllegalArgumentException npe)
+       catch(IllegalArgumentException npe)
        {
            varsel("Vennligst legg med bildet.");
        }
-       /*int k=Integer.parseInt(kundefield.getText());
-       String t=(String)type.getSelectedItem();
-       frame.sendSkademelding(k,beskrivelse.getText(),t,vitnefield.getText());*/
        
     }
     //Legger til lyttere til knappene.

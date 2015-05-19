@@ -8,7 +8,9 @@ import javax.swing.table.AbstractTableModel;
  */
 
 /**
- *
+ *Filen inneholder tabellen for ugifter hos kundene, med metoder, for å hente informasjon og lagre informasjon på tabellen.
+ * Hensikten med klassen er å opprette en tabell med forsikringstype og beløp, som kan bli brukt til selskapets utgifter.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 class Utgiftstabell extends AbstractTableModel

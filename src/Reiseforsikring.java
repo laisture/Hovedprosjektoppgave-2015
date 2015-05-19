@@ -3,7 +3,8 @@ import java.io.Serializable;
 
 
 /**
- *
+ * Filen inneholder 
+ * Hensikten med klassen er å opprette reise
  * @author Joakim
  */
 public class Reiseforsikring extends Forsikring implements Serializable 
