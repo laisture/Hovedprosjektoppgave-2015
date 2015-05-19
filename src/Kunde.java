@@ -188,7 +188,7 @@ public class Kunde implements Serializable {
        Iterator<Forsikring> iterator = forsikringer.iterator();
        while(iterator.hasNext())
        {
-           if(iterator.next().getGyldig().equals(true)) // NY La til if test for å sjekke om forsikren er aktiv eller ikke. SLETT SENERE
+           //if(iterator.next().getGyldig()) // NY La til if test for å sjekke om forsikren er aktiv eller ikke. SLETT SENERE
             premie += (iterator.next().getPremie());
        }
        if(totalkunde)
@@ -245,7 +245,7 @@ public class Kunde implements Serializable {
             }
         }
         int e=utbetalteErstatninger();
-        årligPremie();
+        oppdaterKunde();
         melding +="\n"+ "Årlig premie: "+premie;
         melding += "\n"+ "utbetalt erstatnign: "+e;
         
