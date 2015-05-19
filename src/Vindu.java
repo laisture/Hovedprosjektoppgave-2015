@@ -318,11 +318,11 @@ public class Vindu extends JFrame implements Serializable
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
         
-//        try { 
-//    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//        }   
+        try { 
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+      e.printStackTrace();
+        }   
         
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
@@ -673,10 +673,12 @@ public class Vindu extends JFrame implements Serializable
         reisepanel1.add(rbeløplabel);
         reisepanel1.add(rbeløpfield);
         reisepanel2.add(rbetingelserlabel);
-        reisepanel2.add(rbetingelsertext);
+        reisepanel2.add(new JScrollPane(rbetingelsertext));
         reisepanel2.add(lagreise);
+        rbetingelsertext.setLineWrap(true);
         lagreise.addActionListener(lytter);
         // End of Reiseforsikring
+        
     }
    
     public boolean match(String regex, String inn)
