@@ -318,11 +318,11 @@ public class Vindu extends JFrame implements Serializable
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
         
-        try { 
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (Exception e) {
-      e.printStackTrace();
-        }   
+//        try { 
+//    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//        }   
         
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
