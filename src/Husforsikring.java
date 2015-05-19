@@ -27,7 +27,7 @@ public class Husforsikring extends Forsikring {
        
         
     }
-    
+    //Get metoder.
     public String getAdresse()
     {
         return adresse;

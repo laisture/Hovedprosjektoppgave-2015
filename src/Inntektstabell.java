@@ -20,7 +20,7 @@ class Inntektstabell extends AbstractTableModel
         {
             opprettTabell(t);
         }
-     public void opprettTabell(Object[][] t)
+     public void opprettTabell(Object[][] t)// oppretter inntekt tabell.
      {
          inntekter=t;
      }
@@ -48,7 +48,7 @@ class Inntektstabell extends AbstractTableModel
         {
             return inntekter.length;
         }
-        public Object getValueAt(int rad, int kolonne)
+        public Object getValueAt(int rad, int kolonne) //henter verdien til rad og kolonne.
     {
       return inntekter[ rad][ kolonne];
     }
@@ -57,7 +57,7 @@ class Inntektstabell extends AbstractTableModel
         {
             return kolonne == ERSTATNINGSKOLONNE;
         }
-        public void setValueAt( Object nyVerdi, int rad, int kolonne )
+        public void setValueAt( Object nyVerdi, int rad, int kolonne )//Forandrer verdien hvis rad eller kolonne har blitt forandret.
         {
             inntekter[ rad][ kolonne] = nyVerdi;
         }

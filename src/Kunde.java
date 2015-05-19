@@ -39,7 +39,7 @@ public class Kunde implements Serializable {
         return true;
     }
     //Metoden legger til ny skademelding til kunden
-    public void addSkademelding(Kunde k, String m, String t, String v)
+    public boolean addSkademelding(Kunde k, String m, String t, String v)
     {
         Skademelding s=new Skademelding(k,m,t,v);
         for (int i =0;i<skademeldinger.length;i++)
