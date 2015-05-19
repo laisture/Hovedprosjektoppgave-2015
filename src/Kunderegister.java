@@ -31,7 +31,7 @@ public class Kunderegister implements Serializable  {
     public Kunderegister()
     {
         nyKunde("ola","nordmann","testgate 1");
-       SendSkademelding(1,"Dette er en test", "bil", "test");
+       SendSkademelding(1,"Dette er den første skademeldingen i programmet", "Bil", "test");
        
          
     }

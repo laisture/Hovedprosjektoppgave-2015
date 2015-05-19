@@ -106,7 +106,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel bilbeløplabel=new JLabel("forsikringsbeløp:");
     private JTextField bilbeløpfield=new JTextField(10);
     
-    private JTextArea bilbettext=new JTextArea(10,40);
+    private JTextArea bilbettext=new JTextArea(7,40);
     private JButton lagbil=new JButton("tegn bilforsikring");
     // End of bilpanel
     //båteier
@@ -148,7 +148,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel båtbeløplabel=new JLabel("Forsikringsbeløp:");
     private JTextField båtbeløpfield=new JTextField(10);
     private JLabel båtbetingelser=new JLabel("Forsikringsbetingelser:");
-    private JTextArea båtbettext=new JTextArea(10,40);
+    private JTextArea båtbettext=new JTextArea(7,40);
     private JButton lagbåt=new JButton("tegn båtforsikring");
     //End of båtpanel
     
@@ -157,65 +157,93 @@ public class Vindu extends JFrame implements Serializable
     private JPanel huspanel2=new JPanel();
     private JPanel huspanel3=new JPanel();
     
+    private JPanel hadressep=new JPanel();
+    private JPanel hårp=new JPanel();
+    private JPanel htypep=new JPanel();
+    private JPanel hbyggmp=new JPanel();
+    private JPanel hstandardp=new JPanel();
+    private JPanel hkvadratp=new JPanel();
+    private JPanel hbbeløpp=new JPanel();
+    private JPanel hinnbeløpp=new JPanel();
+    private JPanel hhusbeløpp=new JPanel();
+    
+    
     private JLabel hadresselabel=new JLabel("Husadresse");
-    private JTextField hadressefield=new JTextField(20);
+    private JTextField hadressefield=new JTextField(10);
     private JLabel byggårlabel=new JLabel("Byggeår:");
-    private JTextField byggårfield=new JTextField(20);
+    private JTextField byggårfield=new JTextField(10);
     private JLabel boligtypelabel=new JLabel("Bolig type:");
-    private JTextField boligtypefield=new JTextField(20);
+    private JTextField boligtypefield=new JTextField(10);
     private JLabel byggmlabel=new JLabel("Byggmateriale:");
-    private JTextField byggmfield=new JTextField(20);
+    private JTextField byggmfield=new JTextField(10);
     private JLabel standardlabel=new JLabel("Standard:");
     private JTextField standardfield=new JTextField(4);
     private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField kvadratfield= new JTextField(4);
     private JLabel byggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
-    private JTextField byggbeløpfield= new JTextField(20);
+    private JTextField byggbeløpfield= new JTextField(10);
     private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
-    private JTextField innbofield=new JTextField(20);
+    private JTextField innbofield=new JTextField(10);
     private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField husbeløpfield = new JTextField(20);
+    private JTextField husbeløpfield = new JTextField(10);
     private JLabel husbetingelser=new JLabel("Forsikringsbetingelser:");
-    private JTextArea husbettext=new JTextArea(10,40);
+    private JTextArea husbettext=new JTextArea(7,40);
     private JButton laghus=new JButton("tegn husforsikring");
     //End of husforsikring
     //Fritidsboligforsikring
     private JPanel fritidpanel1=new JPanel();
     private JPanel fritidpanel2=new JPanel();
     private JPanel fritidpanel3=new JPanel();
-    private JPanel fritidpanel4=new JPanel();
+    
+    private JPanel fadressep=new JPanel();
+    private JPanel fårp=new JPanel();
+    private JPanel ftypep=new JPanel();
+    private JPanel fbyggmp=new JPanel();
+    private JPanel fstandardp=new JPanel();
+    private JPanel fkvadratp=new JPanel();
+    private JPanel fbbeløpp=new JPanel();
+    private JPanel finnbeløpp=new JPanel();
+    private JPanel futleiep=new JPanel();
+    private JPanel fhusbeløpp=new JPanel();
+    private JPanel fpremiep=new JPanel();
     
     private JLabel fAdresselabel=new JLabel("Fritidsbolig adresse:");
-    private JTextField fAdressefield=new JTextField(20);
+    private JTextField fAdressefield=new JTextField(10);
     private JLabel fByggårlabel=new JLabel("Byggeår:");
-    private JTextField fByggårfield=new JTextField(20);
+    private JTextField fByggårfield=new JTextField(10);
     private JLabel fBoligtypelabel=new JLabel("Bolig type:");
-    private JTextField fboligtypefield=new JTextField(20);
+    private JTextField fboligtypefield=new JTextField(10);
     private JLabel fbyggmlabel=new JLabel("Byggmateriale:");
-    private JTextField fbyggmfield=new JTextField(20);
+    private JTextField fbyggmfield=new JTextField(10);
     private JLabel fstandardlabel=new JLabel("Standard:");
     private JTextField fstandardfield=new JTextField(4);
     private JLabel fkvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField fkvadratfield= new JTextField(4);
     private JLabel fbyggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
-    private JTextField fbyggbeløpfield= new JTextField(20);
+    private JTextField fbyggbeløpfield= new JTextField(5);
     private JLabel fInnbobeløplabel=new JLabel("Innboforsikrings beløp:");
-    private JTextField fInnbofield=new JTextField(20);
+    private JTextField fInnbofield=new JTextField(6);
     private JLabel utleie = new JLabel("Utleie");
     private String[] utleievalg = {"Ja","Nei"};
     private JComboBox utleiefield = new JComboBox(utleievalg);
     private JLabel fPremielabel=new JLabel("Forsikringspremie:");
-    private JTextField fPremiefield=new JTextField(20);
+    private JTextField fPremiefield=new JTextField(10);
     private JLabel fHusbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField fHusbeløpfield = new JTextField(20);
+    private JTextField fHusbeløpfield = new JTextField(10);
     private JLabel fHusbetingelser=new JLabel("Forsikringsbetingelser:");
-    private JTextArea fHusbettext=new JTextArea(10,40);
+    private JTextArea fHusbettext=new JTextArea(7,40);
     private JButton fLaghus=new JButton("tegn fritidsboligforsikring");
     //End of Fritidsboligforsikring
     
     //Reiseforsikring
     private JPanel reisepanel1=new JPanel();
     private JPanel reisepanel2=new JPanel();
+    private JPanel reisepanel3=new JPanel();
+    
+    private JPanel rområdep=new JPanel();
+    private JPanel rforsikringsump=new JPanel();
+    private JPanel rpremiep=new JPanel();
+    private JPanel rbeløpp=new JPanel();
     
     private JLabel områdelabel = new JLabel("Forsikringsområde");
     private JTextField områdefield = new JTextField(10);
@@ -380,6 +408,7 @@ public class Vindu extends JFrame implements Serializable
       output.setPreferredSize(new Dimension(50,50));
       lagkunde.addActionListener(lytter);
       
+      
       m2.add(fornavnlabel);
       m2.add(fornavnfield);
       m2.add (etternavnlabel);
@@ -405,7 +434,7 @@ public class Vindu extends JFrame implements Serializable
       midt.add(mf, BorderLayout.SOUTH);
       vest.add(v, BorderLayout.WEST);
       vest.add(ø, BorderLayout.EAST);
-      Dimension d=new Dimension(1000,250);
+      Dimension d=new Dimension(1000,300);
       bilpanel.setPreferredSize(d);
       båtpanel.setPreferredSize(d);
       huspanel.setPreferredSize(d);
@@ -476,21 +505,32 @@ public class Vindu extends JFrame implements Serializable
       
       
       innutpanel.setLayout(new BorderLayout());
+      utpanel.setLayout(new BorderLayout());
+      innpanel.setLayout(new BorderLayout());
       innutpanel.add(innpanel, BorderLayout.PAGE_START);
-      
       innutpanel.add(utpanel, BorderLayout.CENTER);
+      
+      JLabel inntittell;
+      JLabel uttittell;
+      innpanel.add(inntittell= new JLabel("Inntektstabell"), BorderLayout.NORTH);
      innpanel.add(new JScrollPane(inntabell));
-     innpanel.setPreferredSize(new Dimension(100,150)); 
+     innpanel.setPreferredSize(new Dimension(100,150));
+     utpanel.add(uttittell= new JLabel("Utgiftstabell"), BorderLayout.NORTH);
      utpanel.add(new JScrollPane(uttabell));
      utpanel.setPreferredSize(new Dimension(100,150));
+     Font font = inntittell.getFont();
+// same font but bold
+    Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
      
+     inntittell.setFont(boldFont);
+     uttittell.setFont(boldFont);
       p.add(tabbedPane);
       
       f.add(p);
       
       f.pack();
       f.setVisible(true);
-      //f.setResizable(false);
+      f.setResizable(false);
       //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       f.addWindowListener( 
         new WindowAdapter() {
@@ -541,7 +581,7 @@ public class Vindu extends JFrame implements Serializable
         bilbeløpp.add(bilbeløplabel);
         bilbeløpp.add(bilbeløpfield);
         
-        bilpanel2.add(bilbettext);
+        bilpanel2.add(new JScrollPane(bilbettext));
         bilpanel3.add(lagbil);
         lagbil.addActionListener(lytter);
         bilbettext.setLineWrap(true);
@@ -592,7 +632,7 @@ public class Vindu extends JFrame implements Serializable
         båtbeløpp.add(båtbeløpfield);
         
         
-        båtpanel2.add(båtbettext);
+        båtpanel2.add(new JScrollPane(båtbettext));
         båtpanel3.add(lagbåt);   
         lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
@@ -605,81 +645,130 @@ public class Vindu extends JFrame implements Serializable
         // Husforsikring
         huspanel.setLayout(new BorderLayout());
         huspanel.add(huspanel1, BorderLayout.NORTH);
+        huspanel1.setLayout(new GridLayout(3,3));
         huspanel.add(huspanel2, BorderLayout.CENTER);
         huspanel.add(huspanel3, BorderLayout.SOUTH);
-        huspanel1.add(hadresselabel);
-        huspanel1.add(hadressefield);
-        huspanel1.add(byggårlabel);
-        huspanel1.add(byggårfield);
-        huspanel1.add(boligtypelabel);
-        huspanel1.add(boligtypefield);
-        huspanel2.add(byggmlabel);
-        huspanel2.add(byggmfield);
-        huspanel2.add(standardlabel);
-        huspanel2.add(standardfield);
-        huspanel2.add(kvadratlabel);
-        huspanel2.add(kvadratfield);
-        huspanel2.add(byggbeløplabel);
-        huspanel2.add(byggbeløpfield);
-        huspanel2.add(innbobeløplabel);
-        huspanel2.add(innbofield);
-        huspanel2.add(husbeløplabel);
-        huspanel2.add(husbeløpfield);
-        huspanel3.add(husbetingelser);
-        huspanel3.add(husbettext);
+        
+        
+        hadressep.add(hadresselabel);
+        hadressep.add(hadressefield);
+        hårp.add(byggårlabel);
+        hårp.add(byggårfield);
+        htypep.add(boligtypelabel);
+        htypep.add(boligtypefield);
+        hbyggmp.add(byggmlabel);
+        hbyggmp.add(byggmfield);
+        hstandardp.add(standardlabel);
+        hstandardp.add(standardfield);
+        hkvadratp.add(kvadratlabel);
+        hkvadratp.add(kvadratfield);
+        hbbeløpp.add(byggbeløplabel);
+        hbbeløpp.add(byggbeløpfield);
+        hinnbeløpp.add(innbobeløplabel);
+        hinnbeløpp.add(innbofield);
+        hhusbeløpp.add(husbeløplabel);
+        hhusbeløpp.add(husbeløpfield);
+        
+        huspanel1.add(hadressep);
+        huspanel1.add(hårp);
+        huspanel1.add(htypep);
+        huspanel1.add(hbyggmp);
+        huspanel1.add(hstandardp);
+        huspanel1.add(hkvadratp);
+        huspanel1.add(hbbeløpp);
+        huspanel1.add(hinnbeløpp);
+        huspanel1.add(hhusbeløpp);
+        
+        huspanel2.add(new JScrollPane(husbettext));
         huspanel3.add(laghus);
         laghus.addActionListener(lytter);
+        
+        husbettext.setLineWrap(true);
+        
+        Border husramme=BorderFactory.createLineBorder(Color.BLACK);
+        Border hustittel=BorderFactory.createTitledBorder(husramme, "Forsikringsbetingelser");
+        husbettext.setBorder(hustittel);
+        
+        
         // End of husforsikring
         // Fritidsbolig forsikring
         fritidpanel.setLayout(new BorderLayout());
         fritidpanel.add(fritidpanel1, BorderLayout.NORTH);
+        fritidpanel1.setLayout(new GridLayout(3,4));
         fritidpanel.add(fritidpanel2, BorderLayout.CENTER);
         fritidpanel.add(fritidpanel3, BorderLayout.SOUTH);
-        fritidpanel1.add(fAdresselabel);
-        fritidpanel1.add(fAdressefield);
-        fritidpanel1.add(fByggårlabel);
-        fritidpanel1.add(fByggårfield);
-        fritidpanel1.add(fBoligtypelabel);
-        fritidpanel1.add(fboligtypefield);
-        fritidpanel2.add(fbyggmlabel);
-        fritidpanel2.add(fbyggmfield);
-        fritidpanel2.add(fstandardlabel);
-        fritidpanel2.add(fstandardfield);
-        fritidpanel2.add(fkvadratlabel);
-        fritidpanel2.add(fkvadratfield);
-        fritidpanel2.add(fbyggbeløplabel);
-        fritidpanel2.add(fbyggbeløpfield);
-        fritidpanel2.add(fInnbobeløplabel);
-        fritidpanel2.add(fInnbofield);
-        fritidpanel2.add(utleie);
+
+        fadressep.add(fAdresselabel);
+        fadressep.add(fAdressefield);
+        fårp.add(fByggårlabel);
+        fårp.add(fByggårfield);
+        ftypep.add(fBoligtypelabel);
+        ftypep.add(fboligtypefield);
+        fbyggmp.add(fbyggmlabel);
+        fbyggmp.add(fbyggmfield);
+        fstandardp.add(fstandardlabel);
+        fstandardp.add(fstandardfield);
+        fkvadratp.add(fkvadratlabel);
+        fkvadratp.add(fkvadratfield);
+        fbbeløpp.add(fbyggbeløplabel);
+        fbbeløpp.add(fbyggbeløpfield);
+        finnbeløpp.add(fInnbobeløplabel);
+        finnbeløpp.add(fInnbofield);
+        futleiep.add(utleie);
+        futleiep.add(utleiefield);
+        fpremiep.add(fPremielabel);
+        fpremiep.add(fPremiefield);
+        fhusbeløpp.add(fHusbeløplabel);
+        fhusbeløpp.add(fHusbeløpfield);
+        
+        fritidpanel1.add(fadressep);
+        fritidpanel1.add(fårp);
+        fritidpanel1.add(ftypep);
+        fritidpanel1.add(fbyggmp);
+        fritidpanel1.add(fstandardp);
+        fritidpanel1.add(fkvadratp);
+        fritidpanel1.add(fbbeløpp);
+        fritidpanel1.add(finnbeløpp);
+        fritidpanel1.add(futleiep);
+        fritidpanel1.add(fpremiep);
+        fritidpanel1.add(fhusbeløpp);
+       
         utleiefield.setSelectedIndex(1);
-        fritidpanel2.add(utleiefield);
-        fritidpanel3.add(fPremielabel);
-        fritidpanel3.add(fPremiefield);
-        fritidpanel3.add(fHusbeløplabel);
-        fritidpanel3.add(fHusbeløpfield);
-        fritidpanel3.add(fHusbetingelser);
-        fritidpanel3.add(fHusbettext);
+     
+        fritidpanel2.add(new JScrollPane(fHusbettext));
+        fHusbettext.setLineWrap(true);
+        
         fritidpanel3.add(fLaghus);
+        fHusbettext.setBorder(hustittel);
         fLaghus.addActionListener(lytter);
         // End of fritidsbolig forsikring
         // ReiseForsikring
         reisepanel.setLayout(new BorderLayout());
-        reisepanel.add(reisepanel1,BorderLayout.CENTER);
-        reisepanel.add(reisepanel2,BorderLayout.SOUTH);
-        reisepanel1.add(områdelabel);
-        reisepanel1.add(områdefield);
-        reisepanel1.add(rforsikringsumlabel);
-        reisepanel1.add(rforsikringssumfield);
-        reisepanel1.add(rpremielabel);
-        reisepanel1.add(rpremiefield);
-        reisepanel1.add(rbeløplabel);
-        reisepanel1.add(rbeløpfield);
-        reisepanel2.add(rbetingelserlabel);
+        reisepanel.add(reisepanel1,BorderLayout.NORTH);
+        reisepanel1.setLayout(new GridLayout(2,2));
+        reisepanel.add(reisepanel2,BorderLayout.CENTER);
+        reisepanel.add(reisepanel3,BorderLayout.SOUTH);
+        
+        rområdep.add(områdelabel);
+        rområdep.add(områdefield);
+        rforsikringsump.add(rforsikringsumlabel);
+        rforsikringsump.add(rforsikringssumfield);
+        rpremiep.add(rpremielabel);
+        rpremiep.add(rpremiefield);
+        rbeløpp.add(rbeløplabel);
+        rbeløpp.add(rbeløpfield);
+        
+        reisepanel1.add(rområdep);
+        reisepanel1.add(rforsikringsump);
+        reisepanel1.add(rpremiep);
+        reisepanel1.add(rbeløpp);
+        
+        
         reisepanel2.add(new JScrollPane(rbetingelsertext));
-        reisepanel2.add(lagreise);
+        reisepanel3.add(lagreise);
         rbetingelsertext.setLineWrap(true);
         lagreise.addActionListener(lytter);
+        rbetingelsertext.setBorder(hustittel);
         // End of Reiseforsikring
         
     }
