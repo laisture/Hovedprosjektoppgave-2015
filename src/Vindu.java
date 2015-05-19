@@ -859,8 +859,8 @@ public class Vindu extends JFrame implements Serializable
         }    
     }
     public void sendSkademelding(int k, String m, String t, String v) //Sjekker om den registrerte skademelding er true, hvis
-    {                                                                 //den er true så opprettes en tabell 
-        Boolean ok=register.SendSkademelding(k, m, t, v);
+    {                                                                 //den er true så opprettes en tabell og sender med all informasjon fra skaderarrayet
+        Boolean ok=register.SendSkademelding(k, m, t, v);             //og oppdaterer tabellen.
         if (ok)
         {
         modell.opprettTabell(register.get2dSkade());
