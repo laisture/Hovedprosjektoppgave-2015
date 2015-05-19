@@ -98,7 +98,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel regårlabel=new JLabel("første registreringsår:");
     private JTextField regårfield=new JTextField(10);
     private JLabel kjørelabel= new JLabel("Kjørelengde per år (km): ");
-    private JTextField kjørefield= new JTextField(10);
+    private JTextField kjørefield= new JTextField(5);
     private JLabel priskm= new JLabel("pris per km");
     private JTextField priskmfield=new JTextField(10);
     private JLabel bpremielabel= new JLabel("Forsikringspremie:");
@@ -320,12 +320,12 @@ public class Vindu extends JFrame implements Serializable
         uttabell=new JTable(utgift);
         //System.out.println(tabell.getValueAt(1, 5));
         
-//        try { 
-//    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//        }   
-        //Legger til layout og icon til forsikringene.
+        try { 
+    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+      e.printStackTrace();
+        }   
+        
         panel.setLayout(new BorderLayout());
         vest.setLayout(new BorderLayout());
         kundepanel.setLayout(new BorderLayout());
@@ -360,19 +360,19 @@ public class Vindu extends JFrame implements Serializable
      
        
         
-        forsikringer.addTab("bil forsikring",bil, bilpanel, "Does nothing");
+        forsikringer.addTab("bil forsikring",bil, bilpanel, "Tegn Bilforsikring");
         forsikringer.setMnemonicAt(0, KeyEvent.VK_1);
 
-        forsikringer.addTab("båt forsikring",båt, båtpanel, "Does nothing");
+        forsikringer.addTab("båt forsikring",båt, båtpanel, "Tegn Båtforsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_2);
         //hus
-        forsikringer.addTab("hus forsikring",hus, huspanel, "Does nothing");
+        forsikringer.addTab("hus forsikring",hus, huspanel, "Tegn Husforsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_3);
         //Fritidsbolig
-        forsikringer.addTab("fritidsbolig forsikring",hytte, fritidpanel, "Does nothing");
+        forsikringer.addTab("fritidsbolig forsikring",hytte, fritidpanel, "Tegn Fritidsboligforsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_4);
         //Reiseforsikring
-        forsikringer.addTab("reise forsikring",reise, reisepanel, "Does nothing");
+        forsikringer.addTab("reise forsikring",reise, reisepanel, "Tegn Reiseforsikring");
         forsikringer.setMnemonicAt(1, KeyEvent.VK_5);
       
       output.setEditable(false);
@@ -456,7 +456,7 @@ public class Vindu extends JFrame implements Serializable
       søkVest.add(deaktiver);
       søkNord.add(søkefelt);
       søkNord.add(søkButton);
-      søkCenter.add(output2);
+      søkCenter.add(new JScrollPane(output2));
       søk.add(søkVest,BorderLayout.WEST);
       søk.add(søkCenter,BorderLayout.CENTER);
       søk.add(søkNord, BorderLayout.NORTH);
@@ -507,22 +507,23 @@ public class Vindu extends JFrame implements Serializable
         //bilpanel
         bilpanel.setLayout(new BorderLayout());
         bilpanel.add(bilpanel1, BorderLayout.NORTH);
-        bilpanel1.setLayout(new GridLayout(1,4));
+        bilpanel1.setLayout(new GridLayout(2,4));
         bilpanel.add(bilpanel2, BorderLayout.CENTER);
-        bilpanel2.setLayout(new GridLayout(1,3));
+       
         
         bilpanel1.add(bileierp);
         bilpanel1.add(bilregp);
         bilpanel1.add(biltp);
         bilpanel1.add(bilmp);
         
-        bilpanel2.add(bilårp);
-        bilpanel2.add(bilkjørep);
-        bilpanel2.add(bilpremie);
-        bilpanel2.add(bilbeløpp);
+        bilpanel1.add(bilårp);
+        bilpanel1.add(bilkjørep);
+        bilpanel1.add(bilpremie);
+        bilpanel1.add(bilbeløpp);
         
         
         bilpanel.add(bilpanel3, BorderLayout.SOUTH);
+        
         bileierp.add(eierlabel);
         bileierp.add(eierfield);
         bilregp.add(reglabel);
@@ -535,12 +536,12 @@ public class Vindu extends JFrame implements Serializable
         bilårp.add(regårfield);
         bilkjørep.add(kjørelabel);
         bilkjørep.add(kjørefield);
-        bilpremie.add(premielabel);
-        bilpremie.add(premiefield);
+        bilpremie.add(bpremielabel);
+        bilpremie.add(bpremiefield);
         bilbeløpp.add(bilbeløplabel);
         bilbeløpp.add(bilbeløpfield);
         
-        bilpanel3.add(bilbettext);
+        bilpanel2.add(bilbettext);
         bilpanel3.add(lagbil);
         lagbil.addActionListener(lytter);
         bilbettext.setLineWrap(true);
@@ -675,10 +676,12 @@ public class Vindu extends JFrame implements Serializable
         reisepanel1.add(rbeløplabel);
         reisepanel1.add(rbeløpfield);
         reisepanel2.add(rbetingelserlabel);
-        reisepanel2.add(rbetingelsertext);
+        reisepanel2.add(new JScrollPane(rbetingelsertext));
         reisepanel2.add(lagreise);
+        rbetingelsertext.setLineWrap(true);
         lagreise.addActionListener(lytter);
         // End of Reiseforsikring
+        
     }
    
     public boolean match(String regex, String inn)

@@ -115,7 +115,20 @@ public class Kunderegister implements Serializable  {
                 
                 if(forsikring.getType().equals(s) && forsikring.getGyldig())
                 {
-                    sum+=forsikring.getPremie();
+                    if(forsikring.getType().equals("bil"))
+                    {
+                        Bilforsikring b=(Bilforsikring)forsikring;
+                        double bonus=(double)b.getBonus();
+                        double l=1-(bonus/100);
+                        
+                        sum+=((b.getPremie()*l));
+                                
+                    }
+                    else
+                    {
+                       sum+=forsikring.getPremie(); 
+                    } 
+                    
                     
                 }
             }
@@ -219,7 +232,7 @@ public class Kunderegister implements Serializable  {
          Skademelding[] skader=getSkademeldinger();
          Object[][] s=new Object[skader.length][8];
          
-         for (int i=1; i<skader.length;i++)
+         for (int i=0; i<skader.length;i++)
          {
              
              if(skader[i]!=null)
