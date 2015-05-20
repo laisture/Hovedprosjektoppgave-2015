@@ -3,15 +3,8 @@
 import java.io.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -26,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Siste edit: 19.05.15
  * @author Julian, Joakim og Kristian.
  * Hensikten med klassen er å opprette vindu komponentene og noen metoder som blir brukt i vinduet og til tabell.
+ * I lagres og leses data til fil liste.data.
  */
 public class Vindu extends JFrame implements Serializable 
 {
@@ -42,7 +36,7 @@ public class Vindu extends JFrame implements Serializable
     public final static String regexNr = "^[0-9]{1,10}$";
     public final static String regexRegår = "^[0-9]{4}$";
     public final static String regexRegNr = "^[a-zæøåA-ZÆØÅ_0-9]{7}$";
-    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ]{10,500}$";
+    public final static String regexBetingelser = "^[a-zæøåA-ZÆØÅ_0-9 ,./]{10,500}$";
     public final static String regexMotorstyrke = "^[0-9]{1,4}$";
     //Slutt på Regex
     private JPanel panel=new JPanel();
@@ -84,7 +78,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel bilprisp=new JPanel();
     private JPanel bilpremie =new JPanel();
     private JPanel bilbeløpp=new JPanel();
-    private JPanel bilbetp=new JPanel();
     
     private JLabel eierlabel=new JLabel("Bil eier:");
     private JTextField eierfield=new JTextField(10);
@@ -124,7 +117,6 @@ public class Vindu extends JFrame implements Serializable
     private JPanel båthkp=new JPanel();
     private JPanel båtpremiep=new JPanel();
     private JPanel båtbeløpp=new JPanel();
-    private JPanel båtbetp=new JPanel();
     
     private JLabel båteierlabel=new JLabel("Båt eier:");
     private JTextField båteierfield=new JTextField(10);
@@ -180,7 +172,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField kvadratfield= new JTextField(4);
     private JLabel byggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
-    private JTextField byggbeløpfield= new JTextField(10);
+    private JTextField byggbeløpfield= new JTextField(140);
     private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField innbofield=new JTextField(10);
     private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
@@ -227,8 +219,6 @@ public class Vindu extends JFrame implements Serializable
     private JComboBox utleiefield = new JComboBox(utleievalg);
     private JLabel fPremielabel=new JLabel("Forsikringspremie:");
     private JTextField fPremiefield=new JTextField(10);
-    private JLabel fHusbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField fHusbeløpfield = new JTextField(10);
     private JLabel fHusbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea fHusbettext=new JTextArea(7,40);
     private JButton fLaghus=new JButton("tegn fritidsboligforsikring");
@@ -246,8 +236,6 @@ public class Vindu extends JFrame implements Serializable
     
     private JLabel områdelabel = new JLabel("Forsikringsområde");
     private JTextField områdefield = new JTextField(10);
-    private JLabel rforsikringsumlabel = new JLabel("Forsikringssum:");
-    private JTextField rforsikringssumfield = new JTextField(10);
     private JLabel rpremielabel = new JLabel("Forsikringspremie:");
     private JTextField rpremiefield = new JTextField(10);
     private JLabel rbeløplabel = new JLabel("Forsikringsbeløp");
@@ -308,7 +296,7 @@ public class Vindu extends JFrame implements Serializable
     private TableModelListener endring;
     public Vindu()
     {
-        super("Main frame");
+        super("Forsikringsvindu");
         // Leser kundedata fra fil
         lesFil();
         modell = new Tabell(register.get2dSkade());
@@ -316,41 +304,40 @@ public class Vindu extends JFrame implements Serializable
         //Legger til museklikklyttere
         modell.addTableModelListener(endring);
         tabell.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent e) {
-     try{
-        JTable target = (JTable)e.getSource();
-        int row = target.getSelectedRow();
-        int column = target.getSelectedColumn();
-        int nummer=(int)tabell.getValueAt(row, 7);
-        if (column==5) //Henter skademelding hvis kolonnen er lik 5.
-        {
-            Skademelding[] s=register.getSkademeldinger();
+        public void mouseClicked(MouseEvent e) {
+        try{
+            JTable target = (JTable)e.getSource();
+            int row = target.getSelectedRow();
+            int column = target.getSelectedColumn();
+            int nummer=(int)tabell.getValueAt(row, 7);
+            if (column==5) //Henter skademelding hvis kolonnen er lik 5.
+            {
+                Skademelding[] s=register.getSkademeldinger();
 
-            for (int i=0; i<s.length;i++)
-            {
-                if(s[i].getSkadenummer()==nummer)
+                for (int i=0; i<s.length;i++)
                 {
-                    JOptionPane.showMessageDialog(null,s[i].getBildet());
-                    
+                    if(s[i].getSkadenummer()==nummer)
+                    {
+                        JOptionPane.showMessageDialog(null,s[i].getBildet());
+
+                    }
+
                 }
-                
             }
-        }
-        if (column==4)
-        {
-            JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
-        }
-        }
-        catch(NullPointerException npe)
+            if (column==4)
             {
+                JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
             }
-     }});
+            }
+        catch(NullPointerException npe)
+        {
+        }
+        }});
         //legger til inntektstabell, og utgiftstabell.
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
         utgift=new Utgiftstabell(register.get2dut());
         uttabell=new JTable(utgift);
-        //System.out.println(tabell.getValueAt(1, 5));
         
          
         
@@ -634,12 +621,14 @@ public class Vindu extends JFrame implements Serializable
         
         båtpanel2.add(new JScrollPane(båtbettext));
         båtpanel3.add(lagbåt);   
+        
         lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
         
         Border båtramme=BorderFactory.createLineBorder(Color.BLACK);
         Border båttittel=BorderFactory.createTitledBorder(bilramme, "Forsikringsbetingelser");
         båtbettext.setBorder(biltittel);
+        båtpanel2.add(new JScrollPane(båtbettext));
         
         
         // Husforsikring
@@ -666,8 +655,6 @@ public class Vindu extends JFrame implements Serializable
         hbbeløpp.add(byggbeløpfield);
         hinnbeløpp.add(innbobeløplabel);
         hinnbeløpp.add(innbofield);
-        hhusbeløpp.add(husbeløplabel);
-        hhusbeløpp.add(husbeløpfield);
         
         huspanel1.add(hadressep);
         huspanel1.add(hårp);
@@ -677,7 +664,6 @@ public class Vindu extends JFrame implements Serializable
         huspanel1.add(hkvadratp);
         huspanel1.add(hbbeløpp);
         huspanel1.add(hinnbeløpp);
-        huspanel1.add(hhusbeløpp);
         
         huspanel2.add(new JScrollPane(husbettext));
         huspanel3.add(laghus);
@@ -718,8 +704,6 @@ public class Vindu extends JFrame implements Serializable
         futleiep.add(utleiefield);
         fpremiep.add(fPremielabel);
         fpremiep.add(fPremiefield);
-        fhusbeløpp.add(fHusbeløplabel);
-        fhusbeløpp.add(fHusbeløpfield);
         
         fritidpanel1.add(fadressep);
         fritidpanel1.add(fårp);
@@ -731,7 +715,6 @@ public class Vindu extends JFrame implements Serializable
         fritidpanel1.add(finnbeløpp);
         fritidpanel1.add(futleiep);
         fritidpanel1.add(fpremiep);
-        fritidpanel1.add(fhusbeløpp);
        
         utleiefield.setSelectedIndex(1);
      
@@ -751,8 +734,6 @@ public class Vindu extends JFrame implements Serializable
         
         rområdep.add(områdelabel);
         rområdep.add(områdefield);
-        rforsikringsump.add(rforsikringsumlabel);
-        rforsikringsump.add(rforsikringssumfield);
         rpremiep.add(rpremielabel);
         rpremiep.add(rpremiefield);
         rbeløpp.add(rbeløplabel);
@@ -808,10 +789,10 @@ public class Vindu extends JFrame implements Serializable
                 output.append("\nVennligst prøv igjen");
                 return;
             }
-            Boolean ok2=register.nyKunde(fornavn,etternavn,adresse);
-            if(ok2)
+            int ok2 =register.nyKunde(fornavn,etternavn,adresse);
+            if(ok2 > 0)
             {
-                output.setText("Kunde er registert med kundenummer : " /*+ kundenr*/);
+                output.setText("Kunde er registert med kundenummer : "+ok2);
                 fornavnfield.setText("");
                 etternavnfield.setText("");
                 adressefield.setText("");
@@ -835,8 +816,8 @@ public class Vindu extends JFrame implements Serializable
         {
 		s[i]=(String)forsikringer.get(i).getType();   
         }
-        forsikringsliste.setListData(s);
-        forsikringsliste.setVisibleRowCount(6);
+            forsikringsliste.setListData(s);
+            forsikringsliste.setVisibleRowCount(6);
         }
         catch(ArrayIndexOutOfBoundsException inde)
         {
@@ -891,7 +872,7 @@ public class Vindu extends JFrame implements Serializable
         }
         catch(NullPointerException | NumberFormatException npe)
         {
-            output2.setText("Fella ja jajajaajajj");
+            output2.setText("Det skjedde en feil, vennligst prøv igjen.");
         }
         
     }
@@ -1452,7 +1433,6 @@ public class Vindu extends JFrame implements Serializable
         try
         {
             String område = områdefield.getText();
-            String forssum2 = rforsikringssumfield.getText();
             String forspremie2 = rpremiefield.getText();
             String forsbeløp2 = rbeløpfield.getText();
             String betingelser = rbetingelsertext.getText();
@@ -1460,12 +1440,6 @@ public class Vindu extends JFrame implements Serializable
             if(!match(regexNavn,område))
             {
                 ut.setText("Feil i område felt, kun tillatt med bokstaver\n");
-                ut.append("Registrering ble ikke fullført");
-                return;
-            }
-            if(!match(regexNr,forssum2))
-            {
-                ut.setText("Feil forsikringssum felt, kun tall er lov(maks 10 tegn)\n");
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
@@ -1487,16 +1461,14 @@ public class Vindu extends JFrame implements Serializable
                 ut.append("Registrering ble ikke fullført");
                 return;
             }
-            int forssum = Integer.parseInt(forssum2);
             int forspremie = Integer.parseInt(forspremie2);
             int forsbeløp = Integer.parseInt(forsbeløp2);
             
-            Reiseforsikring reise = new Reiseforsikring(område,forssum,forspremie,forsbeløp,betingelser);
+            Reiseforsikring reise = new Reiseforsikring(område,forspremie,forsbeløp,betingelser);
             Boolean ok = register.lagForsikring(k,reise);
             if(ok)
             {
                 områdefield.setText("");
-                rforsikringssumfield.setText("");
                 rpremiefield.setText("");
                 rbeløpfield.setText("");
                 rbetingelsertext.setText("");
@@ -1549,13 +1521,13 @@ public class Vindu extends JFrame implements Serializable
     /*
         Metoden blir kalt opp hver gang programmet starter og blir lagret i minne.
         Metoden har som ansvar for å lese filen liste.data, som skal inneholde all data om kundene i systemet.
-        Hvis den er tom, dvs kunderegisteret ikke er blitt opprettet ennå, vil den automatisk bli opprettet første gang.
+        Hvis den er tom, eller andre feil, vil den automatisk bli opprettet første gang.
         I tillegg er det lagt til try/catch blokker for feilbehandling.
     */ 
     public void lesFil()
     {
         try (ObjectInputStream innfil = new ObjectInputStream(
-                new FileInputStream( "src/liste.data" )))
+                new FileInputStream( "liste.data" )))
         {
             register = (Kunderegister) innfil.readObject();
             register.Start();
@@ -1588,7 +1560,7 @@ public class Vindu extends JFrame implements Serializable
     public void SkrivTilFil()
     {
         try (ObjectOutputStream utfil = new ObjectOutputStream(
-             new FileOutputStream("src/liste.data")))
+             new FileOutputStream("liste.data")))
         {
             lagreEndring();
             utfil.writeObject(register);

@@ -263,14 +263,15 @@ public class Kunderegister implements Serializable  {
         register.add(ny);
         
     }//Registerer ny kunde.
-    public Boolean nyKunde(String f, String e, String a)//Registrerer ny kunde.
+    public int nyKunde(String f, String e, String a)//Registrerer ny kunde.
     {
         Kunde b=new Kunde(f,e,a);
         settInn(b);
+        int nr = b.getForsikringsnummer();
         if(b == null)
-            return false;
+            return -1;
         else
-            return true;
+            return nr;
     }
     public Kunde finnKundeInt(int k)//Finner kunde ved å forsikringsnummer.
     {      
