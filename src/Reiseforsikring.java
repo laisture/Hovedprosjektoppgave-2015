@@ -3,8 +3,9 @@ import java.io.Serializable;
 
 
 /**
- * Filen inneholder 
- * Hensikten med klassen er å opprette reise
+ * Filen inneholder all nødvendig informasjon om Reiseforsikring
+ * Hensikten med klassen er å opprette reise forsikring til kunden.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 public class Reiseforsikring extends Forsikring implements Serializable 
@@ -29,5 +30,5 @@ public class Reiseforsikring extends Forsikring implements Serializable
         }
         return melding;
     }
-    //Lager ny reiseforsikring og sender med innformasjon om forsikringen til registeret.
+    //Lager ny reiseforsikring og sender med innformasjon om reise forsikringen og sum til registeret.
 }

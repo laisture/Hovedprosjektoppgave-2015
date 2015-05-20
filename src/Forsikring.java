@@ -3,10 +3,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-/*
-    Filen inneholder klassen Forsikring som er super-klasse til alle type forsikringer.
-    
-*/
+/**
+ * Filen inneholder all nødvendig informasjon om Forsikring
+ * Hensikten med klassen er å opprette reise de fleste get metodene for forsikring
+ * Siste edit: 19.05.15
+ * @author Joakim, Julian og Kristian
+ */
 public class Forsikring implements Serializable {
 
     private int årligPremie;

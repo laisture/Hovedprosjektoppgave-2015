@@ -1,6 +1,10 @@
-//Dette er klassen for husforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
-// Dette er en subklasse av klassen Forsikring, og består for det meste av get metoder.
 
+/**
+ * Filen inneholder all nødvendig informasjon om husforsikring
+ * Hensikten med klassen er å opprette de fleste get metodene for husforsikring, som blir brukt i forsikring.
+ * Siste edit: 19.05.15
+ * @author Julian
+ */
 public class Husforsikring extends Forsikring {
     
    

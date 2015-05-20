@@ -1,14 +1,10 @@
 
 import javax.swing.table.AbstractTableModel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * Filen inneholder tabell over Forsikring og beløp.
+ * Hensikten med klassen er å lage en tabell som inneholder forsikringstype og beløp.
+ * Siste edit: 19.05.15
  * @author Joakim
  */
 class Inntektstabell extends AbstractTableModel 
@@ -20,7 +16,7 @@ class Inntektstabell extends AbstractTableModel
         {
             opprettTabell(t);
         }
-     public void opprettTabell(Object[][] t)// oppretter inntekt tabell.
+     public void opprettTabell(Object[][] t)// oppretter inntekts tabell.
      {
          inntekter=t;
      }
@@ -40,6 +36,7 @@ class Inntektstabell extends AbstractTableModel
         Object value=this.getValueAt(0,column);
         return (value==null?Object.class:value.getClass());
         }
+        //Get metoder.
         public int getColumnCount()
         {
             return inntekter[ 0].length;

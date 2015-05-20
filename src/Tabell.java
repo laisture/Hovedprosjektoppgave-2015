@@ -12,7 +12,7 @@ import javax.swing.table.AbstractTableModel;
  * Filen inneholder tabellen for skademeldinger, med metoder, for å hente informasjon og lagre informasjon på tabellen. Kan også bli brukt til statistikk.
  * Filen inneholder metoder for oppretting av tabell, hente og forandre informasjon hos kunden
  * Siste edit: 19.05.15
- * @author Joakim og Kristian
+ * @author Kristian
  */
 public class Tabell extends AbstractTableModel implements Serializable
     {

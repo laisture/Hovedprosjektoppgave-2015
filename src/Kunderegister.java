@@ -5,8 +5,10 @@
  */
 
 /**
- *
- * @author Joakim
+ * Filen inneholder kundens registrete forsikringer, metoder for å hente, sende og finne skademelding
+ * Hensikten med klassen er å lagre kunder, og kunder sine forsikringer.
+ * Siste edit: 19.05.15
+ * @author Joakim, Julian og Kristian
  */
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class Kunderegister implements Serializable  {
     public Kunderegister()
     {
         nyKunde("ola","nordmann","testgate 1");
-       SendSkademelding(1,"Dette er en test", "bil", "test");
+       SendSkademelding(1,"Dette er den første skademeldingen i programmet", "Bil", "test");
        
          
     }
@@ -59,7 +61,7 @@ public class Kunderegister implements Serializable  {
         }
         return (n);
     }
-    //Henter kundens kundens forsikringsnummer, og sender med det, mens den legger til skademelding til kunden.
+    //Sender kundens kundens forsikringsnummer, og sender med det, mens den legger til skademelding til kunden.
     public Boolean SendSkademelding(int k, String m, String t, String v)
     {
         
@@ -67,7 +69,7 @@ public class Kunderegister implements Serializable  {
         Boolean ok=kunde.addSkademelding(kunde,m,t,v);
         return ok;
     }
-    
+    //Henter kundens skademedling fra skademeldingsarrayet.
      public Skademelding[] getSkademeldinger()
     {
         ArrayList<Skademelding> skademeldinger=new ArrayList();
@@ -102,6 +104,7 @@ public class Kunderegister implements Serializable  {
          }
          return null;
      }
+     //Henter kundens premie, hvor mye kunden betaler for forsikringene.
      public int getPremie(String s)
      {
          int sum=0;
@@ -145,7 +148,7 @@ public class Kunderegister implements Serializable  {
         }
          return sum;
      }
-     //Legger til forsikringsobjekter i arrayet.
+     //Legger til de forskjellige forsikringsobjektene i arrayet.
      public Object[][] get2dinn()
      {
          Object[][] inn =new Object[6][2];
@@ -171,6 +174,7 @@ public class Kunderegister implements Serializable  {
          inn[5][1]=bil+båt+hus+fri+reise;
          return inn;
      }
+     //Lager et nytt object, som inneholder de forskjellige forsikringene + sum.
      public Object[][] get2dut()
      {
          Object[][] ut =new Object[6][2];

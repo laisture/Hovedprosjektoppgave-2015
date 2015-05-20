@@ -1,5 +1,9 @@
-//Dette er klassen for fritidsboligforsikring. i denne klassen lagres all nødvendig info om bilforsikringen.
-// Dette er en subklasse av klassen Forsikring, og består for det meste av get metoder.
+/**
+ * Filen inneholder all nødvendig informasjon om Fritidsforsikring
+ * Hensikten med klassen er å opprette de fleste get metodene for fritidsforsikring, som blir brukt i forsikring.
+ * Siste edit: 19.05.15
+ * @author Kristian
+ */
 
 public class Fritidsforsikring extends Forsikring {
     
