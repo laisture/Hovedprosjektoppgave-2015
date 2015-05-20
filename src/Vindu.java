@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * Siste edit: 19.05.15
  * @author Julian, Joakim og Kristian.
  * Hensikten med klassen er å opprette vindu komponentene og noen metoder som blir brukt i vinduet og til tabell.
+ * I lagres og leses data til fil liste.data.
  */
 public class Vindu extends JFrame implements Serializable 
 {
@@ -523,6 +524,7 @@ public class Vindu extends JFrame implements Serializable
         bilbeløpp.add(bilbeløpfield);
         
         bilpanel2.add(bilbettext);
+        bilpanel2.add(new JScrollPane(bilbettext));
         bilpanel3.add(lagbil);
         lagbil.addActionListener(lytter);
         bilbettext.setLineWrap(true);
@@ -575,12 +577,14 @@ public class Vindu extends JFrame implements Serializable
         
         båtpanel2.add(båtbettext);
         båtpanel3.add(lagbåt);   
+        
         lagbåt.addActionListener(lytter);
         båtbettext.setLineWrap(true);
         
         Border båtramme=BorderFactory.createLineBorder(Color.BLACK);
         Border båttittel=BorderFactory.createTitledBorder(bilramme, "Forsikringsbetingelser");
         båtbettext.setBorder(biltittel);
+        båtpanel2.add(new JScrollPane(båtbettext));
         
         
         // Husforsikring
@@ -606,6 +610,8 @@ public class Vindu extends JFrame implements Serializable
         huspanel2.add(innbofield);
         huspanel3.add(husbetingelser);
         huspanel3.add(husbettext);
+        huspanel3.add(new JScrollPane(husbettext));
+        husbettext.setLineWrap(true);
         huspanel3.add(laghus);
         laghus.addActionListener(lytter);
         // End of husforsikring
@@ -633,10 +639,12 @@ public class Vindu extends JFrame implements Serializable
         fritidpanel2.add(utleie);
         utleiefield.setSelectedIndex(1);
         fritidpanel2.add(utleiefield);
-        fritidpanel3.add(fPremielabel);
-        fritidpanel3.add(fPremiefield);
+        fritidpanel2.add(fPremielabel);
+        fritidpanel2.add(fPremiefield);
         fritidpanel3.add(fHusbetingelser);
         fritidpanel3.add(fHusbettext);
+        fritidpanel3.add(new JScrollPane(fHusbettext));
+        fHusbettext.setLineWrap(true);
         fritidpanel3.add(fLaghus);
         fLaghus.addActionListener(lytter);
         // End of fritidsbolig forsikring
@@ -694,10 +702,10 @@ public class Vindu extends JFrame implements Serializable
                 output.append("\nVennligst prøv igjen");
                 return;
             }
-            Boolean ok2=register.nyKunde(fornavn,etternavn,adresse);
-            if(ok2)
+            int ok2 =register.nyKunde(fornavn,etternavn,adresse);
+            if(ok2 > 0)
             {
-                output.setText("Kunde er registert med kundenummer : " /*+ kundenr*/);
+                output.setText("Kunde er registert med kundenummer : "+ok2);
                 fornavnfield.setText("");
                 etternavnfield.setText("");
                 adressefield.setText("");
@@ -1432,7 +1440,7 @@ public class Vindu extends JFrame implements Serializable
     public void lesFil()
     {
         try (ObjectInputStream innfil = new ObjectInputStream(
-                new FileInputStream( "src/liste.data" )))
+                new FileInputStream( "liste.data" )))
         {
             register = (Kunderegister) innfil.readObject();
             register.Start();
@@ -1465,7 +1473,7 @@ public class Vindu extends JFrame implements Serializable
     public void SkrivTilFil()
     {
         try (ObjectOutputStream utfil = new ObjectOutputStream(
-             new FileOutputStream("src/liste.data")))
+             new FileOutputStream("liste.data")))
         {
             lagreEndring();
             utfil.writeObject(register);
