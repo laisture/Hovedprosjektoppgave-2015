@@ -173,7 +173,7 @@ public class Vindu extends JFrame implements Serializable
     private JLabel kvadratlabel= new JLabel("Antall kvadratmeter:");
     private JTextField kvadratfield= new JTextField(4);
     private JLabel byggbeløplabel= new JLabel("Forsikringsbeløp bygning:");
-    private JTextField byggbeløpfield= new JTextField(10);
+    private JTextField byggbeløpfield= new JTextField(140);
     private JLabel innbobeløplabel=new JLabel("Innboforsikrings beløp:");
     private JTextField innbofield=new JTextField(10);
     private JLabel husbeløplabel = new JLabel("Forsikringsbeløp:");
@@ -220,8 +220,6 @@ public class Vindu extends JFrame implements Serializable
     private JComboBox utleiefield = new JComboBox(utleievalg);
     private JLabel fPremielabel=new JLabel("Forsikringspremie:");
     private JTextField fPremiefield=new JTextField(10);
-    private JLabel fHusbeløplabel = new JLabel("Forsikringsbeløp:");
-    private JTextField fHusbeløpfield = new JTextField(10);
     private JLabel fHusbetingelser=new JLabel("Forsikringsbetingelser:");
     private JTextArea fHusbettext=new JTextArea(7,40);
     private JButton fLaghus=new JButton("tegn fritidsboligforsikring");
@@ -299,7 +297,7 @@ public class Vindu extends JFrame implements Serializable
     private TableModelListener endring;
     public Vindu()
     {
-        super("Main frame");
+        super("Forsikringsvindu");
         // Leser kundedata fra fil
         lesFil();
         modell = new Tabell(register.get2dSkade());
@@ -307,35 +305,35 @@ public class Vindu extends JFrame implements Serializable
         //Legger til museklikklyttere
         modell.addTableModelListener(endring);
         tabell.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent e) {
-     try{
-        JTable target = (JTable)e.getSource();
-        int row = target.getSelectedRow();
-        int column = target.getSelectedColumn();
-        int nummer=(int)tabell.getValueAt(row, 7);
-        if (column==5) //Henter skademelding hvis kolonnen er lik 5.
-        {
-            Skademelding[] s=register.getSkademeldinger();
+        public void mouseClicked(MouseEvent e) {
+        try{
+            JTable target = (JTable)e.getSource();
+            int row = target.getSelectedRow();
+            int column = target.getSelectedColumn();
+            int nummer=(int)tabell.getValueAt(row, 7);
+            if (column==5) //Henter skademelding hvis kolonnen er lik 5.
+            {
+                Skademelding[] s=register.getSkademeldinger();
 
-            for (int i=0; i<s.length;i++)
-            {
-                if(s[i].getSkadenummer()==nummer)
+                for (int i=0; i<s.length;i++)
                 {
-                    JOptionPane.showMessageDialog(null,s[i].getBildet());
-                    
+                    if(s[i].getSkadenummer()==nummer)
+                    {
+                        JOptionPane.showMessageDialog(null,s[i].getBildet());
+
+                    }
+
                 }
-                
             }
-        }
-        if (column==4)
-        {
-            JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
-        }
-        }
-        catch(NullPointerException npe)
+            if (column==4)
             {
+                JOptionPane.showMessageDialog(null, target.getValueAt(row, column));
             }
-     }});
+            }
+        catch(NullPointerException npe)
+        {
+        }
+        }});
         //legger til inntektstabell, og utgiftstabell.
         inn=new Inntektstabell(register.get2dinn());
         inntabell=new JTable(inn);
@@ -509,7 +507,7 @@ public class Vindu extends JFrame implements Serializable
      utpanel.add(new JScrollPane(uttabell));
      utpanel.setPreferredSize(new Dimension(100,150));
      Font font = inntittell.getFont();
-// same font but bold
+// same font men bold font 
     Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
      
      inntittell.setFont(boldFont);
@@ -658,8 +656,6 @@ public class Vindu extends JFrame implements Serializable
         hbbeløpp.add(byggbeløpfield);
         hinnbeløpp.add(innbobeløplabel);
         hinnbeløpp.add(innbofield);
-        hhusbeløpp.add(husbeløplabel);
-        hhusbeløpp.add(husbeløpfield);
         
         huspanel1.add(hadressep);
         huspanel1.add(hårp);
@@ -669,7 +665,6 @@ public class Vindu extends JFrame implements Serializable
         huspanel1.add(hkvadratp);
         huspanel1.add(hbbeløpp);
         huspanel1.add(hinnbeløpp);
-        huspanel1.add(hhusbeløpp);
         
         huspanel2.add(new JScrollPane(husbettext));
         huspanel3.add(laghus);
@@ -710,8 +705,6 @@ public class Vindu extends JFrame implements Serializable
         futleiep.add(utleiefield);
         fpremiep.add(fPremielabel);
         fpremiep.add(fPremiefield);
-        fhusbeløpp.add(fHusbeløplabel);
-        fhusbeløpp.add(fHusbeløpfield);
         
         fritidpanel1.add(fadressep);
         fritidpanel1.add(fårp);
@@ -723,7 +716,6 @@ public class Vindu extends JFrame implements Serializable
         fritidpanel1.add(finnbeløpp);
         fritidpanel1.add(futleiep);
         fritidpanel1.add(fpremiep);
-        fritidpanel1.add(fhusbeløpp);
        
         utleiefield.setSelectedIndex(1);
      
@@ -743,8 +735,6 @@ public class Vindu extends JFrame implements Serializable
         
         rområdep.add(områdelabel);
         rområdep.add(områdefield);
-        rforsikringsump.add(rforsikringsumlabel);
-        rforsikringsump.add(rforsikringssumfield);
         rpremiep.add(rpremielabel);
         rpremiep.add(rpremiefield);
         rbeløpp.add(rbeløplabel);
