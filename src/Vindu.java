@@ -332,8 +332,9 @@ public class Vindu extends JFrame implements Serializable
                 if(s[i].getSkadenummer()==nummer)
                 {
                     JOptionPane.showMessageDialog(null,s[i].getBildet());
-
+                    
                 }
+                
             }
         }
         if (column==4)

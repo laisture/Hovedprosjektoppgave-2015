@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -51,6 +52,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
     private Kommandolytter lytter;
     private BufferedImage bildet;
     private BufferedImage visbildet;
+    RenderedImage rbildet;
     
     private JFileChooser chooser = new JFileChooser();
     private FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -79,6 +81,7 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
     bbutton.addActionListener(lytter);
     knapp.addActionListener(lytter);
     beskrivelse.setLineWrap(true);
+    
     
     n.add(kundelabel);
     n.add(kundefield);
@@ -142,17 +145,20 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
             try {
                 bildet = ImageIO.read(chooser.getSelectedFile());
                 
-                Graphics2D graphics2D = visbildet.createGraphics();
+                Graphics2D graphics2D = bildet.createGraphics();
 
                     graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                         
                     graphics2D.drawImage(bildet, 0, 0, 200, 200, null);
-
-                s.add(new JLabel(new ImageIcon(visbildet)));
+                    
+                 rbildet=(RenderedImage)bildet;
+                
+                 s.add(new JLabel(new ImageIcon(visbildet)));
             } catch (IOException ex) {
                 Logger.getLogger(SkademeldingVindu.class.getName()).log(Level.SEVERE, null, ex);
+               
             }
     }
     }
@@ -191,13 +197,16 @@ public class SkademeldingVindu  extends JFrame implements Serializable {
            String t = (String)type.getSelectedItem();
            int kundenr = Integer.parseInt(kundenr2  );
            
-           File outputfile = new File(n+".png");
-           ImageIO.write(bildet, "png", outputfile);
+           
+           
+        
+         
+           
            
            frame.sendSkademelding(kundenr,beskrivelsen,t,vitne);
-           int n=frame.getSkadenummer();
+           int nr=frame.getSkadenummer();
            
-               
+           ImageIO.write(bildet, "png", new File(nr+".png"));    
            
            
            kundefield.setText("");

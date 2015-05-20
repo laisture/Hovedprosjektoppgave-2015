@@ -93,11 +93,13 @@ public class Skademelding implements Serializable{
             b = ImageIO.read(kilde);
         } catch (IOException ex) {
             b=null;
-            Logger.getLogger(Skademelding.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
             bildet=resize(b,200,200);
             ny=new ImageIcon(bildet);
-        
+        bildet=null;
+        kilde=null;
+        b=null;
         return(ny);
     }
     //skalerer bildet.
