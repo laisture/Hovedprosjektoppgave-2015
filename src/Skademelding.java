@@ -112,7 +112,8 @@ public class Skademelding implements Serializable{
     g2d.dispose();
 
     return dimg;
-}  //Get og set metoder.
+    }  
+    //Get og set metoder.
     public int getTakst()
     {
         return takst;
@@ -132,7 +133,8 @@ public class Skademelding implements Serializable{
     public int getSkadenummer()
     {
      return skadenummer;   
-    }//Sjekker om kunden har forsikring.
+    }
+    //Sjekker om kunden har forsikring.
     public Boolean harForsikring()
     {
        ArrayList f=kunde.getForsikringer();

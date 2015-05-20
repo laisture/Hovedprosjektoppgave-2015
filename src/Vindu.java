@@ -54,8 +54,7 @@ public class Vindu extends JFrame implements Serializable
     private JPanel midt=new JPanel();
     private JPanel mm=new JPanel();
     private JPanel mf=new JPanel();
-    
-   private JPanel p=new JPanel();
+    private JPanel p=new JPanel();
     
     //topsøk
     private JLabel toplabel=new JLabel("Finn kunde:");
@@ -456,8 +455,8 @@ public class Vindu extends JFrame implements Serializable
       
       
       
-      søkVest.add(new JScrollPane(forsikringsliste));
-      forsikringsliste.setVisibleRowCount( 4 );
+     søkVest.add(new JScrollPane(forsikringsliste));
+     forsikringsliste.setVisibleRowCount( 4 );
      forsikringsliste.setFixedCellWidth( 200 );
      forsikringsliste.setFixedCellHeight(50);
      forsikringsliste.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
@@ -495,12 +494,12 @@ public class Vindu extends JFrame implements Serializable
       
       //Skademeldings fane
       topskade.add(filter);
-     skadepanel.add(topskade,BorderLayout.NORTH);
+      skadepanel.add(topskade,BorderLayout.NORTH);
       tabell.setRowHeight(100);
       tabell.getColumnModel().getColumn(0).setMaxWidth(100);
-     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-     centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-     tabell.setDefaultRenderer(String.class, centerRenderer);     
+      DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+      centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+      tabell.setDefaultRenderer(String.class, centerRenderer);     
       skadepanel.add(new JScrollPane(tabell), BorderLayout.CENTER);
       tabell.setAutoCreateRowSorter(true);
       
@@ -513,14 +512,14 @@ public class Vindu extends JFrame implements Serializable
       
       JLabel inntittell;
       JLabel uttittell;
-      innpanel.add(inntittell= new JLabel("Inntektstabell"), BorderLayout.NORTH);
+     innpanel.add(inntittell= new JLabel("Inntektstabell"), BorderLayout.NORTH);
      innpanel.add(new JScrollPane(inntabell));
      innpanel.setPreferredSize(new Dimension(100,150));
      utpanel.add(uttittell= new JLabel("Utgiftstabell"), BorderLayout.NORTH);
      utpanel.add(new JScrollPane(uttabell));
      utpanel.setPreferredSize(new Dimension(100,150));
      Font font = inntittell.getFont();
-// same font but bold
+    // same font but bold
     Font boldFont = new Font(font.getFontName(), Font.BOLD, font.getSize());
      
      inntittell.setFont(boldFont);
@@ -773,7 +772,7 @@ public class Vindu extends JFrame implements Serializable
         // End of Reiseforsikring
         
     }
-   
+    //Metode for å sjekke regex.
     public boolean match(String regex, String inn)
     {
         Pattern mønster = Pattern.compile(regex);

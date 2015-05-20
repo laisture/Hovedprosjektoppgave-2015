@@ -145,8 +145,12 @@ public class Kunde implements Serializable {
         totalKunde();
         årligPremie();
     }
-    // Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet for de utbetalte erstatningene.
-    public int utbetalteErstatninger()//Henter utbetalte erstatninger hvis skademeldinger sin indeks er ulik null. og sender med utbetalt beløp.
+    /* Metoden går gjennom skaderegister på kunden og legger sammen totalbeløpet
+    for de utbetalte erstatningene.
+    Henter utbetalte erstatninger hvis skademeldinger sin indeks er ulik null.
+    og sender med utbetalt beløp.
+    */
+    public int utbetalteErstatninger()
     {
         int utbetalteErstatninger = 0;
         
@@ -160,7 +164,8 @@ public class Kunde implements Serializable {
         return utbetalteErstatninger;
     
     }
-    public int Erstatning(String s)//Sjekker om kunden har skademeldinger, for så å regne ut erstatnings beløp.
+    //Sjekker om kunden har skademeldinger, for så å regne ut erstatnings beløp.
+    public int Erstatning(String s)
     {
         int sum=0;
         
@@ -187,7 +192,8 @@ public class Kunde implements Serializable {
            premie *= 0.9;
     }
     /* Metoden har som oppgave å finne ut om kunden har minst 3 forskjellige forsikringer.
-    Hvis dette er tilfellet er kunden en totalkunde og får 10 rabatt på forsikringspremien sin, metoden returner da true, hvis ikke false.*/
+    Hvis dette er tilfellet er kunden en totalkunde og får 10 rabatt på forsikringspremien sin, 
+    metoden returner da true, hvis ikke false.*/
     public Boolean totalKunde()
     {
         
@@ -218,7 +224,8 @@ public class Kunde implements Serializable {
         totalkunde = false;
 	return false; 
     }
-    public String toString()//Tostring metode som legger til kundens personlige opplysninger i melding.
+    //Tostring metode som legger til kundens personlige opplysninger i melding.
+    public String toString()
     {
         String melding =fornavn+" "+etternavn+ "\n";
         melding+=forsikringsnummer+"\n\n";

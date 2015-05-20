@@ -77,7 +77,7 @@ public class Tabell extends AbstractTableModel implements Serializable
         {
             tabellskader[ rad][ kolonne] = nyVerdi;
             LagreEndring(nyVerdi, rad, kolonne);
-        }//Lagrer endringer gjort til tabellen.
+        }//Lagrer endringer gjort i tabellen.
        public void LagreEndring(Object n, int r, int k)
        {
            int sn=(int)getValueAt(r,7);

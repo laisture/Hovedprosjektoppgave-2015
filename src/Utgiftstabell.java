@@ -48,9 +48,9 @@ class Utgiftstabell extends AbstractTableModel
             return utgifter.length;
         }
         public Object getValueAt(int rad, int kolonne)
-    {
-      return utgifter[ rad][ kolonne];
-    }
+        {
+            return utgifter[ rad][ kolonne];
+        }
         //Sjekker og gjør at tabell feltene er redigerbar.
         public boolean istabellskaderEditable(int rad, int kolonne )
         {

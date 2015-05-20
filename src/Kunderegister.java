@@ -273,8 +273,7 @@ public class Kunderegister implements Serializable  {
             return true;
     }
     public Kunde finnKundeInt(int k)//Finner kunde ved å forsikringsnummer.
-    {
-//       
+    {      
         for (Kunde kunde : register)
         {
             if (kunde.getForsikringsnummer()==k)
@@ -289,20 +288,12 @@ public class Kunderegister implements Serializable  {
         Boolean ok=k.addForsikring(f);
         return ok;
     }
-    
+    //Finner kunde fra kunderegisteret hvis kunde er true.
     public Kunde finnKundeString(String n)
     {
-        /*Iterator<Kunde> iterator = register.iterator();
-        while (iterator.hasNext())
-        {
-            if(iterator.next().getEtternavn()==n || iterator.next().getFornavn()==n || iterator.next().getNavn()==n)
-            {
-                return (iterator.next());
-            }
-        }*/
         for (Kunde kunde : register)
         {
-            if(kunde.getEtternavn().toLowerCase().equals(n.toLowerCase())/* || kunde.getNavn().toLowerCase().equals(n.toLowerCase())*/)
+            if(kunde.getEtternavn().toLowerCase().equals(n.toLowerCase()))
                 return kunde;
         }
         return null;

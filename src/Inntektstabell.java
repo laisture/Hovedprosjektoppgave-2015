@@ -49,12 +49,13 @@ class Inntektstabell extends AbstractTableModel
     {
       return inntekter[ rad][ kolonne];
     }
-    //Sjekker og gjør at tabell feltene er redigerbare.
+        //Sjekker og gjør at tabell feltene er redigerbare.
         public boolean istabellskaderEditable(int rad, int kolonne )
         {
             return kolonne == ERSTATNINGSKOLONNE;
         }
-        public void setValueAt( Object nyVerdi, int rad, int kolonne )//Forandrer verdien hvis rad eller kolonne har blitt forandret.
+        //Forandrer verdien hvis rad eller kolonne har blitt forandret.
+        public void setValueAt( Object nyVerdi, int rad, int kolonne )
         {
             inntekter[ rad][ kolonne] = nyVerdi;
         }
