@@ -9,7 +9,7 @@ import java.util.ListIterator;
  * Filen inneholder metoder for å opprette kunde, legge til forsikring, opprette skademelding, finne premie og erstatning.
  * Hensikten med klassen er å opprette kunde, skademelding og regne ut erstatning.
  * Siste edit: 19.05.15
- * @author Joakim
+ * @author Joakim, Julian og Kristian
  */
 
 public class Kunde implements Serializable {

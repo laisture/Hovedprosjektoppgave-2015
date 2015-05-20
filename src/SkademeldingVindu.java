@@ -26,7 +26,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * Filen inneholder skademeldings komponenter: tekstfelt, knapper, lyttemetoder og paneler for oppretting av skademelding.
  * Hensikten med klassen er å opprette et skademeldingsvindu hvor man kan registrere en skademelding.
  * Siste edit: 19.05.15
- * @author Joakim
+ * @author Joakim, Juilian og Kristian
  */
 //Oppretter skademeldingsvindu og tekstfelter og kanpper.
 public class SkademeldingVindu  extends JFrame implements Serializable {

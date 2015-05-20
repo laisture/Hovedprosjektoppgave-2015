@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
  * Filen inneholder all nødvendig informasjon om Forsikring
  * Hensikten med klassen er å opprette reise de fleste get metodene for forsikring
  * Siste edit: 19.05.15
- * @author Joakim
+ * @author Joakim, Julian og Kristian
  */
 public class Forsikring implements Serializable {
 

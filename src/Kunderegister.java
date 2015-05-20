@@ -8,7 +8,7 @@
  * Filen inneholder kundens registrete forsikringer, metoder for å hente, sende og finne skademelding
  * Hensikten med klassen er å lagre kunder, og kunder sine forsikringer.
  * Siste edit: 19.05.15
- * @author Joakim
+ * @author Joakim, Julian og Kristian
  */
 import java.awt.image.BufferedImage;
 import java.io.IOException;
